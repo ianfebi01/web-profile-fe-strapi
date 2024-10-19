@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  web-profile-fe:
+    restart: always
+    build: .
+    container_name: web-profile-fe
+    ports:
+      - 3000:3000
+    networks:
+      - app
+    env_file:
+      - .env.local
+networks:
+  app:
+    driver: bridge
