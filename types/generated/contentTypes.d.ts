@@ -886,7 +886,8 @@ export interface ApiPagePage extends Schema.CollectionType {
         'content-components.partner-search',
         'content-components.accordian',
         'content-components.featured-news',
-        'content-components.quote'
+        'content-components.quote',
+        'content-components.featured-portofolios'
       ]
     > &
       Attribute.SetPluginOptions<{
@@ -913,6 +914,56 @@ export interface ApiPagePage extends Schema.CollectionType {
       'api::page.page'
     >;
     locale: Attribute.String;
+  };
+}
+
+export interface ApiPortofolioPortofolio extends Schema.CollectionType {
+  collectionName: 'portofolios';
+  info: {
+    singularName: 'portofolio';
+    pluralName: 'portofolios';
+    displayName: 'Portofolio';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    slug: Attribute.String & Attribute.Required;
+    year: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<
+        {
+          min: 2000;
+          max: 2100;
+        },
+        number
+      > &
+      Attribute.DefaultTo<2024>;
+    featureImage: Attribute.Media<'images'> & Attribute.Required;
+    galery: Attribute.Component<'arrays.image-galery', true>;
+    url: Attribute.String;
+    skills: Attribute.Relation<
+      'api::portofolio.portofolio',
+      'oneToMany',
+      'api::skill.skill'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::portofolio.portofolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::portofolio.portofolio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
   };
 }
 
@@ -990,6 +1041,46 @@ export interface ApiSiteSite extends Schema.SingleType {
   };
 }
 
+export interface ApiSkillSkill extends Schema.CollectionType {
+  collectionName: 'skills';
+  info: {
+    singularName: 'skill';
+    pluralName: 'skills';
+    displayName: 'Skill';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+    image: Attribute.Media<'images'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::skill.skill',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::skill.skill',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiSocialSocial extends Schema.CollectionType {
   collectionName: 'socials';
   info: {
@@ -1040,8 +1131,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::colour.colour': ApiColourColour;
       'api::page.page': ApiPagePage;
+      'api::portofolio.portofolio': ApiPortofolioPortofolio;
       'api::profile.profile': ApiProfileProfile;
       'api::site.site': ApiSiteSite;
+      'api::skill.skill': ApiSkillSkill;
       'api::social.social': ApiSocialSocial;
     }
   }

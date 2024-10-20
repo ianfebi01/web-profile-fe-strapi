@@ -138,9 +138,11 @@ export interface ContentComponentsQuote extends Schema.Component {
   collectionName: 'components_content_components_quotes';
   info: {
     displayName: 'quote';
+    description: '';
   };
   attributes: {
     quote: Attribute.Text & Attribute.Required;
+    sectionSettings: Attribute.Component<'common-fields.section-settings'>;
   };
 }
 
@@ -171,6 +173,16 @@ export interface ContentComponentsJobSearch extends Schema.Component {
   collectionName: 'components_content_components_job_searches';
   info: {
     displayName: 'jobSearch';
+  };
+  attributes: {
+    sectionSettings: Attribute.Component<'common-fields.section-settings'>;
+  };
+}
+
+export interface ContentComponentsFeaturedPortofolios extends Schema.Component {
+  collectionName: 'components_content_components_featured_portofolios';
+  info: {
+    displayName: 'featuredPortofolios';
   };
   attributes: {
     sectionSettings: Attribute.Component<'common-fields.section-settings'>;
@@ -454,6 +466,24 @@ export interface ArraysItems extends Schema.Component {
   };
 }
 
+export interface ArraysImageGalery extends Schema.Component {
+  collectionName: 'components_arrays_image_galeries';
+  info: {
+    displayName: 'imageGalery';
+  };
+  attributes: {
+    media: Attribute.Media<'images' | 'videos'> & Attribute.Required;
+    caption: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
+  };
+}
+
 export interface ArraysGallery extends Schema.Component {
   collectionName: 'components_arrays_galleries';
   info: {
@@ -504,6 +534,7 @@ declare module '@strapi/types' {
       'content-components.partner-search': ContentComponentsPartnerSearch;
       'content-components.news-search': ContentComponentsNewsSearch;
       'content-components.job-search': ContentComponentsJobSearch;
+      'content-components.featured-portofolios': ContentComponentsFeaturedPortofolios;
       'content-components.featured-peoples': ContentComponentsFeaturedPeoples;
       'content-components.featured-news': ContentComponentsFeaturedNews;
       'content-components.divider': ContentComponentsDivider;
@@ -518,6 +549,7 @@ declare module '@strapi/types' {
       'arrays.simple-card': ArraysSimpleCard;
       'arrays.links': ArraysLinks;
       'arrays.items': ArraysItems;
+      'arrays.image-galery': ArraysImageGalery;
       'arrays.gallery': ArraysGallery;
       'arrays.columns': ArraysColumns;
       'arrays.button': ArraysButton;
