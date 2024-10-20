@@ -22,6 +22,7 @@ const FeaturedPortofolios = async () => {
   }
   const options = { headers: { Authorization: `Bearer ${token}` } }
   const responseData = await fetchAPI(path, urlParamsObject, options)
+  if (responseData.data?.length === 0) return null
 
   return (
     <section id="portofolio" className="main__section h-fit bg-dark">

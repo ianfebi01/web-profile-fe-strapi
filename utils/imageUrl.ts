@@ -42,7 +42,7 @@ const imageUrl = (
 
   const { url } = scaledImage
 
-  return url ? `http://localhost:1337${url}` : undefined
+  return url ? `${url}` : undefined
 }
 
 export default imageUrl
