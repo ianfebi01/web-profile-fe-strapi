@@ -70,10 +70,6 @@ const NavbarV2 = () => {
         </div>
         <MobileNavbar isOpen={isOpen}/>
       </motion.nav>
-      {/* {open && (
-        // <div className="h-full w-full fixed top-16 bg-dark z-50 no-doc-scroll md:hidden"></div>
-        
-      )} */}
     </>
   )
 }

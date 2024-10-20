@@ -75,19 +75,19 @@ export default function MenuItem() {
                     ) )}
                   </div>
                   <div className="bg-dark p-4">
-                    <button className="flow-root w-full rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-dark-secondary focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50">
+                    <div className="flow-root w-full rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-dark-secondary focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50">
                       <span className="flex items-center">
                         <span className="text-sm font-medium text-white">
                           Email
                         </span>
                       </span>
-                      <span className="block text-sm text-left text-white/50">
+                      <div className="block text-sm text-left text-white/50">
                         <CopyToClipboard
                           copyText="ianfebi01@gmail.com"
                           className="text-md"
                         />
-                      </span>
-                    </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Popover.Panel>

@@ -3,7 +3,7 @@ import NavbarV2 from '@/components/Layouts/NavbarV2'
 import Footer from '@/components/Pages/Home/Footer'
 import React from 'react'
 
-export default function landingLayout( {
+export default function LandingLayout( {
   children,
 }: {
   children: React.ReactNode

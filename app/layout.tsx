@@ -8,24 +8,27 @@ import ReactQueryProvider from '@/components/Context/ReactQueryProvider'
 import { Toaster } from 'react-hot-toast'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import NextTopLoader from 'nextjs-toploader'
+import NavbarV2 from '@/components/Layouts/NavbarV2'
+import SectionProvider from '@/components/Context/SectionProvider'
+import Footer from '@/components/Pages/Home/Footer'
 // const outfit = Outfit( { subsets : ['latin'] } )
 
 config.autoAddCss = false
 
 export const metadata: Metadata = {
-  title : 'Ian Febi S',
-  description :
+  title: 'Ian Febi S',
+  description:
     'Front End Web Developer with 1+ year of experience. Expert on React js and Vue js',
 }
 
-export default function RootLayout( {
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-} ) {
+}) {
   return (
     <html lang="en">
-      <GoogleAnalytics/>
+      <GoogleAnalytics />
       <ReactQueryProvider>
         <LandingProvider>
           <body suppressHydrationWarning={true}>
@@ -47,15 +50,21 @@ export default function RootLayout( {
                 // 		<ModalInformationIcon />
                 // 	</div>
                 // ),
-                position  : 'top-right',
-                className : 'bg-white text-dark text-md',
-                style     : {
-                  boxShadow : '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                  height    : '44px',
+                position: 'top-right',
+                className: 'bg-white text-dark text-md',
+                style: {
+                  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                  height: '44px',
                 },
               }}
             />
-            {children}
+            <div className="min-h-screen flex flex-col">
+              <NavbarV2 />
+              {children}
+              <SectionProvider>
+                <Footer />
+              </SectionProvider>
+            </div>
           </body>
         </LandingProvider>
       </ReactQueryProvider>
