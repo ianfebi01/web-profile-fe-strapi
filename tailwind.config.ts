@@ -31,7 +31,7 @@ const config: Config = {
         skill : '0px 1px 4px 1px rgba(34, 34, 34, 0.25)',
       },
       fontFamily : {
-        sans : [
+        primary : [
           'Inter',
           'Arial',
           '-apple-system',

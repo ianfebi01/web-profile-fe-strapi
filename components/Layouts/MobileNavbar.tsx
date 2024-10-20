@@ -1,3 +1,4 @@
+'use client'
 import { socials } from '@/lib/constans/socials-media'
 import { cn, openNewTab } from '@/lib/utils'
 import { Transition } from '@headlessui/react'

@@ -123,20 +123,20 @@
         }
 
         h4 {
-            @apply text-base xxl:text-[1.375rem];
+            @apply text-base 2xl:text-[1.375rem];
         }
 
         p,
         li {
-            @apply text-base xxl:text-[1.375rem] xxl:leading-8 font-[300] my-4;
+            @apply text-base 2xl:text-[1.375rem] 2xl:leading-8 font-[300] my-4;
         }
 
         a {
-            @apply text-red hover:underline underline-offset-4;
+            @apply text-orange hover:underline underline-offset-4;
         }
 
         mark {
-            @apply bg-transparent underline decoration-2 underline-offset-4 decoration-yellow text-inherit;
+            @apply bg-transparent underline decoration-2 underline-offset-4 decoration-orange text-inherit;
         }
 
         ul {

@@ -1,3 +1,4 @@
+'use client'
 import { cn, openNewTab } from '@/lib/utils'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

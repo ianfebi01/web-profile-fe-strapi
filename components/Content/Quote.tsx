@@ -2,23 +2,22 @@
 
 import TextQuote from '@/components/Texts/TextQuote'
 import { cn } from '@/lib/utils'
+import { ContentComponentsQuote } from '@/types/generated/components'
 import { scalePow } from 'd3-scale'
 import Image from 'next/image'
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react'
 
 interface Props {
-  quote: string
+  sectionData: ContentComponentsQuote['attributes']
   myposy?: number
 }
-const Section2: FunctionComponent<Props> = ( props ) => {
-  const { quote, myposy } = props
+const Quote: FunctionComponent<Props> = (props) => {
+  const { sectionData, myposy } = props
 
-  const translate = scalePow().domain( [-2000, 2000] ).range( [-100, 100] )
+  const translate = scalePow().domain([-2000, 2000]).range([-100, 100])
 
   return (
-    <section id="quote"
-      className="main__section h-fit bg-dark-secondary"
-    >
+    <section id="quote" className="main__section h-fit bg-dark-secondary">
       <div className="main__container my-8 h-full">
         <div
           className={cn(
@@ -28,7 +27,7 @@ const Section2: FunctionComponent<Props> = ( props ) => {
           <div
             className="bg-plus absolute top-0 left-0 w-full h-full bg-contain bg-center z-0"
             style={{
-              transform : `translate(0, ${translate.exponent( 1 )(
+              transform: `translate(0, ${translate.exponent(1)(
                 myposy ? myposy : 0
               )}px)`,
             }}
@@ -42,7 +41,7 @@ const Section2: FunctionComponent<Props> = ( props ) => {
               height={0}
               priority
             />
-            <TextQuote quote={quote} />
+            <TextQuote quote={sectionData.quote} />
             <Image
               src="/quote.svg"
               className="absolute bottom-0 right-0 w-8 h-8 md:w-[52px] md:h-[52px]"
@@ -58,4 +57,4 @@ const Section2: FunctionComponent<Props> = ( props ) => {
   )
 }
 
-export default Section2
+export default Quote

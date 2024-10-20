@@ -1,0 +1,18 @@
+{
+  "banner": {
+    "populate": {
+      "backgroundVideo": {
+        "populate": "*"
+      },
+      "backgroundImage": {
+        "populate": "*"
+      },
+      "bannerImage": {
+        "populate": "*"
+      },
+      "socials": {
+        "populate": "*"
+      }
+    }
+  }
+}
