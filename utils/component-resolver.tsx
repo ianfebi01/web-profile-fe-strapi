@@ -1,28 +1,29 @@
 import { ReactElement, lazy, createElement, Suspense } from 'react'
 import Loader from '@/components/Loader'
+import SectionProvider from '@/components/Context/SectionProvider'
 
 export default function componentResolver(
   section: any,
   index: number
 ): ReactElement {
   // Component names do look like 'category.component-name' => lowercase and kebap case
-  const names: string[] = section.__component.split( '.' )
+  const names: string[] = section.__component.split('.')
 
   // Get category name
-  const category = capitalizeFirstLetter( names[0].split( '-' )[0] )
+  const category = capitalizeFirstLetter(names[0].split('-')[0])
 
   // Get component name
   const component = names[1]
 
   ///////////////////////////////////////////////
   // Convert the kebap-case name to PascalCase
-  const parts: string[] = component.split( '-' )
+  const parts: string[] = component.split('-')
 
   let componentName = ''
 
-  parts.forEach( ( s ) => {
-    componentName += capitalizeFirstLetter( s )
-  } )
+  parts.forEach((s) => {
+    componentName += capitalizeFirstLetter(s)
+  })
   ///////////////////////////////////////////////
 
   //   console.log( `ComponentResolver: Category => ${category} | Component => ${componentName} | Path => ../components/${componentName}` )
@@ -35,22 +36,23 @@ export default function componentResolver(
 
   // Use react lazy loading to import the module. By convention: The file name needs to match the name of the component (what is a good idea)
   // Use React lazy loading to import the component
-  const LazyComponent = lazy( () =>
-    import( `../components/${category}/${componentName}` )
-  );
+  const LazyComponent = lazy(
+    () => import(`../components/${category}/${componentName}`)
+  )
 
   // Create react element. The 'type' argument needs to be a FunctionComponent, not a string
-  const reactElement = createElement( LazyComponent, { sectionData : section, key : index } )
+  const reactElement = createElement(LazyComponent, {
+    sectionData: section,
+    key: index,
+  })
 
   return (
-    <Suspense fallback={<Loader />}
-      key={index}
-    >
-      {reactElement}
+    <Suspense fallback={<Loader />} key={index}>
+      <SectionProvider>{reactElement}</SectionProvider>
     </Suspense>
   )
 }
 
-function capitalizeFirstLetter( s: string ) {
-  return s.charAt( 0 ).toUpperCase() + s.slice( 1 )
+function capitalizeFirstLetter(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1)
 }

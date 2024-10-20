@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: metadata.metaDescription,
       siteName: 'Ian Febi Sastrataruna', // Replace with your site name
       type: 'website', // or "article"
-      images: [{ url: imageUrl(metadata.metaImage?.data, 'thumbnail') || '' }], // Add Open Graph image
+      images: [{ url: imageUrl(metadata.metaImage?.data, 'medium') || '' }], // Add Open Graph image
     },
     twitter: {
       card: 'summary',
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: metadata.metaTitle,
       description: socialMeta.twitter?.description || '',
       images: [
-        { url: imageUrl(socialMeta.twitter?.image.data, 'thumbnail') || '' },
+        { url: imageUrl(socialMeta.twitter?.image.data, 'medium') || '' },
       ], // Twitter image
     },
   }

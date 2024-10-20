@@ -28,7 +28,7 @@ const Quote: FunctionComponent<Props> = (props) => {
             className="bg-plus absolute top-0 left-0 w-full h-full bg-contain bg-center z-0"
             style={{
               transform: `translate(0, ${translate.exponent(1)(
-                myposy ? myposy : 0
+                myposy ? -myposy : 0
               )}px)`,
             }}
           ></div>
