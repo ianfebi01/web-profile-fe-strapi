@@ -1,13 +1,10 @@
-'use client'
+'use client';
 import Image from 'next/image'
-import React, { FunctionComponent, useEffect, useRef } from 'react'
-import sanitizeHtml from 'sanitize-html'
+import { FunctionComponent, useEffect, useRef } from 'react';
 import { useInView, useAnimation } from 'framer-motion'
 import AnimationProvider from '@/components/Context/AnimationProvider'
 import { cn } from '@/lib/utils'
-import { IApiPortofolio } from '@/types/api/portofolio'
 import Button from '../Buttons/Button'
-import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'nextjs-toploader/app'
@@ -35,7 +32,7 @@ interface Props {
   transitionHover?: boolean
   link?: boolean
 }
-const CardPortofolio: FunctionComponent<Props> = (props) => {
+const CardPortofolio: FunctionComponent<Props> = ( props ) => {
   const {
     color = 'dark-secondary',
     data,
@@ -56,17 +53,17 @@ const CardPortofolio: FunctionComponent<Props> = (props) => {
   /**
    *  Animation
    */
-  const cardRef = useRef(null)
-  const isInView = useInView(cardRef, {
-    once: true,
-  })
+  const cardRef = useRef( null )
+  const isInView = useInView( cardRef, {
+    once : true,
+  } )
   const animationControl = useAnimation()
 
-  useEffect(() => {
-    if (isInView) {
-      animationControl.start('visible')
+  useEffect( () => {
+    if ( isInView ) {
+      animationControl.start( 'visible' )
     }
-  }, [isInView])
+  }, [isInView] )
 
   return (
     <div
@@ -74,7 +71,7 @@ const CardPortofolio: FunctionComponent<Props> = (props) => {
         'relative group overflow-hidden',
         transitionHover && 'hover:scale-95 transition-default'
       )}
-      onClick={() => (link ? router.push(`/portofolio/${data.slug}`) : '')}
+      onClick={() => ( link ? router.push( `/portofolio/${data.slug}` ) : '' )}
     >
       <div className="flex gap-2 absolute top-0 w-full opacity-0 -translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-300 delay-300  transition-default px-4 py-2 z-10">
         <Button
@@ -100,7 +97,9 @@ const CardPortofolio: FunctionComponent<Props> = (props) => {
               disabled={disabled || loading}
               onClick={() => onClickEdit()}
             >
-              <FontAwesomeIcon icon={faPen} size="sm" />
+              <FontAwesomeIcon icon={faPen}
+                size="sm"
+              />
             </Button>
           ) : (
             ''
@@ -113,7 +112,9 @@ const CardPortofolio: FunctionComponent<Props> = (props) => {
               disabled={disabled || loading}
               onClick={() => onClickDelete()}
             >
-              <FontAwesomeIcon icon={faTrash} size="sm" />
+              <FontAwesomeIcon icon={faTrash}
+                size="sm"
+              />
             </Button>
           ) : (
             ''
@@ -132,20 +133,20 @@ const CardPortofolio: FunctionComponent<Props> = (props) => {
         >
           {/* @ NOTE Text */}
           <div
-            className={cn('flex flex-col basis-1/2 gap-2 py-6 pl-3 sm:gap-6')}
+            className={cn( 'flex flex-col basis-1/2 gap-2 py-6 pl-3 sm:gap-6' )}
           >
             <div className="flex flex-col gap-2">
               <h3 className="text-base font-bold">{data.title}</h3>
               <div
                 className="line-clamp-3"
                 dangerouslySetInnerHTML={{
-                  __html: sanitize(parseMd(data.description), 'richtext'),
+                  __html : sanitize( parseMd( data.description ), 'richtext' ),
                 }}
               ></div>
             </div>
             <div className="grow-[1]" />
             <div className="flex gap-1">
-              {(data.skills?.data as ApiSkillSkill[])?.map((item, i) => (
+              {( data.skills?.data as ApiSkillSkill[] )?.map( ( item, i ) => (
                 <div
                   className={`w-4 h-4  border border-none rounded-sm relative overflow-hidden ${
                     color === 'bg-white' && 'shadow-skill'
@@ -154,30 +155,30 @@ const CardPortofolio: FunctionComponent<Props> = (props) => {
                 >
                   <Image
                     src={
-                      imageUrl(item.attributes.image.data, 'thumbnail') || ''
+                      imageUrl( item.attributes.image.data, 'thumbnail' ) || ''
                     }
                     fill
                     style={{
-                      objectFit: 'contain',
+                      objectFit : 'contain',
                     }}
                     sizes="auto"
                     alt="Icon"
                   />
                 </div>
-              ))}
+              ) )}
             </div>
           </div>
           {data.featureImage && (
             <div className="basis-1/2 h-full">
-              <div className={cn('w-full h-full relative')}>
+              <div className={cn( 'w-full h-full relative' )}>
                 <Image
-                  src={imageUrl(data.featureImage.data, 'small') || ''}
+                  src={imageUrl( data.featureImage.data, 'small' ) || ''}
                   alt={data.title}
                   fill
                   priority
                   sizes="auto"
                   style={{
-                    objectFit: 'contain',
+                    objectFit : 'contain',
                   }}
                 />
               </div>
@@ -195,20 +196,20 @@ const CardPortofolio: FunctionComponent<Props> = (props) => {
         >
           {/* @ NOTE Text */}
           <div
-            className={cn('flex flex-col basis-1/2 gap-2 py-6 pl-3 sm:gap-6')}
+            className={cn( 'flex flex-col basis-1/2 gap-2 py-6 pl-3 sm:gap-6' )}
           >
             <div className="flex flex-col gap-2">
               <h3 className="text-base font-bold">{data.title}</h3>
               <div
                 className="line-clamp-3"
                 dangerouslySetInnerHTML={{
-                  __html: sanitize(parseMd(data.description), 'richtext'),
+                  __html : sanitize( parseMd( data.description ), 'richtext' ),
                 }}
               ></div>
             </div>
             <div className="grow-[1]" />
             <div className="flex gap-1">
-              {(data.skills?.data as ApiSkillSkill[])?.map((item, i) => (
+              {( data.skills?.data as ApiSkillSkill[] )?.map( ( item, i ) => (
                 <div
                   className={`w-4 h-4  border border-none rounded-sm relative overflow-hidden ${
                     color === 'bg-white' && 'shadow-skill'
@@ -217,30 +218,30 @@ const CardPortofolio: FunctionComponent<Props> = (props) => {
                 >
                   <Image
                     src={
-                      imageUrl(item.attributes.image.data, 'thumbnail') || ''
+                      imageUrl( item.attributes.image.data, 'thumbnail' ) || ''
                     }
                     fill
                     style={{
-                      objectFit: 'contain',
+                      objectFit : 'contain',
                     }}
                     sizes="auto"
                     alt="Icon"
                   />
                 </div>
-              ))}
+              ) )}
             </div>
           </div>
           {data.featureImage && (
             <div className="basis-1/2 h-full">
-              <div className={cn('w-full h-full relative')}>
+              <div className={cn( 'w-full h-full relative' )}>
                 <Image
-                  src={imageUrl(data.featureImage.data, 'small') || ''}
+                  src={imageUrl( data.featureImage.data, 'small' ) || ''}
                   alt={data.title}
                   fill
                   priority
                   sizes="auto"
                   style={{
-                    objectFit: 'contain',
+                    objectFit : 'contain',
                   }}
                 />
               </div>

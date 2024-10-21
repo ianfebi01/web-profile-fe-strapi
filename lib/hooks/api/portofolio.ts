@@ -4,26 +4,41 @@ import { IApiPortofolio } from '@/types/api/portofolio'
 import { UseQueryResult, useQuery } from '@tanstack/react-query'
 import { AxiosResponse } from 'axios'
 import useAxiosAuth from '../useAxiosAuth'
+import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
+import { fetchAPI } from '@/utils/fetch-api'
 const baseUrl = '/v1/portofolio'
 /**
  *  Get Detail
  */
 export const useGetDetail = (
-  id: string | number,
+  slug: string | number,
   enabled: boolean = true
-): UseQueryResult<IApi<IApiPortofolio>> => {
-  const data = useQuery<IApi<IApiPortofolio>>( {
-    queryKey : ['portofolio', 'detail', id],
-    queryFn  : async () => {
-      const res: AxiosResponse<IApi<IApiPortofolio>> = await api.get(
-        `${baseUrl}/${id}`
-      )
+): UseQueryResult<ApiPortofolioPortofolio> => {
+  const urlParamsObject = {
+    filters  : { slug },
+    populate : {
+      featureImage : { populate : '*' },
+      skills       : { populate : '*' },
+      galery       : { populate : '*' },
+      seo          : { populate : '*' },
+    },
+  }
 
-      return res.data
+  const data = useQuery( {
+    queryKey : ['portofolio', 'detail', slug],
+    queryFn  : async () => {
+      const res = await fetchAPI(
+        `/portofolios`,
+        urlParamsObject
+      ).then( ( response ) => response.json() )
+      
+      if ( res.data?.length === 0 ) return null
+      else
+        return res.data[0]
     },
     enabled : enabled,
   } )
-
+  
   return data
 }
 

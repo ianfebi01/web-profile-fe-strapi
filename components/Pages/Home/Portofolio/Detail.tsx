@@ -6,29 +6,32 @@ import Image from 'next/image'
 import SkeletonDetail from './SkeletonDetail'
 import Chip from '@/components/Chip'
 import Header from '@/components/Layouts/Header'
+import imageUrl from '@/utils/imageUrl';
+import { useEffect } from 'react';
+import parseMd from '@/utils/parseMd';
+import sanitize from '@/utils/sanitize';
 interface Props {
-  id: string | number
+  slug: string | number
 }
-const Detail = ( { id }: Props ) => {
-  const { data, isFetching } = useGetDetail( id )
-  const { year } = useFormatDate()
+const Detail = ( { slug }: Props ) => {
+  const { data, isFetching } = useGetDetail( slug )
 
   return (
     <section id="portofolio"
       className="main__section bg-dark grow-[1]"
     >
-      {isFetching && !data?.data ? (
+      {isFetching && !data ? (
         <SkeletonDetail />
       ) : (
         <div className="article__container mt-20 sm:mt-20 mb-8 flex flex-col gap-4">
-          <Header text={data?.data?.name || ''}
+          <Header text={data?.attributes.title || ''}
             link={'/portofolio'}
           />
-          {data?.data?.image !== undefined && (
+          {data?.attributes.featureImage !== undefined && (
             <div className="relative aspect-video  overflow-hidden">
               <Image
-                alt={`Image ${data?.data?.name}`}
-                src={data?.data?.image}
+                alt={`Image ${data?.attributes.title}`}
+                src={imageUrl( data?.attributes.featureImage.data ) || ''}
                 fill
                 style={{
                   objectFit : 'contain',
@@ -37,17 +40,17 @@ const Detail = ( { id }: Props ) => {
               />
             </div>
           )}
-          {data?.data?.year !== undefined && (
-            <Chip label={year( data?.data?.year )}
+          {data?.attributes?.year !== undefined && (
+            <Chip label={data?.attributes?.year}
               bg="dark-secondary"
             />
           )}
-          {data?.data?.description !== undefined && (
+          {data?.attributes?.description !== undefined && (
             <div className="bg-dark-secondary p-4 border border-none rounded-lg flex flex-col gap-4">
               <div
-                className="text-white/90"
+                className="text-white/90 body-copy"
                 dangerouslySetInnerHTML={{
-                  __html : sanitizeHtml( data?.data?.description ),
+                  __html : sanitize( parseMd( data.attributes.description ), 'richtext' ),
                 }}
               />
             </div>
