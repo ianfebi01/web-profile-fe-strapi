@@ -1,13 +1,10 @@
-'use client'
+'use client';
 import { useGetDetail } from '@/lib/hooks/api/portofolio'
-import { useFormatDate } from '@/lib/hooks/useFormatDate'
-import sanitizeHtml from 'sanitize-html';
 import Image from 'next/image'
 import SkeletonDetail from './SkeletonDetail'
 import Chip from '@/components/Chip'
 import Header from '@/components/Layouts/Header'
 import imageUrl from '@/utils/imageUrl';
-import { useEffect } from 'react';
 import parseMd from '@/utils/parseMd';
 import sanitize from '@/utils/sanitize';
 interface Props {
