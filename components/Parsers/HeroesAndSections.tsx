@@ -7,9 +7,10 @@ interface Props {
   page: ApiPagePage['attributes']
 }
 
-const HeroesAndSections = ({ page }: Props) => {
-  const heroes = useMemo(() => page?.banner, [page?.banner])
-  const sections = useMemo(() => page?.content, [page?.content])
+const HeroesAndSections = ( { page }: Props ) => {
+  const heroes = useMemo( () => page?.banner, [page?.banner] )
+  const sections = useMemo( () => page?.content, [page?.content] )
+  
   return (
     <div>
       {heroes?.length > 0 && <Heroes banners={heroes} />}
