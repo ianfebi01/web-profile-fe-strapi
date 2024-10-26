@@ -11,13 +11,15 @@ interface Props {
   sectionData: ContentComponentsQuote['attributes']
   myposy?: number
 }
-const Quote: FunctionComponent<Props> = (props) => {
+const Quote: FunctionComponent<Props> = ( props ) => {
   const { sectionData, myposy } = props
 
-  const translate = scalePow().domain([-2000, 2000]).range([-100, 100])
+  const translate = scalePow().domain( [-2000, 2000] ).range( [-100, 100] )
 
   return (
-    <section id="quote" className="main__section h-fit bg-dark-secondary">
+    <section id="quote"
+      className="main__section h-fit bg-dark-secondary"
+    >
       <div className="main__container my-8 h-full">
         <div
           className={cn(
@@ -27,7 +29,7 @@ const Quote: FunctionComponent<Props> = (props) => {
           <div
             className="bg-plus absolute top-0 left-0 w-full h-full bg-contain bg-center z-0"
             style={{
-              transform: `translate(0, ${translate.exponent(1)(
+              transform : `translate(0, ${translate.exponent( 1 )(
                 myposy ? -myposy : 0
               )}px)`,
             }}
