@@ -1,7 +1,7 @@
 import Detail from '@/components/Pages/Home/Portofolio/Detail'
 import { getDetail } from '@/lib/api/portofolioQueryFn'
-import { IApi } from '@/types/api'
-import { IApiPortofolio } from '@/types/api/portofolio'
+import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
+import imageUrl from '@/utils/imageUrl'
 import {
   HydrationBoundary,
   QueryClient,
@@ -26,9 +26,9 @@ const getMetadata = async ( id: string ) => {
   try {
     const response = await getDetail( id )
 
-    const data = response.data
-    const title = data?.name
-    const desc = `Potofolio for project called ${data?.name}`
+    const data = response?.attributes
+    const title = data?.title
+    const desc = `Potofolio for project called ${data?.title}`
 
     return {
       title,
@@ -38,7 +38,7 @@ const getMetadata = async ( id: string ) => {
         description : desc,
         url         : 'https://ianfebisastrataruna.my.id',
         siteName    : title,
-        images      : [{ url : data?.image }],
+        images      : [{ url : imageUrl( data?.featureImage.data, 'thumbnail' ) }],
         type        : 'article',
         authors     : ['Ian Febi Sastrataruna'],
       },
@@ -49,7 +49,7 @@ const getMetadata = async ( id: string ) => {
         description : desc,
         image       : [
           {
-            url : data?.image,
+            url : imageUrl( data?.featureImage.data, 'thumbnail' ),
           },
         ],
       },
@@ -70,7 +70,8 @@ export default async function PortofolioPage( {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery( {
     queryKey : ['portofolio', 'detail', params.slug],
-    queryFn  : (): Promise<IApi<IApiPortofolio>> => getDetail( params.slug ),
+    queryFn  : (): Promise<ApiPortofolioPortofolio | null> =>
+      getDetail( params.slug ),
   } )
 
   const dehydratedState = dehydrate( queryClient )
@@ -78,7 +79,7 @@ export default async function PortofolioPage( {
   return (
     <main className="grow-[1] flex flex-col">
       <HydrationBoundary state={dehydratedState}>
-        <Detail id={params.slug} />
+        <Detail slug={params.slug} />
       </HydrationBoundary>
     </main>
   )
