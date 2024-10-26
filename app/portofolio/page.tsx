@@ -9,6 +9,7 @@ import {
 } from 'react-instantsearch'
 import Header from '@/components/Layouts/Header'
 import CardPortofolio from '@/components/Cards/CardPortofolio'
+import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 
 export default function PortofolioPage() {
   const { meilisearch } = {
@@ -73,14 +74,11 @@ export default function PortofolioPage() {
   )
 }
 
-const Hit = ( { hit } ) => (
-  //   <article key={hit.id}>
-  //     <img src={hit.image}
-  //       alt={hit.name}
-  //     />
-  //     <h1>{hit.name}</h1>
-  //     <p>${hit.description}</p>
-  //   </article>
+const Hit = ( {
+  hit,
+}: {
+  hit: ApiPortofolioPortofolio['attributes'] & { id: string }
+} ) => (
   <div key={hit.id}>
     <CardPortofolio data={hit}
       index={1}
@@ -88,5 +86,4 @@ const Hit = ( { hit } ) => (
       color="bg-dark-secondary"
     />
   </div>
-  //   <pre>{JSON.stringify( hit, null, 2 )}</pre>
 )
