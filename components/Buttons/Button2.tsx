@@ -27,32 +27,17 @@ const Button2: FunctionComponent<Props> = ( props ) => {
   return (
     <button
       className={cn(
-        'py-2 px-4 text-xs flex items-center gap-2 rounded-lg border border-transparent transition-default w-fit',
-        ' hover:border-white/25',
+        'button',
         // variant
         [
-          variant === 'primary' && ['bg-dark text-white'],
-          variant === 'error' && [
-            'text-white border hover:border-red-400 border-red-500 bg-transparent',
-          ],
-          variant === 'secondary' && ['bg-dark-secondary text-white'],
-          variant === 'icon' && [
-            'w-8 aspect-square p-2',
-            'flex items-center justify-center',
-            'text-white border hover:border-white/25 border-transparent bg-transparent',
-          ],
-          variant === 'iconOnly' && [
-            'w-fit p-0',
-            'hover:opacity-75 focus:opacity-75',
-            'text-white border-none',
-          ],
-          variant === 'link' && [
-            'w-fit p-0',
-            'hover:opacity-75 focus:opacity-75',
-            'text-white border-none',
-          ],
+          variant === 'primary' && ['button-primary'],
+          variant === 'error' && ['button-error'],
+          variant === 'secondary' && ['button-secondary'],
+          variant === 'icon' && ['button-icon'],
+          variant === 'iconOnly' && ['button-icon-only'],
+          variant === 'link' && ['button-link'],
         ],
-        disabled && 'bg-dark/50 text-white/50',
+        disabled && 'button-disabled',
         className
       )}
       onClick={() => ( onClick ? onClick() : null )}

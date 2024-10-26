@@ -19,12 +19,16 @@
 // @import 'layouts/default';
 // @import 'layouts/error';
 
+// Components
+@import 'components/global';
+@import 'components/searchbox';
+
 
 
 body {
   @apply bg-dark text-white text-xs;
 }
 
-p{
+p {
   @apply leading-5
 }

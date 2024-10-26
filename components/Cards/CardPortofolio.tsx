@@ -1,6 +1,6 @@
-'use client';
+'use client'
 import Image from 'next/image'
-import { FunctionComponent, useEffect, useRef } from 'react';
+import { FunctionComponent, useEffect, useRef } from 'react'
 import { useInView, useAnimation } from 'framer-motion'
 import AnimationProvider from '@/components/Context/AnimationProvider'
 import { cn } from '@/lib/utils'
@@ -172,7 +172,12 @@ const CardPortofolio: FunctionComponent<Props> = ( props ) => {
             <div className="basis-1/2 h-full">
               <div className={cn( 'w-full h-full relative' )}>
                 <Image
-                  src={imageUrl( data.featureImage.data, 'small' ) || ''}
+                  src={
+                    imageUrl(
+                      data.featureImage.data || data.featureImage,
+                      'small'
+                    ) || ''
+                  }
                   alt={data.title}
                   fill
                   priority
@@ -218,7 +223,10 @@ const CardPortofolio: FunctionComponent<Props> = ( props ) => {
                 >
                   <Image
                     src={
-                      imageUrl( item.attributes.image.data, 'thumbnail' ) || ''
+                      imageUrl(
+                        item.attributes.image.data || item.attributes.image,
+                        'thumbnail'
+                      ) || ''
                     }
                     fill
                     style={{
@@ -235,7 +243,12 @@ const CardPortofolio: FunctionComponent<Props> = ( props ) => {
             <div className="basis-1/2 h-full">
               <div className={cn( 'w-full h-full relative' )}>
                 <Image
-                  src={imageUrl( data.featureImage.data, 'small' ) || ''}
+                  src={
+                    imageUrl(
+                      data.featureImage?.data || data.featureImage,
+                      'small'
+                    ) || ''
+                  }
                   alt={data.title}
                   fill
                   priority
