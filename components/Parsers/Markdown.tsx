@@ -25,7 +25,7 @@ const Markdown = ( { content, excerpt }: Props ) => {
 
   return (
     <div ref={bodyCopyRef}
-      className='body-copy'
+      className="body-copy w-full"
     >
       {!excerpt && !!content ? (
         <div
@@ -33,12 +33,14 @@ const Markdown = ( { content, excerpt }: Props ) => {
             __html : sanitize( parseMd( content ), 'richtext' ),
           }}
         ></div>
-      ) : (
+      ) : !!content ? (
         <div
           dangerouslySetInnerHTML={{
             __html : truncate( sanitize( parseMd( content ), 'richtext' ), excerpt ),
           }}
         ></div>
+      ) : (
+        ''
       )}
     </div>
   )
