@@ -16,7 +16,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@headlessui/react": "^1.7.17",
+    "@headlessui/react": "^2.2.0",
     "@meilisearch/instant-meilisearch": "^0.21.1",
     "@tanstack/react-query": "^5.8.4",
     "@types/d3-scale": "^4.0.8",

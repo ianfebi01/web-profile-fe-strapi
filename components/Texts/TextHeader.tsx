@@ -8,8 +8,8 @@ const TextHeader: FunctionComponent<Props> = ( props ) => {
 	
   return (
     <div className="flex flex-col">
-      <h2 className="text-xl">{title}</h2>
-      <p className="text-xs text-white-overlay">{subtitle}</p>
+      <h2 className="text-3xl m-0">{title}</h2>
+      <p className="text-sm text-white-overlay">{subtitle}</p>
     </div>
   )
 }
