@@ -1,5 +1,5 @@
 import Detail from '@/components/Pages/Home/Portofolio/Detail'
-import { getDetail } from '@/lib/api/portofolioQueryFn'
+import { getAllPortfolioSlugs, getDetail } from '@/lib/api/portofolioQueryFn'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import imageUrl from '@/utils/imageUrl'
 import {
@@ -62,6 +62,16 @@ const getMetadata = async ( slug: string ) => {
   }
 }
 
+export async function generateStaticParams() {
+  const slugs = await getAllPortfolioSlugs() // Fetch slugs from Strapi
+
+  return (
+    slugs?.map( ( slug: ApiPortofolioPortofolio ) => ( {
+      slug : slug.attributes.slug,
+    } ) ) || []
+  )
+}
+
 export default async function PortofolioPage( {
   params,
 }: {
@@ -70,11 +80,12 @@ export default async function PortofolioPage( {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery( {
     queryKey : ['portofolio', 'detail', params.slug],
-    queryFn  : (): Promise<ApiPortofolioPortofolio | null> => getDetail( params.slug ),
+    queryFn  : (): Promise<ApiPortofolioPortofolio | null> =>
+      getDetail( params.slug ),
   } )
 
   const dehydratedState = dehydrate( queryClient )
-  
+
   return (
     <main className="grow-[1] flex flex-col">
       <HydrationBoundary state={dehydratedState}>
