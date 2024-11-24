@@ -1,4 +1,3 @@
-import { ApiExperienceExperience } from '@/types/generated/contentTypes';
 import { fetchAPI } from '@/utils/fetsh-api';
 import { FunctionComponent } from 'react';
 import Experience from '../Experience';
