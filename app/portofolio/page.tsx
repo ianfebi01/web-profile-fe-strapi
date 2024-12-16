@@ -39,7 +39,7 @@ export default function PortofolioPage() {
               <div className="flex gap-4 justify-between">
                 <SearchBox
                   placeholder="Search"
-                  searchAsYouType={false}
+                  searchAsYouType={true}
                   classNames={{
                     form : 'relative flex items-center justify-center relative overflow-visible text-white p-2 group border rounded-lg bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none  transition-default focus-within:border-white/50 border-white/25 md:max-w-xs w-full flex items-center gap-2',
                     input :
