@@ -11,6 +11,7 @@ interface Props {
   className?: string
   loading?: boolean
   variant?: 'primary' | 'secondary' | 'icon' | 'iconOnly' | 'link' | 'error'
+  ariaLabel?: string
 }
 
 const Button2: FunctionComponent<Props> = ( props ) => {
@@ -22,6 +23,7 @@ const Button2: FunctionComponent<Props> = ( props ) => {
     className,
     loading,
     variant = 'primary',
+    ariaLabel
   } = props
 
   return (
@@ -43,6 +45,7 @@ const Button2: FunctionComponent<Props> = ( props ) => {
       onClick={() => ( onClick ? onClick() : null )}
       type={type}
       disabled={disabled || loading}
+      aria-label={ariaLabel}
     >
       {loading ? <Spinner /> : ''}
 

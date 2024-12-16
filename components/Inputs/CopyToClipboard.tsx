@@ -33,6 +33,7 @@ const CopyToClipboard = ( { copyText, className = '', size = 16 }: Props ) => {
       <p className={className}>{copyText}</p>
       {/* Bind our handler function to the onClick button property */}
       <Button2 variant="iconOnly"
+        ariaLabel='Copy to clipboard button'
         onClick={handleCopyClick}
       >
         <CopyIcon size={size} />
