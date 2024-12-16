@@ -64,10 +64,10 @@ export default function MenuItem() {
                           <item.icon aria-hidden="true" />
                         </div>
                         <div className="ml-4">
-                          <p className="text-sm font-medium text-white text-left">
+                          <p className="text-sm font-medium text-white text-left m-0">
                             {item.name}
                           </p>
-                          <p className="text-sm text-white/50 text-left">
+                          <p className="text-sm text-white/50 text-left m-0">
                             {item.description}
                           </p>
                         </div>
@@ -84,7 +84,7 @@ export default function MenuItem() {
                       <div className="block text-sm text-left text-white/50">
                         <CopyToClipboard
                           copyText="ianfebi01@gmail.com"
-                          className="text-md"
+                          className="text-md mt-2 mb-0"
                         />
                       </div>
                     </div>
