@@ -61,7 +61,7 @@
 
     p,
     .p {
-        @apply text-base 2xl:text-[1.375rem] 2xl:leading-8 font-[300] my-4;
+        @apply text-sm 2xl:text-base font-normal my-4;
 
         &:last-child {
             @apply mb-0;
@@ -125,7 +125,7 @@
 
         p,
         li {
-            @apply text-base 2xl:text-[1.375rem] 2xl:leading-8 font-[300] my-4;
+            @apply text-sm 2xl:text-base font-normal my-4;
         }
 
         a {
