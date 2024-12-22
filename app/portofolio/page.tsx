@@ -14,8 +14,8 @@ import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 export default function PortofolioPage() {
   const { meilisearch } = {
     meilisearch : {
-      url : 'http://localhost:7700',
-      key : 'fbe33ccf4c2a52274e77427d87f7eb6d6eec951823de9f4a26a972ad889d488d',
+      url : process.env.NEXT_PUBLIC_SEARCH_URL || '',
+      key : 'f598c7625ca63ad729f64c8a64501dffbc49235d66a879c77a7638a660407676',
     },
   }
 
