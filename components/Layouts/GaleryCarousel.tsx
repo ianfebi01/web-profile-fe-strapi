@@ -30,9 +30,9 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
           prevEl : `.btn-prev`,
           nextEl : `.btn-next`,
         }}
-        pagination={{ clickable : true, el : `.paginationEL` }}
+        pagination={{ clickable : true, el : `.paginationEL`, dynamicBullets : true, dynamicMainBullets : 1, }}
         autoplay={{
-          delay                : 3000,
+          delay                : 5000,
           disableOnInteraction : true,
         }}
         autoHeight
@@ -83,11 +83,11 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
         </button>
       </div>
       <div className="aspect-video absolute w-full top-0">
-        <div className="flex flex-row gap-2 w-fit items-center justify-center h-[44px] mx-auto inset-x-0 z-30 absolute top-full">
+        <div className="flex flex-row gap-2 items-center justify-center h-[44px] mx-auto inset-x-0 z-30 absolute top-full">
           <button className="btn-prev size-6 text-white/90 xl:hidden">
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
-          <div className="paginationEL flex gap-1 items-center justify-center w-fit"></div>
+          <div className="paginationEL leading-none !translate-x-0"></div>
           <button className="btn-next size-6 text-white/90 xl:hidden">
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
