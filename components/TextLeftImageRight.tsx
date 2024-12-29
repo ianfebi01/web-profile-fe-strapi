@@ -55,7 +55,7 @@ const TextLeftImageRight: React.FC<Props> = ( {
   }, [] )
 
   const imageString = useMemo( () => {
-    return imageUrl( image.data, isMobile ? 'small' : 'large' ) || ''
+    return imageUrl( image.data, isMobile ? 'small' : 'xlarge' ) || ''
   }, [isMobile, image.data] )
 
   return (

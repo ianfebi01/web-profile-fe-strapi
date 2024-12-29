@@ -1,15 +1,12 @@
 'use client'
 import React from 'react'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
-import {
-  Configure,
-  InfiniteHits,
-  InstantSearch,
-  SearchBox,
-} from 'react-instantsearch'
+import { Configure, SearchBox } from 'react-instantsearch'
 import Header from '@/components/Layouts/Header'
 import CardPortofolio from '@/components/Cards/CardPortofolio'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
+import { InstantSearchNext } from 'react-instantsearch-nextjs'
+import CustomInfiniteHits from '@/components/CustomInfiniteHits'
 
 export default function PortofolioPage() {
   const { meilisearch } = {
@@ -32,8 +29,10 @@ export default function PortofolioPage() {
           />
 
           <div className="flex flex-col gap-8 h-full pb-4">
-            <InstantSearch indexName="portofolio"
+            <InstantSearchNext
+              indexName="portofolio"
               searchClient={searchClient}
+              routing
             >
               <Configure hitsPerPage={9} />
               <div className="flex gap-4 justify-between">
@@ -53,20 +52,9 @@ export default function PortofolioPage() {
                 ></SearchBox>
               </div>
               <div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <InfiniteHits
-                    hitComponent={Hit}
-                    showPrevious={false}
-                    classNames={{
-                      root             : 'flex flex-col gap-8',
-                      list             : 'list-none ml-0',
-                      loadMore         : 'button button-secondary',
-                      disabledLoadMore : 'button button-disabled',
-                    }}
-                  />
-                </div>
+                <CustomInfiniteHits component={Hit} />
               </div>
-            </InstantSearch>
+            </InstantSearchNext>
           </div>
         </div>
       </section>
@@ -79,11 +67,11 @@ const Hit = ( {
 }: {
   hit: ApiPortofolioPortofolio['attributes'] & { id: string }
 } ) => (
-  <div key={hit.id}>
+  <>
     <CardPortofolio data={hit}
       index={1}
       link
       color="bg-dark-secondary"
     />
-  </div>
+  </>
 )
