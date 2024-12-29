@@ -77,7 +77,7 @@ const ProfileBanner: FunctionComponent<Props> = ( props ) => {
           )}px)`,
         }}
       >
-        <p className="text-center text-display-md-medium">{sectionData.name}</p>
+        <h1 className="text-center m-0">{sectionData.name}</h1>
         <div
           className="text-center text-white/75 body-copy"
           dangerouslySetInnerHTML={{
