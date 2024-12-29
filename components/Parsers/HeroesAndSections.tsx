@@ -10,11 +10,15 @@ interface Props {
 const HeroesAndSections = ( { page }: Props ) => {
   const heroes = useMemo( () => page?.banner, [page?.banner] )
   const sections = useMemo( () => page?.content, [page?.content] )
-  
+
   return (
     <div>
       {heroes?.length > 0 && <Heroes banners={heroes} />}
-      {sections?.length > 0 && <Sections sections={sections} />}
+      {sections?.length > 0 && (
+        <Sections sections={sections}
+          headingLevel={2}
+        />
+      )}
     </div>
   )
 }

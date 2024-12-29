@@ -1,6 +1,5 @@
 import { fetchAPI } from '@/utils/fetsh-api'
 import React from 'react'
-import TextHeader from '../Texts/TextHeader'
 import CardPortofolio from '../Cards/CardPortofolio'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import Link from 'next/link'
@@ -24,47 +23,40 @@ const FeaturedPortofolios = async () => {
   if ( responseData.data?.length === 0 ) return null
 
   return (
-    <section id="portofolio"
-      className="main__section h-fit bg-dark"
-    >
-      <div className="main__container my-8 flex flex-col gap-4">
-        <TextHeader title="Portofolio"
-          subtitle="See what i’ve been build"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
-          {/* @ NOTE  CARD*/}
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-8">
+        {/* @ NOTE  CARD*/}
 
-          {( responseData?.data as ApiPortofolioPortofolio[] )?.map(
-            ( item, i: number ) => (
-              <CardPortofolio
-                key={item.attributes.slug}
-                index={i}
-                color={
-                  i === 1
-                    ? 'bg-white'
-                    : i === 2
-                      ? 'bg-green'
-                      : 'bg-dark-secondary'
-                }
-                data={item.attributes}
-                transitionIn
-                transitionHover
-                link
-              />
-            )
-          )}
-        </div>
-        <Link className="no-underline"
-          href={'/portofolio'}
-        >
-          <Button2 variant="secondary"
-            className="w-fit"
-          >
-            Show more
-          </Button2>
-        </Link>
+        {( responseData?.data as ApiPortofolioPortofolio[] )?.map(
+          ( item, i: number ) => (
+            <CardPortofolio
+              key={item.attributes.slug}
+              index={i}
+              color={
+                i === 1
+                  ? 'bg-white'
+                  : i === 2
+                    ? 'bg-green'
+                    : 'bg-dark-secondary'
+              }
+              data={item.attributes}
+              transitionIn
+              transitionHover
+              link
+            />
+          )
+        )}
       </div>
-    </section>
+      <Link className="no-underline"
+        href={'/portofolio'}
+      >
+        <Button2 variant="secondary"
+          className="w-fit"
+        >
+          Show more
+        </Button2>
+      </Link>
+    </div>
   )
 }
 

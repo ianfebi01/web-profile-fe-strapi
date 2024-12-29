@@ -1,5 +1,4 @@
 'use client'
-import TextHeader from '@/components/Texts/TextHeader'
 import { FunctionComponent } from 'react'
 import { ApiExperienceExperience } from '@/types/generated/contentTypes'
 import Markdown from './Parsers/Markdown'
@@ -89,62 +88,47 @@ const Experience: FunctionComponent<Props> = ( { data } ) => {
   }
 
   return (
-    <section id="experience"
-      className="main__section h-fit bg-dark-secondary"
-    >
-      <div className="main__container my-8 flex flex-col gap-4">
-        <div className="flex flex-col gap-4">
-          <div className="">
-            <TextHeader
-              title="Experience"
-              subtitle="See what i’ve been working on"
-            />
+    <div className="flex flex-col gap-4">
+      <div className="bg-dark px-4 py-6 rounded-3xl divide-y-[1px] divide-white-overlay-2">
+        {transformedData.map( ( item ) => (
+          <div key={item.companyName}
+            className="pt-4 first:pt-0"
+          >
+            {item.steps.length > 1 && (
+              <>
+                <h3>{item.companyName}</h3>
+                <p className="mt-0 mb-2 text-sm">
+                  {convertMonthsToYearsAndMonths( item.totalWorkingMonths )}
+                </p>
+              </>
+            )}
+            <div>
+              {item.steps.length > 1 ? (
+                <ProgressVertical steps={item.steps} />
+              ) : (
+                item.steps.map( ( step, i ) => (
+                  <div key={i}
+                    className="group relative flex items-start"
+                  >
+                    <span className="ml-4 flex min-w-0 flex-col">
+                      <h4 className="h3">{step.role}</h4>
+                      <p className="mt-0 mb-2 text-sm">
+                        {convertMonthsToYearsAndMonths( item.totalWorkingMonths )}
+                      </p>
+                      <p className="mt-0 mb-2 text-sm text-white-overlay">
+                        {step.name}
+                      </p>
+                      <Markdown content={step.description} />
+                    </span>
+                  </div>
+                ) )
+              )}
+            </div>
           </div>
-
-          <div className="bg-dark px-4 py-6 rounded-3xl divide-y-[1px] divide-white-overlay-2">
-            {transformedData.map( ( item ) => (
-              <div key={item.companyName}
-                className='pt-4 first:pt-0'
-              >
-                {item.steps.length > 1 && (
-                  <>
-                    <h3>{item.companyName}</h3>
-                    <p className="mt-0 mb-2 text-sm">
-                      {convertMonthsToYearsAndMonths( item.totalWorkingMonths )}
-                    </p>
-                  </>
-                )}
-                <div>
-                  {item.steps.length > 1 ? (
-                    <ProgressVertical steps={item.steps} />
-                  ) : (
-                    item.steps.map( ( step, i ) => (
-                      <div key={i}
-                        className="group relative flex items-start"
-                      >
-                        <span className="ml-4 flex min-w-0 flex-col">
-                          <h4 className="h3">{step.role}</h4>
-                          <p className="mt-0 mb-2 text-sm">
-                            {convertMonthsToYearsAndMonths(
-                              item.totalWorkingMonths
-                            )}
-                          </p>
-                          <p className="mt-0 mb-2 text-sm text-white-overlay">
-                            {step.name}
-                          </p>
-                          <Markdown content={step.description} />
-                        </span>
-                      </div>
-                    ) )
-                  )}
-                </div>
-              </div>
-            ) )}
-            {/* <ProgressVertical steps={steps} /> */}
-          </div>
-        </div>
+        ) )}
+        {/* <ProgressVertical steps={steps} /> */}
       </div>
-    </section>
+    </div>
   )
 }
 

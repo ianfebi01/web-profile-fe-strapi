@@ -50,7 +50,8 @@ export default function componentResolver(
     <Suspense fallback={<Loader />}
       key={index}
     >
-      <SectionProvider>{reactElement}</SectionProvider>
+      <SectionProvider>
+        {reactElement}</SectionProvider>
     </Suspense>
   )
 }
