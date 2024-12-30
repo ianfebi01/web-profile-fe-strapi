@@ -12,9 +12,9 @@ export default function CustomInfiniteHits( { component, ...props }: Props ) {
   return (
     <div className="flex flex-col gap-8 ">
       <ul className="list-none ml-0 grid grid-cols-1 md:grid-cols-2 gap-4">
-        {items.map( ( hit ) => (
+        {items.map( ( hit, index ) => (
           <li
-            key={hit.objectID}
+            key={index}
             onClick={() => sendEvent( 'click', hit, 'Hit Clicked' )}
             onAuxClick={() => sendEvent( 'click', hit, 'Hit Clicked' )}
           >
