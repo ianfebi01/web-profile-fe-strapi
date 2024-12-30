@@ -11,12 +11,13 @@ import 'swiper/css/pagination'
 import { ArraysImageGalery } from '@/types/generated/components'
 import imageUrl from '@/utils/imageUrl'
 import Markdown from '../Parsers/Markdown'
-import Image from 'next/image'
+import Image, { ImageLoaderProps } from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
+import imageLoader from '@/utils/image-loader'
 
 interface Props {
   data: ArraysImageGalery['attributes'][]
@@ -30,7 +31,12 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
           prevEl : `.btn-prev`,
           nextEl : `.btn-next`,
         }}
-        pagination={{ clickable : true, el : `.paginationEL`, dynamicBullets : true, dynamicMainBullets : 1, }}
+        pagination={{
+          clickable          : true,
+          el                 : `.paginationEL`,
+          dynamicBullets     : true,
+          dynamicMainBullets : 1,
+        }}
         autoplay={{
           delay                : 5000,
           disableOnInteraction : true,
@@ -54,10 +60,12 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
                 <Image
                   alt={`Image ${index}`}
                   src={imageUrl( media.data, 'original' ) || ''}
+                  loader={imageLoader}
                   fill
                   style={{
                     objectFit : 'contain',
                   }}
+                  loading='lazy'
                   sizes="auto"
                 />
               </div>
