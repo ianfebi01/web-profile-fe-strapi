@@ -11,7 +11,7 @@ import 'swiper/css/pagination'
 import { ArraysImageGalery } from '@/types/generated/components'
 import imageUrl from '@/utils/imageUrl'
 import Markdown from '../Parsers/Markdown'
-import Image, { ImageLoaderProps } from 'next/image'
+import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
