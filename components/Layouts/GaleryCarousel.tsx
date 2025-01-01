@@ -1,5 +1,5 @@
-'use client' // <===== REQUIRED
-
+// <===== REQUIRED
+'use client'
 import React from 'react'
 
 // Swiper components, modules and styles
@@ -17,12 +17,14 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
+import imageLoading from '@/utils/image-loading'
 
 interface Props {
   data: ArraysImageGalery['attributes'][]
 }
 
 const GaleryCarousel: React.FC<Props> = ( { data } ) => {
+
   return (
     <ul className="w-full !m-0 relative">
       <Swiper
@@ -30,7 +32,12 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
           prevEl : `.btn-prev`,
           nextEl : `.btn-next`,
         }}
-        pagination={{ clickable : true, el : `.paginationEL`, dynamicBullets : true, dynamicMainBullets : 1, }}
+        pagination={{
+          clickable          : true,
+          el                 : `.paginationEL`,
+          dynamicBullets     : true,
+          dynamicMainBullets : 1,
+        }}
         autoplay={{
           delay                : 5000,
           disableOnInteraction : true,
@@ -58,7 +65,9 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
                   style={{
                     objectFit : 'contain',
                   }}
+                  loading="lazy"
                   sizes="auto"
+                  placeholder={imageLoading()}
                 />
               </div>
               {!!caption && (
