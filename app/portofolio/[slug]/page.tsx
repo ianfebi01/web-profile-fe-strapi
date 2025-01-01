@@ -7,58 +7,45 @@ import {
   QueryClient,
   dehydrate,
 } from '@tanstack/react-query'
+import { Metadata } from 'next'
 
-let cachedMetadata: any | null = null
-
-export async function generateMetadata( {
-  params,
-}: {
-  params: { slug: string }
-} ) {
-  if ( !cachedMetadata ) {
-    cachedMetadata = await getMetadata( params.slug )
+type Props = {
+  params: {
+    lang: string
+    slug: string
   }
-
-  return cachedMetadata
 }
 
-const getMetadata = async ( slug: string ) => {
-  try {
-    const response = await getDetail( slug )
+export async function generateMetadata( { params }: Props ): Promise<Metadata> {
+  const response = await getDetail( params.slug )
 
-    const data = response?.attributes
-    const title = data?.title
-    const desc = `Potofolio for project called ${data?.title}`
+  const data = response?.attributes
+  const title = data?.title
+  const desc = `Potofolio for project called ${data?.title}`
 
-    return {
+  return {
+    title,
+    description : desc,
+    openGraph   : {
       title,
       description : desc,
-      openGraph   : {
-        title,
-        description : desc,
-        url         : 'https://ianfebisastrataruna.my.id',
-        siteName    : title,
-        images      : [{ url : imageUrl( data?.featureImage.data, 'thumbnail' ) }],
-        type        : 'article',
-        authors     : ['Ian Febi Sastrataruna'],
-      },
-      twitter : {
-        card        : 'summary', // 'summary' for small card
-        site        : '@ianfebi01', // Replace with your Twitter username
-        title,
-        description : desc,
-        image       : [
-          {
-            url : imageUrl( data?.featureImage.data, 'thumbnail' ),
-          },
-        ],
-      },
-    }
-  } catch ( error ) {
-    // eslint-disable-next-line no-console
-    console.error( 'Error fetching metadata:', error )
-
-    return null
+      url         : 'https://ianfebisastrataruna.my.id',
+      siteName    : title,
+      images      : [{ url : imageUrl( data?.featureImage.data, 'thumbnail' ) || '' }],
+      type        : 'article',
+      authors     : ['Ian Febi Sastrataruna'],
+    },
+    twitter : {
+      card        : 'summary', // 'summary' for small card
+      site        : '@ianfebi01', // Replace with your Twitter username
+      title,
+      description : desc,
+      images      : [
+        {
+          url : imageUrl( data?.featureImage.data, 'thumbnail' ) || '',
+        },
+      ],
+    },
   }
 }
 
