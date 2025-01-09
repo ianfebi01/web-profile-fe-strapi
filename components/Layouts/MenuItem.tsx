@@ -96,7 +96,7 @@ export default function MenuItem( { data }: Props ) {
             <Link
               href={constructNavUrl( data?.navItem )}
               className={cn(
-                'py-2 px-4 text-base no-underline flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
+                'py-2 px-4 text-xs xl:text-base no-underline flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
                 ' hover:border-white/25',
                 'ring-0 focus:ring-0 outline-none',
                 show ? 'text-white border-white/25' : 'text-white/50',
