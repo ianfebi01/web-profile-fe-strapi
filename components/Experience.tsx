@@ -1,5 +1,5 @@
 'use client'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useMemo } from 'react'
 import { ApiExperienceExperience } from '@/types/generated/contentTypes'
 import Markdown from './Parsers/Markdown'
 import ProgressVertical, { IStep } from './ProgressVertical'
@@ -9,35 +9,37 @@ interface Props {
 }
 
 const Experience: FunctionComponent<Props> = ( { data } ) => {
-  const groupedAndSorted = data.reduce<
-    Record<string, ApiExperienceExperience[]>
-  >( ( acc, item ) => {
-    // Group by companyName
-    if ( !acc[item.attributes.companyName] ) {
-      acc[item.attributes.companyName] = []
-    }
-    acc[item.attributes.companyName].push( item )
+  const groupedAndSorted = useMemo(
+    () =>
+      data.reduce<Record<string, ApiExperienceExperience[]>>( ( acc, item ) => {
+        // Group by companyName
+        if ( !acc[item.attributes.companyName] ) {
+          acc[item.attributes.companyName] = []
+        }
+        acc[item.attributes.companyName].push( item )
 
-    // Sort items in the group by endDate in descending order, prioritizing null or missing endDate
-    acc[item.attributes.companyName].sort( ( a, b ) => {
-      const aEndDate = a.attributes.endDate
-        ? new Date( a.attributes.endDate ).getTime()
-        : null
-      const bEndDate = b.attributes.endDate
-        ? new Date( b.attributes.endDate ).getTime()
-        : null
+        // Sort items in the group by endDate in descending order, prioritizing null or missing endDate
+        acc[item.attributes.companyName].sort( ( a, b ) => {
+          const aEndDate = a.attributes.endDate
+            ? new Date( a.attributes.endDate ).getTime()
+            : null
+          const bEndDate = b.attributes.endDate
+            ? new Date( b.attributes.endDate ).getTime()
+            : null
 
-      // Handle null or missing endDate
-      if ( aEndDate === null && bEndDate !== null ) return -1 // a comes first
-      if ( bEndDate === null && aEndDate !== null ) return 1 // b comes first
-      if ( aEndDate === null && bEndDate === null ) return 0 // equal
+          // Handle null or missing endDate
+          if ( aEndDate === null && bEndDate !== null ) return -1 // a comes first
+          if ( bEndDate === null && aEndDate !== null ) return 1 // b comes first
+          if ( aEndDate === null && bEndDate === null ) return 0 // equal
 
-      // Sort by endDate in descending order
-      return bEndDate! - aEndDate!
-    } )
+          // Sort by endDate in descending order
+          return bEndDate! - aEndDate!
+        } )
 
-    return acc
-  }, {} )
+        return acc
+      }, {} ),
+    [data]
+  )
 
   // console.log( groupedAndSorted )
 
@@ -45,35 +47,39 @@ const Experience: FunctionComponent<Props> = ( { data } ) => {
     companyName: string
     totalWorkingMonths: number
     steps: IStep[]
-  }[] = Object.entries( groupedAndSorted ).map( ( [companyName, experiences] ) => {
-    // Calculate total working months for this company
-    const totalWorkingMonths = experiences.reduce( ( total, item ) => {
-      const startDate = new Date( item.attributes.startDate )
-      const endDate = item.attributes.endDate
-        ? new Date( item.attributes.endDate )
-        : new Date() // Use current date if endDate is null
-      const months =
-        ( endDate.getFullYear() - startDate.getFullYear() ) * 12 +
-        ( endDate.getMonth() - startDate.getMonth() )
+  }[] = useMemo(
+    () =>
+      Object.entries( groupedAndSorted ).map( ( [companyName, experiences] ) => {
+        // Calculate total working months for this company
+        const totalWorkingMonths = experiences.reduce( ( total, item ) => {
+          const startDate = new Date( item.attributes.startDate )
+          const endDate = item.attributes.endDate
+            ? new Date( item.attributes.endDate )
+            : new Date() // Use current date if endDate is null
+          const months =
+            ( endDate.getFullYear() - startDate.getFullYear() ) * 12 +
+            ( endDate.getMonth() - startDate.getMonth() )
 
-      return total + months
-    }, 0 )
+          return total + months
+        }, 0 )
 
-    return {
-      companyName        : companyName,
-      totalWorkingMonths : totalWorkingMonths,
-      steps              : experiences.map( ( item ) => ( {
-        description : String( item.attributes.description ),
-        name        : String( item.attributes.companyName ),
-        role        : String( item.attributes.role ),
-        status :
-          item.attributes.endDate &&
-          new Date( item.attributes.endDate ) < new Date()
-            ? 'complete'
-            : 'current',
-      } ) ),
-    }
-  } )
+        return {
+          companyName        : companyName,
+          totalWorkingMonths : totalWorkingMonths,
+          steps              : experiences.map( ( item ) => ( {
+            description : String( item.attributes.description ),
+            name        : String( item.attributes.companyName ),
+            role        : String( item.attributes.role ),
+            status :
+              item.attributes.endDate &&
+              new Date( item.attributes.endDate ) < new Date()
+                ? 'complete'
+                : 'current',
+          } ) ),
+        }
+      } ),
+    [groupedAndSorted]
+  )
 
   function convertMonthsToYearsAndMonths( totalMonths: number ): string {
     const years = Math.floor( totalMonths / 12 ) // Calculate the number of years
