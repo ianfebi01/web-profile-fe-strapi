@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import { useState } from 'react'
 import MenuItem from './MenuItem'
 import {
@@ -8,12 +8,18 @@ import {
   motion,
 } from 'framer-motion'
 import Hamburger from '../Icons/Hamburger'
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 import MobileNavbar from './MobileNavbar'
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArraysSocials, NavCategoriesNavCategories } from '@/types/generated/components'
+import MenuItemSocial from './MenuItemSocial'
 
-const NavbarV2 = () => {
+interface Props {
+  items: NavCategoriesNavCategories['attributes'][]
+  socials: ArraysSocials['attributes'][]
+}
+const NavbarV2 = ( { items, socials }: Props ) => {
   const { scrollY } = useScroll()
   const visibilityControl = useAnimation()
 
@@ -60,15 +66,24 @@ const NavbarV2 = () => {
               height={40}
             />
           </Link>
-          <div className='grow'></div>
-          <MenuItem />
+          <div className="grow"></div>
+          <div className='flex items-center gap-4'>
+            {items.map( ( item, i ) => (
+              <div key={i}>
+                <MenuItem data={item} />
+              </div>
+            ) )}
+            <MenuItemSocial title='Contact'
+              socials={socials}
+            />
+          </div>
         </div>
         <div className="absolute top-4 right-4 z-50 md:hidden">
           <Hamburger open={isOpen}
             setOpen={setIsOpen}
           />
         </div>
-        <MobileNavbar isOpen={isOpen}/>
+        <MobileNavbar isOpen={isOpen} />
       </motion.nav>
     </>
   )

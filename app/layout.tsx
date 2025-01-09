@@ -10,6 +10,8 @@ import NextTopLoader from 'nextjs-toploader'
 import NavbarV2 from '@/components/Layouts/NavbarV2'
 import SectionProvider from '@/components/Context/SectionProvider'
 import Footer from '@/components/Pages/Home/Footer'
+import { getSiteData } from '@/utils/get-site-data'
+import { ApiSiteSite } from '@/types/generated/contentTypes'
 // const outfit = Outfit( { subsets : ['latin'] } )
 
 config.autoAddCss = false
@@ -20,11 +22,13 @@ export const metadata: Metadata = {
     'Front End Web Developer with 1+ year of experience. Expert on React js and Vue js',
 }
 
-export default function RootLayout( {
+export default async function RootLayout( {
   children,
 }: {
   children: React.ReactNode
 } ) {
+  const siteData = ( await getSiteData( 'en' ) ) as { data: ApiSiteSite }
+
   return (
     <html lang="en">
       <GoogleAnalytics />
@@ -57,7 +61,10 @@ export default function RootLayout( {
             }}
           />
           <div className="min-h-screen flex flex-col">
-            <NavbarV2 />
+            <NavbarV2
+              items={siteData?.data?.attributes?.mainNavMenu}
+              socials={siteData?.data?.attributes?.socials}
+            />
             {children}
             <SectionProvider>
               <Footer />
