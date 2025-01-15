@@ -84,7 +84,7 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
             size="2xl"
           />
         </button>
-        <button className="btn-next absolute right-2 lg:right-4 inset-y-0 my-auto z-30 text-white/75 hover:text-white/90 transition-default disabled:hover:opacity-0 h-fit drop-shadow-20-0.5">
+        <button className="btn-next absolute right-2 lg:right-4 inset-y-0 my-auto z-30 text-white/75 hover:text-white/90 transition-default disabled:opacity-0 h-fit drop-shadow-20-0.5">
           <FontAwesomeIcon icon={faCircleChevronRight}
             size="2xl"
           />
