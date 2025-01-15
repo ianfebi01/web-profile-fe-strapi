@@ -30,6 +30,10 @@ const config: Config = {
       boxShadow : {
         skill : '0px 1px 4px 1px rgba(34, 34, 34, 0.25)',
       },
+      dropShadow : {
+        '20'     : '0 0 20px rgba(5, 13, 39, 0.3)',
+        '20-0.5' : '0 0 20px rgba(5, 13, 39, 0.5)',
+      },
       fontFamily : {
         primary : [
           'Inter',

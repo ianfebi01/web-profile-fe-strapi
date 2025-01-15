@@ -1,5 +1,5 @@
 // <===== REQUIRED
-'use client'
+'use client';
 import React from 'react'
 
 // Swiper components, modules and styles
@@ -10,14 +10,16 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { ArraysImageGalery } from '@/types/generated/components'
 import imageUrl from '@/utils/imageUrl'
-import Markdown from '../Parsers/Markdown'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
   faChevronRight,
+  faCircleChevronLeft,
+  faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import imageLoading from '@/utils/image-loading'
+import Markdown from '../Parsers/Markdown';
 
 interface Props {
   data: ArraysImageGalery['attributes'][]
@@ -38,18 +40,14 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
           dynamicBullets     : true,
           dynamicMainBullets : 1,
         }}
-        autoplay={{
-          delay                : 5000,
-          disableOnInteraction : true,
-        }}
         autoHeight
         slidesPerView={1}
         centeredSlides
         centerInsufficientSlides
         lazyPreloadPrevNext={2}
-        loop={true}
+        loop={false}
         mousewheel
-        speed={1500}
+        speed={500}
         simulateTouch
         threshold={1}
         modules={[Autoplay, Navigation, Pagination]}
@@ -57,7 +55,7 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
         {data.map( ( { caption, media }, index: number ) => (
           <SwiperSlide key={index}>
             <div className="h-full flex flex-col">
-              <div className="relative aspect-video  overflow-hidden mb-8">
+              <div className="relative aspect-video  overflow-hidden mb-8 bg-white">
                 <Image
                   alt={`Image ${index}`}
                   src={imageUrl( media.data, 'original' ) || ''}
@@ -68,6 +66,7 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
                   loading="lazy"
                   sizes="auto"
                   placeholder={imageLoading()}
+                  className='drop-shadow-2xl'
                 />
               </div>
               {!!caption && (
@@ -80,14 +79,14 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
         ) )}
       </Swiper>
       <div className="aspect-video absolute w-full top-0 hidden min-[1156px]:block">
-        <button className="btn-prev absolute right-full inset-y-0 my-auto z-30 text-white/90 -translate-x-2 lg:-translate-x-4">
-          <FontAwesomeIcon icon={faChevronLeft}
-            size="5x"
+        <button className="btn-prev absolute left-2 lg:left-4 inset-y-0 my-auto z-30 text-white/75 hover:text-white/90 transition-default disabled:opacity-0 h-fit drop-shadow-20-0.5">
+          <FontAwesomeIcon icon={faCircleChevronLeft}
+            size="2xl"
           />
         </button>
-        <button className="btn-next absolute left-full inset-y-0 my-auto z-30 text-white/90 translate-x-2 lg:translate-x-4">
-          <FontAwesomeIcon icon={faChevronRight}
-            size="5x"
+        <button className="btn-next absolute right-2 lg:right-4 inset-y-0 my-auto z-30 text-white/75 hover:text-white/90 transition-default disabled:hover:opacity-0 h-fit drop-shadow-20-0.5">
+          <FontAwesomeIcon icon={faCircleChevronRight}
+            size="2xl"
           />
         </button>
       </div>
