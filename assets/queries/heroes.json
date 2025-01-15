@@ -7,6 +7,9 @@
       "backgroundImage": {
         "populate": "*"
       },
+      "background": {
+        "populate": "*"
+      },
       "bannerImage": {
         "populate": "*"
       },

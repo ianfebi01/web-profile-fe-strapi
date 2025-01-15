@@ -71,19 +71,6 @@ export interface NavItemsNavItems extends Schema.Component {
   };
 }
 
-export interface NavCategoriesNavCategories extends Schema.Component {
-  collectionName: 'components_nav_categories_nav_categories';
-  info: {
-    displayName: 'Nav Categories';
-    description: '';
-  };
-  attributes: {
-    navItems: Attribute.Component<'nav-items.nav-items', true>;
-    categoryName: Attribute.String;
-    navItem: Attribute.Component<'nav-items.nav-items'>;
-  };
-}
-
 export interface ContentComponentsTextLeftImageRight extends Schema.Component {
   collectionName: 'components_content_components_text_left_image_rights';
   info: {
@@ -361,6 +348,19 @@ export interface CommonFieldsSectionSettings extends Schema.Component {
   };
 }
 
+export interface NavCategoriesNavCategories extends Schema.Component {
+  collectionName: 'components_nav_categories_nav_categories';
+  info: {
+    displayName: 'Nav Categories';
+    description: '';
+  };
+  attributes: {
+    navItems: Attribute.Component<'nav-items.nav-items', true>;
+    categoryName: Attribute.String;
+    navItem: Attribute.Component<'nav-items.nav-items'>;
+  };
+}
+
 export interface BannerComponentsProfileBanner extends Schema.Component {
   collectionName: 'components_banner_components_profile_banners';
   info: {
@@ -403,17 +403,16 @@ export interface BannerComponentsBannerStandard extends Schema.Component {
   };
   attributes: {
     heading: Attribute.String;
-    subHeading: Attribute.String;
-    backgroundImage: Attribute.Media<'images'>;
-    watermarkLeft: Attribute.Enumeration<['triangle', 'octagon']>;
-    watermarkRight: Attribute.Enumeration<
-      ['triangle', 'circle', 'infinity', 'octagon']
-    >;
-    watermarkLeftOverflow: Attribute.Boolean & Attribute.DefaultTo<false>;
-    watermarkRightOverflow: Attribute.Boolean & Attribute.DefaultTo<false>;
-    description: Attribute.Text;
-    links: Attribute.Component<'arrays.links', true>;
-    backgroundVideo: Attribute.Media<'videos'>;
+    background: Attribute.Media<'images' | 'videos'>;
+    buttons: Attribute.Component<'arrays.links', true>;
+    description: Attribute.RichText &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'Markdown';
+          preset: 'standard';
+        }
+      >;
   };
 }
 
@@ -541,7 +540,6 @@ declare module '@strapi/types' {
       'shared.seo': SharedSeo;
       'shared.meta-social': SharedMetaSocial;
       'nav-items.nav-items': NavItemsNavItems;
-      'nav-categories.nav-categories': NavCategoriesNavCategories;
       'content-components.text-left-image-right': ContentComponentsTextLeftImageRight;
       'content-components.small-banner': ContentComponentsSmallBanner;
       'content-components.simple-cards': ContentComponentsSimpleCards;
@@ -558,6 +556,7 @@ declare module '@strapi/types' {
       'content-components.arbitrary': ContentComponentsArbitrary;
       'content-components.accordian': ContentComponentsAccordian;
       'common-fields.section-settings': CommonFieldsSectionSettings;
+      'nav-categories.nav-categories': NavCategoriesNavCategories;
       'banner-components.profile-banner': BannerComponentsProfileBanner;
       'banner-components.carousel': BannerComponentsCarousel;
       'banner-components.banner-standard': BannerComponentsBannerStandard;
