@@ -55,7 +55,7 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
         {data.map( ( { caption, media }, index: number ) => (
           <SwiperSlide key={index}>
             <div className="h-full flex flex-col">
-              <div className="relative aspect-video  overflow-hidden mb-8 bg-dark-secondary">
+              <div className="relative aspect-video  overflow-hidden mb-8 bg-white">
                 <Image
                   alt={`Image ${index}`}
                   src={imageUrl( media.data, 'original' ) || ''}
