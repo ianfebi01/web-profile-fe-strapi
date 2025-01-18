@@ -22,7 +22,6 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ( { buttons = [] } ) => {
         >
           {button.title}
         </Link>
-        // <pre>{JSON.stringify( button, null, 2 )}</pre>
       ) )}
     </div>
   )
