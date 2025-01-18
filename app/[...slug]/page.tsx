@@ -14,42 +14,45 @@ type Props = {
 export async function generateMetadata( { params }: Props ): Promise<Metadata> {
   const page = await getPageBySlug( params.slug, params.lang )
 
-  if ( !page.data[0]?.attributes?.seo ) return FALLBACK_SEO
   const metadata = page.data[0].attributes.seo
 
   // Extract social metadata
-  const socialMeta = Object.fromEntries(
-    metadata.metaSocial.map(
-      ( { socialNetwork, title, description, image }: any ) => [
-        socialNetwork.toLowerCase(),
-        { title, description, image },
-      ]
+  const socialMeta = metadata?.metaSocial?.length
+    ? Object.fromEntries(
+      metadata?.metaSocial?.map(
+        ( { socialNetwork, title, description, image }: any ) => [
+          socialNetwork.toLowerCase(),
+          { title, description, image },
+        ]
+      )
     )
-  )
+    : {}
 
   // Extract image data for Open Graph and Twitter
 
   return {
-    title       : metadata.metaTitle,
-    description : metadata.metaDescription,
-    keywords    : metadata.keywords,
-    robots      : metadata.metaRobots,
+    title       : metadata?.metaTitle || page?.data[0]?.attributes?.title || null,
+    description : metadata?.metaDescription || null,
+    keywords    : metadata?.keywords || null,
+    robots      : metadata?.metaRobots || null,
     openGraph   : {
-      url         : metadata.canonicalURL,
-      title       : metadata.metaTitle,
-      description : metadata.metaDescription,
+      url         : metadata?.canonicalURL || null,
+      title       : metadata?.metaTitle || null,
+      description : metadata?.metaDescription || null,
       siteName    : 'Ian Febi Sastrataruna', // Replace with your site name
       type        : 'website', // or "article"
-      images      : [{ url : imageUrl( metadata.metaImage?.data, 'medium' ) || '' }], // Add Open Graph image
+      images      : metadata?.metaImage?.data
+        ? [{ url : imageUrl( metadata?.metaImage?.data, 'medium' ) || '' }]
+        : [], // Add Open Graph image
     },
     twitter : {
       card        : 'summary',
       site        : '@ianfebi01',
-      title       : metadata.metaTitle,
-      description : socialMeta.twitter?.description || '',
-      images      : [
-        { url : imageUrl( socialMeta.twitter?.image.data, 'medium' ) || '' },
-      ], // Twitter image
+      title       : metadata?.metaTitle || null,
+      description : socialMeta?.twitter?.description || '',
+      images      : socialMeta?.twitter?.image?.data
+        ? [{ url : imageUrl( socialMeta?.twitter?.image?.data, 'medium' ) || '' }]
+        : [], // Twitter image
     },
   }
 }
