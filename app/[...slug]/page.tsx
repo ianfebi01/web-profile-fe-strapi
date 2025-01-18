@@ -31,8 +31,8 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
   // Extract image data for Open Graph and Twitter
 
   return {
-    title       : metadata?.metaTitle || page?.data[0]?.attributes?.title || null,
-    description : metadata?.metaDescription || null,
+    title       : metadata?.metaTitle || page?.data[0]?.attributes?.title || FALLBACK_SEO.title || null,
+    description : metadata?.metaDescription || FALLBACK_SEO.description || null,
     keywords    : metadata?.keywords || null,
     robots      : metadata?.metaRobots || null,
     openGraph   : {
@@ -48,8 +48,8 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
     twitter : {
       card        : 'summary',
       site        : '@ianfebi01',
-      title       : metadata?.metaTitle || null,
-      description : socialMeta?.twitter?.description || '',
+      title       : metadata?.metaTitle || FALLBACK_SEO.title || null,
+      description : socialMeta?.twitter?.description || FALLBACK_SEO.description || '',
       images      : socialMeta?.twitter?.image?.data
         ? [{ url : imageUrl( socialMeta?.twitter?.image?.data, 'medium' ) || '' }]
         : [], // Twitter image
