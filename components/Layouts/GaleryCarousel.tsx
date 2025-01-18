@@ -1,5 +1,5 @@
 // <===== REQUIRED
-'use client';
+'use client';;
 import React from 'react'
 
 // Swiper components, modules and styles
@@ -18,8 +18,8 @@ import {
   faCircleChevronLeft,
   faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
-import imageLoading from '@/utils/image-loading'
 import Markdown from '../Parsers/Markdown';
+import imageLoader from '@/lib/constans/image-loader';
 
 interface Props {
   data: ArraysImageGalery['attributes'][]
@@ -65,7 +65,7 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
                   }}
                   loading="lazy"
                   sizes="auto"
-                  placeholder={imageLoading()}
+                  placeholder={imageLoader}
                   className='drop-shadow-2xl'
                 />
               </div>
