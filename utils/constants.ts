@@ -1,4 +1,4 @@
 export const FALLBACK_SEO = {
-  title       : "Strapi Starter Next Blog",
-  description : "Strapi Starter Next Blog",
+  title       : "Ian Febi Sastrataruna",
+  description : "Meet Ian Febi Sastrataruna, a Software Engineer dedicated to creating simple, robust software. Passionate about code clarity and hands-on problem-solving.",
 }
