@@ -6,6 +6,7 @@ import isVideo from '@/utils/is-video'
 import { BannerComponentsBannerStandard } from '@/types/generated/components'
 import imageUrl from '@/utils/imageUrl'
 import Markdown from '../Parsers/Markdown'
+import ButtonGroup from '../Buttons/ButtonsGroup'
 
 interface BannerProps {
   sectionData: BannerComponentsBannerStandard['attributes']
@@ -85,6 +86,9 @@ const BannerStandard: React.FC<BannerProps> = ( { sectionData } ) => {
             <div className="drop-shadow-20-0.5">
               <Markdown content={sectionData.description} />
             </div>
+          )}
+          { sectionData.buttons?.length && (
+            <ButtonGroup buttons={sectionData.buttons}/>
           )}
         </div>
       </div>

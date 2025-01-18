@@ -18,6 +18,9 @@
       },
       "socials": {
         "populate": "*"
+      },
+      "buttons": {
+        "populate": "*"
       }
     }
   }
