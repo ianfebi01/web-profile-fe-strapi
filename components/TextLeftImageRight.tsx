@@ -5,6 +5,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import Markdown from './Parsers/Markdown'
 import imageUrl from '@/utils/imageUrl'
 import { PluginUploadFile } from '@/types/generated/contentTypes'
+import imageLoader from '@/lib/constans/image-loader'
 
 interface Button {
   url: string
@@ -147,6 +148,7 @@ const TextLeftImageRight: React.FC<Props> = ( {
                   loading="lazy"
                   src={imageString}
                   alt="Image Content"
+                  placeholder={imageLoader}
                   className={cn( {
                     'object-cover'              : scaling === 'cover',
                     'object-contain'            : scaling === 'contain',
