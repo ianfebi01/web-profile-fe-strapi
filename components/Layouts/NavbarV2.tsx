@@ -46,7 +46,7 @@ const NavbarV2 = ( { items, socials }: Props ) => {
         variants={{
           hidden : {
             opacity : 0,
-            y       : -25,
+            y       : -64,
           },
           visible : {
             opacity : 1,
@@ -55,7 +55,7 @@ const NavbarV2 = ( { items, socials }: Props ) => {
         }}
         initial="visible"
         animate={isOpen ? undefined : visibilityControl}
-        transition={{ ease : [0.1, 0.25, 0.3, 1], duration : 0.3 }}
+        transition={{ ease : [0.1, 0.25, 0.3, 1], duration : 0.5 }}
         className={cn( 'fixed top-0 w-full h-16 z-30 bg-transparent md:bg-dark' )}
       >
         <div className="inset-x-0 mx-auto max-w-7xl sm:px-4 px-4 md:px-4 xl:px-0 2xl:px-0 h-full hidden md:flex gap-2 items-center">
