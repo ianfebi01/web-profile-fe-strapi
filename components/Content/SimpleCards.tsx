@@ -21,8 +21,8 @@ const SimpleCards: React.FC<Props> = ( { sectionData } ) => {
             key={index}
             className={cn(
               sectionData.cards.length === 2 || sectionData.cards.length === 1
-                ? 'basis-[calc(50%-0.5rem)] lg:basis-[calc(50%-1rem)]'
-                : 'basis-[calc(33.3%-0.75rem)] lg:basis-[calc(33.3%-1.33rem)]'
+                ? 'basis-full md:basis-[calc(50%-0.5rem)] lg:basis-[calc(50%-1rem)]'
+                : 'basis-full md:basis-[calc(33.3%-0.75rem)] lg:basis-[calc(33.3%-1.33rem)]'
             )}
           >
             <AnimationProvider
