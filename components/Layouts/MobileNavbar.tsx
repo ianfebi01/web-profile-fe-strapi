@@ -64,7 +64,7 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
           // leaveTo="opacity-0"
         >
           <Link href={'/'}
-            className='h-16 flex items-center pl-4'
+            className='h-16 flex items-center pl-6'
             onClick={()=> setIsOpen( false )}
           >
             <Image src="/Logo.svg"
