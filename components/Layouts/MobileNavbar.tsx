@@ -50,7 +50,7 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
       >
         <Transition.Child
           className={cn(
-            'h-screen',
+            'h-[100svh]',
             'md:hidden',
             'transition-all duration-300 ease-out delay-500 opacity-0'
           )}
