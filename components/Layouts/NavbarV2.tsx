@@ -12,7 +12,10 @@ import { cn } from '@/lib/utils'
 import MobileNavbar from './MobileNavbar'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArraysSocials, NavCategoriesNavCategories } from '@/types/generated/components'
+import {
+  ArraysSocials,
+  NavCategoriesNavCategories,
+} from '@/types/generated/components'
 import MenuItemSocial from './MenuItemSocial'
 
 interface Props {
@@ -67,21 +70,32 @@ const NavbarV2 = ( { items, socials }: Props ) => {
             />
           </Link>
           <div className="grow"></div>
-          <div className='flex items-center gap-4'>
+          <div className="flex items-center gap-4">
             {items.map( ( item, i ) => (
               <div key={i}>
                 <MenuItem data={item} />
               </div>
             ) )}
-            <MenuItemSocial title='Contact'
+            <MenuItemSocial title="Contact"
               socials={socials}
             />
           </div>
         </div>
-        <div className="absolute top-4 right-4 z-50 md:hidden">
-          <Hamburger open={isOpen}
-            setOpen={setIsOpen}
-          />
+        <div className="flex items-center h-16 flex items-center pl-4">
+          <Link href={'/'}
+            onClick={() => setIsOpen( false )}
+          >
+            <Image src="/Logo.svg"
+              alt="Logo image"
+              width={40}
+              height={40}
+            />
+          </Link>
+          <div className="absolute top-4 right-4 z-50 md:hidden">
+            <Hamburger open={isOpen}
+              setOpen={setIsOpen}
+            />
+          </div>
         </div>
         <MobileNavbar isOpen={isOpen}
           items={items}

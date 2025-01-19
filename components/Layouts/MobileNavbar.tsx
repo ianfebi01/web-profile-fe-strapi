@@ -14,6 +14,8 @@ import AccordionMenu from './AccordionMenu'
 import { NavCategoriesNavCategories } from '@/types/generated/components'
 import ClientPortal from './ClientPortal'
 import Hamburger from '../Icons/Hamburger'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface Props {
   isOpen: boolean
@@ -61,6 +63,16 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
           // leaveFrom="no-doc-scroll bg-black opacity-100"
           // leaveTo="opacity-0"
         >
+          <Link href={'/'}
+            className='h-16 flex items-center pl-4'
+            onClick={()=> setIsOpen( false )}
+          >
+            <Image src="/Logo.svg"
+              alt="Logo image"
+              width={40}
+              height={40}
+            />
+          </Link>
           <div className="absolute top-4 right-4 z-50 md:hidden">
             <Hamburger open={isOpen}
               setOpen={setIsOpen}
