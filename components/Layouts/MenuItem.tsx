@@ -1,5 +1,5 @@
-'use client';
-import { cn } from '@/lib/utils';
+'use client'
+import { cn } from '@/lib/utils'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Popover, Transition } from '@headlessui/react'
@@ -37,14 +37,16 @@ export default function MenuItem( { data }: Props ) {
                   !data?.categoryName && !data.navItem && 'cursor-default'
                 )}
               >
-                {!!data?.categoryName && data.navItem && (
+                {!!data?.categoryName && data.navItem ? (
                   <Link
                     href={constructNavUrl( data.navItem )}
                     className="no-underline"
                   >
                     {data.categoryName}
                   </Link>
-                )}
+                ) : !!data?.categoryName ? (
+                  data?.categoryName
+                ) : null}
 
                 <div
                   className={cn(
@@ -69,22 +71,36 @@ export default function MenuItem( { data }: Props ) {
                   className="absolute right-0 z-10 pt-3 w-screen max-w-xs px-4 sm:px-0"
                 >
                   <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-                    <div className="relative grid gap-8 bg-dark-secondary p-4">
+                    <div className="relative grid bg-dark-secondary p-4">
                       {data.navItems.map(
                         ( item: NavItemsNavItems['attributes'], i: number ) => (
-                          <Link
+                          <div
                             key={i}
-                            href="/tesyeet#huha"
-                            className="no-underline w-full"
-                            target={item.newTab ? '_blank' : undefined}
-                            rel={
-                              item.newTab ? 'noopener noreferrer' : undefined
-                            }
+                            className={cn(
+                              i !== data.navItems?.length - 1 &&
+                                'border-b border-dark mb-2 pb-2'
+                            )}
                           >
-                            <button className="flex items-center rounded-lg p-2 min-h-20 transition duration-150 ease-in-out hover:bg-dark focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 w-full text-sm font-medium">
-                              {data.categoryName}
-                            </button>
-                          </Link>
+                            <Link
+                              href={constructNavUrl( item )}
+                              className="no-underline w-full"
+                              target={item.newTab ? '_blank' : undefined}
+                              rel={
+                                item.newTab ? 'noopener noreferrer' : undefined
+                              }
+                            >
+                              <button
+                                className={cn(
+                                  'flex items-center rounded-lg p-2 min-h-20   w-full',
+                                  ' text-sm xl:text-base font-medium text-left ',
+                                  'transition duration-150 ease-in-out',
+                                  'hover:bg-dark focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 hover:shadow-xl',
+                                )}
+                              >
+                                {item?.name}
+                              </button>
+                            </Link>
+                          </div>
                         )
                       )}
                     </div>

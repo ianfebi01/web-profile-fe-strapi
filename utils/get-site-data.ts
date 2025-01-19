@@ -22,7 +22,14 @@ export async function getSiteData( lang: string ) {
         populate : '*'
       },
       mainNavMenu : {
-        populate : '*'
+        populate : {
+          navItems : {
+            populate : '*'
+          },
+          navItem : {
+            populate : '*'
+          }
+        }
       },
       footerNavMenu : {
         populate : '*'
