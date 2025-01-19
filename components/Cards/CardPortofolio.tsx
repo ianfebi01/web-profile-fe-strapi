@@ -46,6 +46,7 @@ const CardPortofolio: FunctionComponent<Props> = ( props ) => {
     transitionIn = false,
     transitionHover = false,
     link = false,
+    index
   } = props
 
   const router = useRouter()
@@ -130,6 +131,7 @@ const CardPortofolio: FunctionComponent<Props> = ( props ) => {
             color === 'bg-white' && 'text-dark'
           )}
           once={once}
+          delay={0.2 + ( index * 0.1 )}
         >
           {/* @ NOTE Text */}
           <div
