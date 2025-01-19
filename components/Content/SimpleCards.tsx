@@ -33,14 +33,14 @@ const SimpleCards: React.FC<Props> = ( { sectionData } ) => {
               delay={0.2 + ( index * 0.1 )}
             >
               <header>
-                <h3
+                <h2
                   className={cn(
                     'font-extra-bold',
                     item.bigTitleSize ? 'h2' : 'h3'
                   )}
                 >
                   {item.title}
-                </h3>
+                </h2>
               </header>
               <p>{item.description}</p>
             </AnimationProvider>
