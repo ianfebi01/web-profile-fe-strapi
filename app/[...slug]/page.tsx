@@ -3,6 +3,7 @@ import { getPageBySlug } from '@/utils/get-page-by-slug'
 import { FALLBACK_SEO } from '@/utils/constants'
 import imageUrl from '@/utils/imageUrl'
 import HeroesAndSections from '@/components/Parsers/HeroesAndSections'
+import { notFound } from 'next/navigation'
 
 type Props = {
   params: {
@@ -14,7 +15,7 @@ type Props = {
 export async function generateMetadata( { params }: Props ): Promise<Metadata> {
   const page = await getPageBySlug( params.slug, params.lang )
 
-  const metadata = page.data[0].attributes.seo
+  const metadata = page.data[0]?.attributes?.seo
 
   // Extract social metadata
   const socialMeta = metadata?.metaSocial?.length
@@ -59,7 +60,7 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
 
 export default async function PageRoute( { params }: Props ) {
   const page = await getPageBySlug( params.slug || 'home', params.lang )
-  if ( page.data?.length === 0 ) return null
+  if ( page.data?.length === 0 ) return notFound()
 
   return <HeroesAndSections page={page.data[0]?.attributes} />
 }
