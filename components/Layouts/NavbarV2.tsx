@@ -83,7 +83,10 @@ const NavbarV2 = ( { items, socials }: Props ) => {
             setOpen={setIsOpen}
           />
         </div>
-        <MobileNavbar isOpen={isOpen} />
+        <MobileNavbar isOpen={isOpen}
+          items={items}
+          setIsOpen={setIsOpen}
+        />
       </motion.nav>
     </>
   )
