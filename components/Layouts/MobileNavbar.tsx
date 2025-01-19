@@ -52,9 +52,9 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
       >
         <Transition.Child
           className={cn(
-            'h-[100svh]',
+            'h-[100dvh]',
             'md:hidden',
-            'transition-all duration-300 ease-out delay-500 opacity-0'
+            'transition-all duration-300 ease-out delay-500 opacity-0 flex flex-col'
           )}
           // enter="transition-all duration-300 ease-out delay-500"
           // enterFrom="opacity-0"
@@ -78,7 +78,7 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
               setOpen={setIsOpen}
             />
           </div>
-          <div className="flex flex-col h-full p-6 justify-center items-center font-bold text-xl text-white">
+          <div className="flex flex-col grow p-6 justify-center items-center font-bold text-xl text-white">
             <AccordionMenu
               menus={items}
               mobileMenuOpen={isOpen}
