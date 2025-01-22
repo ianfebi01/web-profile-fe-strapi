@@ -81,7 +81,7 @@ const NavbarV2 = ( { items, socials }: Props ) => {
             />
           </div>
         </div>
-        <div className="h-16 flex items-center pl-6">
+        <div className="h-16 flex items-center pl-6 md:hidden">
           <Link href={'/'}
             onClick={() => setIsOpen( false )}
           >
