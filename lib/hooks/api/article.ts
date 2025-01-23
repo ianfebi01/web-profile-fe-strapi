@@ -1,6 +1,7 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query'
 import { fetchAPI } from '@/utils/fetch-api'
 import { ApiArticleArticle } from '@/types/generated/contentTypes'
+import { notFound } from 'next/navigation'
 /**
  *  Get Detail
  */
@@ -25,7 +26,7 @@ export const useGetDetail = (
         urlParamsObject
       ).then( ( response ) => response.json() )
       
-      if ( res.data?.length === 0 ) return null
+      if ( res.data?.length === 0 ) return notFound()
       else
         return res.data[0]
     },

@@ -1,5 +1,6 @@
 import { ApiArticleArticle } from '@/types/generated/contentTypes'
 import { fetchAPI } from '@/utils/fetch-api'
+import { notFound } from 'next/navigation'
 
 export const getDetail = async (
   slug: string | number
@@ -21,7 +22,7 @@ export const getDetail = async (
   const res = await fetchAPI( `/articles`, urlParamsObject ).then( ( res ) =>
     res.json()
   )
-  if ( res.data?.length === 0 ) return null
+  if ( res.data?.length === 0 ) return notFound()
   else {
     return res.data[0]
   }
