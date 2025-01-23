@@ -48,6 +48,9 @@ const config: Config = {
           '"Segoe UI Emoji"',
           '"Segoe UI Symbol"',
         ],
+        code : [
+          '"Source Code Pro"'
+        ]
       },
     },
   },

@@ -9,6 +9,7 @@ type AllowedTypes =
   | 'cell'
   | 'svgtext'
   | 'table'
+  | 'code'
 
 const sanitize = (
   text: string | Promise<string>,
@@ -23,6 +24,7 @@ const sanitize = (
     'cell',
     'svgtext',
     'table',
+    'code'
   ]
 
   if ( type && !allowedTypes.includes( type ) ) {
@@ -53,6 +55,7 @@ const sanitize = (
     'br',
     'wbr',
     'center',
+    'code'
   ]
   const formattingAttrs = ['href', 'rel', 'target', 'title', 'class']
 
