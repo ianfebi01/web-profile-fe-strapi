@@ -7,6 +7,8 @@ import CustomInfiniteHits from '../CustomInfiniteHits'
 import ArticleCard from '../Cards/ArticleCard'
 import NoDataFound from '../NoDataFound'
 import { NoResultsBoundary } from '../NoResutsBoundary'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 const ArticleSearch = () => {
   const { meilisearch } = {
@@ -41,15 +43,18 @@ const ArticleSearch = () => {
           <SearchBox
             queryHook={queryHook}
             placeholder="Search"
-            searchAsYouType={true}
+            submitIconComponent={() => (
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            )}
+            resetIconComponent={() => <FontAwesomeIcon icon={faXmark} />}
             classNames={{
               form : 'relative flex items-center justify-center relative overflow-visible text-white p-2 group border rounded-lg bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none  transition-default focus-within:border-white/50 border-white/25 md:max-w-xs w-full flex items-center gap-2',
               input :
-                'w-full bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none text-base',
-              submit : 'absolute right-4',
-              submitIcon :
-                'w-4 h-4 fill-current group-focus:text-white/50 text-white/25',
-              reset : 'absolute right-4 group-focus:text-white/50 text-white/25',
+                'w-full bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none text-base pr-8',
+              submit     : 'group-focus:text-white/50 text-white/25',
+              submitIcon : 'w-4 h-4',
+              reset      : 'group-focus:text-white/50 text-white/25',
+              resetIcon  : 'w-4 h-4',
             }}
           ></SearchBox>
         </div>
