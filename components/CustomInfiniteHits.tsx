@@ -4,14 +4,19 @@ import { useInfiniteHits, UseInfiniteHitsProps } from 'react-instantsearch'
 
 interface Props extends UseInfiniteHitsProps {
   component: FunctionComponent<any>
+  wrapperClass?: string
 }
 
-export default function CustomInfiniteHits( { component, ...props }: Props ) {
+export default function CustomInfiniteHits( {
+  component,
+  wrapperClass = 'list-none ml-0 grid grid-cols-1 md:grid-cols-2 gap-4',
+  ...props
+}: Props ) {
   const { items, sendEvent, showMore, isLastPage } = useInfiniteHits( props )
 
   return (
     <div className="flex flex-col gap-8 ">
-      <ul className="list-none ml-0 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ul className={wrapperClass}>
         {items.map( ( hit, index ) => (
           <li
             key={index}
