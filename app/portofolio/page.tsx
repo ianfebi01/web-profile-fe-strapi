@@ -31,7 +31,7 @@ export default function PortofolioPage() {
       <section id="portofolio"
         className="main__section h-fit bg-dark"
       >
-        <div className="main__container mt-20 sm:mt-20 flex flex-col gap-4">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 mt-20 sm:mt-20 flex flex-col gap-4">
           <Header text="Portofolio"
             link={'/'}
           />
