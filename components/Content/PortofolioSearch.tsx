@@ -7,7 +7,7 @@ import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import CustomInfiniteHits from '../CustomInfiniteHits'
 import CardPortofolio from '../Cards/CardPortofolio'
 
-const Portofolios = () => {
+const PortofolioSearch = () => {
 
   const { meilisearch } = {
     meilisearch : {
@@ -49,7 +49,7 @@ const Portofolios = () => {
   )
 }
 
-export default Portofolios
+export default PortofolioSearch
 
 const Hit = ( {
   hit,

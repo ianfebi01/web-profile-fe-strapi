@@ -1,5 +1,5 @@
+import PortofolioSearch from '@/components/Content/PortofolioSearch'
 import Header from '@/components/Layouts/Header'
-import Portofolios from '@/components/Portofolios'
 
 export async function generateMetadata() {
   const title = 'Portofolio | Ian Febi Sastrataruna'
@@ -27,16 +27,15 @@ export async function generateMetadata() {
 
 export default function PortofolioPage() {
   return (
-    <main className="main">
+    <main>
       <section id="portofolio"
-        className="main__section h-fit bg-dark"
+        className="h-fit bg-dark"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 mt-20 sm:mt-20 flex flex-col gap-4">
           <Header text="Portofolio"
             link={'/'}
           />
-
-          <Portofolios />
+          <PortofolioSearch />
         </div>
       </section>
     </main>
