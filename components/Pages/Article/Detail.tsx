@@ -39,7 +39,7 @@ const Detail = ( { slug }: Props ) => {
       ) : (
         <div className="main__container mt-20 sm:mt-20 mb-8 flex flex-col gap-4">
           <Header text={'Back'}
-            link={'/articles'}
+            link={'/article'}
           />
           <div className="max-w-3xl w-full mx-auto flex flex-col gap-4">
             <h1 className='mb-4 mt-0'>{data?.attributes.title}</h1>

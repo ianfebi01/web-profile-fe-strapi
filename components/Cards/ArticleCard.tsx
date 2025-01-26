@@ -56,7 +56,7 @@ const ArticleCard: React.FC<Props> = ( { data } ) => {
         </div>
         <div className="grow"></div>
         <Link
-          href={`/articles/${data.slug}`}
+          href={`/article/${data.slug}`}
           className={cn( 'button button-primary' )}
           aria-label={`Read more ${data.title} article`}
         >
