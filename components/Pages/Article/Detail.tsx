@@ -1,5 +1,4 @@
 'use client'
-import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import imageUrl from '@/utils/imageUrl'
 import Markdown from '@/components/Parsers/Markdown'
@@ -14,21 +13,6 @@ interface Props {
 }
 const Detail = ( { slug }: Props ) => {
   const { data, isFetching } = useGetDetail( slug )
-  const [isMobile, setIsMobile] = useState( false )
-
-  useEffect( () => {
-    // Check if mobile or not
-    const mediaQuery = window.matchMedia( '(max-width: 768px)' )
-    setIsMobile( mediaQuery.matches )
-
-    mediaQuery.addEventListener( 'change', () => setIsMobile( mediaQuery.matches ) )
-
-    return () => {
-      mediaQuery.removeEventListener( 'change', () =>
-        setIsMobile( mediaQuery.matches )
-      )
-    }
-  }, [] )
 
   return (
     <section id="portofolio"
@@ -42,23 +26,38 @@ const Detail = ( { slug }: Props ) => {
             link={'/article'}
           />
           <div className="max-w-3xl w-full mx-auto flex flex-col gap-4">
-            <h1 className='mb-4 mt-0'>{data?.attributes.title}</h1>
+            <h1 className="mb-4 mt-0">{data?.attributes.title}</h1>
 
             <div className="relative aspect-video w-full">
               {!!data?.attributes?.featureImage?.data && (
-                <Image
-                  className=" h-full object-cover object-center w-full"
-                  src={
-                    imageUrl(
-                      data?.attributes?.featureImage?.data,
-                      isMobile ? 'small' : 'xlarge'
-                    ) || ''
-                  }
-                  fill
-                  alt={`${data?.attributes?.title} Image`}
-                  loading="lazy"
-                  placeholder={imageLoader}
-                />
+                <>
+                  <Image
+                    className="h-full object-cover object-center w-full hidden md:block"
+                    src={
+                      imageUrl(
+                        data?.attributes?.featureImage?.data,
+                        'xlarge'
+                      ) || ''
+                    }
+                    fill
+                    alt={`${data?.attributes?.title} Image`}
+                    loading="lazy"
+                    placeholder={imageLoader}
+                  />
+                  <Image
+                    className="h-full object-cover object-center w-full md:hidden"
+                    src={
+                      imageUrl(
+                        data?.attributes?.featureImage?.data,
+                        'small'
+                      ) || ''
+                    }
+                    fill
+                    alt={`${data?.attributes?.title} Image`}
+                    loading="lazy"
+                    placeholder={imageLoader}
+                  />
+                </>
               )}
             </div>
 
