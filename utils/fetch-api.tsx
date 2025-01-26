@@ -8,6 +8,7 @@ export async function fetchAPI(
 ) {
   try {
     const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN
+    const nodeEnv = process.env.NODE_ENV
     // Merge default and user options
     const mergedOptions = {
       next    : { revalidate : 60 },
@@ -19,7 +20,7 @@ export async function fetchAPI(
     };
 
     // Build request URL
-    const queryString = qs.stringify( urlParamsObject );
+    const queryString = qs.stringify( { ...urlParamsObject, publicationState : nodeEnv === 'production' ? "live" : "preview", } );
     const requestUrl = `${getStrapiURL(
       `/api${path}${queryString ? `?${queryString}` : ""}`
     )}`;
