@@ -1,7 +1,6 @@
-'use client'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import React, { useState, useEffect, useMemo } from 'react'
+import React from 'react';
 import Markdown from './Parsers/Markdown'
 import imageUrl from '@/utils/imageUrl'
 import { PluginUploadFile } from '@/types/generated/contentTypes'
@@ -40,24 +39,6 @@ const TextLeftImageRight: React.FC<Props> = ( {
   buttonsVariation,
   scaling,
 } ) => {
-  const [isMobile, setIsMobile] = useState<boolean>( false )
-
-  useEffect( () => {
-    const mediaQuery = window.matchMedia( '(max-width: 768px)' )
-    setIsMobile( mediaQuery.matches )
-    const handleMediaQueryChange = ( event: MediaQueryListEvent ) => {
-      setIsMobile( event.matches )
-    }
-    mediaQuery.addEventListener( 'change', handleMediaQueryChange )
-
-    return () => {
-      mediaQuery.removeEventListener( 'change', handleMediaQueryChange )
-    }
-  }, [] )
-
-  const imageString = useMemo( () => {
-    return imageUrl( image.data, isMobile ? 'small' : 'xlarge' ) || ''
-  }, [isMobile, image.data] )
 
   return (
     <div className="relative overflow-x-clip">
@@ -146,15 +127,29 @@ const TextLeftImageRight: React.FC<Props> = ( {
               <div className="aspect-square md:aspect-video lg:aspect-[1/0.7] lg:h-full lg:w-full overflow-hidden relative z-[1]">
                 <Image
                   loading="lazy"
-                  src={imageString}
+                  src={imageUrl( image.data, 'small' ) || ''}
                   alt="Image Content"
                   placeholder={imageLoader}
                   className={cn( {
-                    'object-cover'              : scaling === 'cover',
-                    'object-contain'            : scaling === 'contain',
-                    'object-right'              : !reverse && scaling === 'contain',
-                    'object-left'               : reverse && scaling === 'contain',
-                    'aspect-auto h-full w-full' : true,
+                    'object-cover'                        : scaling === 'cover',
+                    'object-contain'                      : scaling === 'contain',
+                    'object-right'                        : !reverse && scaling === 'contain',
+                    'object-left'                         : reverse && scaling === 'contain',
+                    'aspect-auto h-full w-full md:hidden' : true,
+                  } )}
+                  fill
+                />
+                <Image
+                  loading="lazy"
+                  src={imageUrl( image.data, 'xlarge' ) || ''}
+                  alt="Image Content"
+                  placeholder={imageLoader}
+                  className={cn( {
+                    'object-cover'                             : scaling === 'cover',
+                    'object-contain'                           : scaling === 'contain',
+                    'object-right'                             : !reverse && scaling === 'contain',
+                    'object-left'                              : reverse && scaling === 'contain',
+                    'aspect-auto h-full w-ful hidden md:block' : true,
                   } )}
                   fill
                 />
