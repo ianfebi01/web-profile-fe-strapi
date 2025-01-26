@@ -10,23 +10,23 @@ import { NoResultsBoundary } from '../NoResutsBoundary'
 
 const ArticleSearch = () => {
   const { meilisearch } = {
-    meilisearch: {
-      url: process.env.NEXT_PUBLIC_SEARCH_URL || '',
-      key: 'f598c7625ca63ad729f64c8a64501dffbc49235d66a879c77a7638a660407676',
+    meilisearch : {
+      url : process.env.NEXT_PUBLIC_SEARCH_URL || '',
+      key : 'f598c7625ca63ad729f64c8a64501dffbc49235d66a879c77a7638a660407676',
     },
   }
 
-  const { searchClient } = instantMeiliSearch(meilisearch.url, meilisearch.key)
+  const { searchClient } = instantMeiliSearch( meilisearch.url, meilisearch.key )
 
   let timerId: any = undefined
   const timeout = 500
 
-  function queryHook(query: string, search: any) {
-    if (timerId) {
-      clearTimeout(timerId)
+  function queryHook( query: string, search: any ) {
+    if ( timerId ) {
+      clearTimeout( timerId )
     }
 
-    timerId = setTimeout(() => search(query), timeout)
+    timerId = setTimeout( () => search( query ), timeout )
   }
 
   return (
@@ -39,16 +39,17 @@ const ArticleSearch = () => {
         <Configure hitsPerPage={9} />
         <div className="flex gap-4 justify-between">
           <SearchBox
+            queryHook={queryHook}
             placeholder="Search"
             searchAsYouType={true}
             classNames={{
-              form: 'relative flex items-center justify-center relative overflow-visible text-white p-2 group border rounded-lg bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none  transition-default focus-within:border-white/50 border-white/25 md:max-w-xs w-full flex items-center gap-2',
-              input:
+              form : 'relative flex items-center justify-center relative overflow-visible text-white p-2 group border rounded-lg bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none  transition-default focus-within:border-white/50 border-white/25 md:max-w-xs w-full flex items-center gap-2',
+              input :
                 'w-full bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none text-base',
-              submit: 'absolute right-4',
-              submitIcon:
+              submit : 'absolute right-4',
+              submitIcon :
                 'w-4 h-4 fill-current group-focus:text-white/50 text-white/25',
-              reset: 'absolute right-4 group-focus:text-white/50 text-white/25',
+              reset : 'absolute right-4 group-focus:text-white/50 text-white/25',
             }}
           ></SearchBox>
         </div>
@@ -67,11 +68,11 @@ const ArticleSearch = () => {
 
 export default ArticleSearch
 
-const Hit = ({
+const Hit = ( {
   hit,
 }: {
   hit: ApiArticleArticle['attributes'] & { id: string }
-}) => (
+} ) => (
   <>
     <ArticleCard data={hit} />
   </>

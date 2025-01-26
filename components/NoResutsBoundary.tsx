@@ -6,15 +6,15 @@ interface NoResultsBoundaryProps {
   fallback: ReactNode
 }
 
-export function NoResultsBoundary({
+export function NoResultsBoundary( {
   children,
   fallback,
-}: NoResultsBoundaryProps) {
+}: NoResultsBoundaryProps ) {
   const { results } = useInstantSearch()
 
   // The `__isArtificial` flag ensures not to display the No Results message
   // when no hits have been returned artificially.
-  if (!results.__isArtificial && results.nbHits === 0) {
+  if ( !results.__isArtificial && results.nbHits === 0 ) {
     return (
       <>
         {fallback}
