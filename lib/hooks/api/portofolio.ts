@@ -13,7 +13,7 @@ export const useGetDetail = (
     populate : {
       featureImage : { populate : '*' },
       skills       : { populate : '*' },
-      galery       : { populate : '*' },
+      gallery      : { populate : '*' },
       seo          : { populate : '*' },
     },
   }

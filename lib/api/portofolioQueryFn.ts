@@ -9,7 +9,7 @@ export const getDetail = async (
     populate : {
       featureImage : { populate : '*' },
       skills       : { populate : '*' },
-      galery       : { populate : '*' },
+      gallery      : { populate : '*' },
       seo          : { populate : '*' },
     },
     pagination : {
@@ -30,7 +30,7 @@ export const getAllPortfolioSlugs = async (): Promise<
     populate : {
       featureImage : { populate : '*' },
       skills       : { populate : '*' },
-      galery       : { populate : '*' },
+      gallery      : { populate : '*' },
       seo          : { populate : '*' },
     },
   }

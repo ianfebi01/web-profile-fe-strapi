@@ -1,4 +1,3 @@
-// <===== REQUIRED
 'use client';;
 import React from 'react'
 
@@ -8,7 +7,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { ArraysImageGalery } from '@/types/generated/components'
 import imageUrl from '@/utils/imageUrl'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,9 +18,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import Markdown from '../Parsers/Markdown';
 import imageLoader from '@/lib/constans/image-loader';
+import { PluginUploadFile } from '@/types/generated/contentTypes';
 
 interface Props {
-  data: ArraysImageGalery['attributes'][]
+  data: PluginUploadFile[]
 }
 
 const GaleryCarousel: React.FC<Props> = ( { data } ) => {
@@ -52,13 +51,13 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
         threshold={1}
         modules={[Autoplay, Navigation, Pagination]}
       >
-        {data.map( ( { caption, media }, index: number ) => (
+        {data.map( ( item, index: number ) => (
           <SwiperSlide key={index}>
             <div className="h-full flex flex-col">
               <div className="relative aspect-video  overflow-hidden mb-8 bg-white">
                 <Image
                   alt={`Image ${index}`}
-                  src={imageUrl( media.data, 'original' ) || ''}
+                  src={imageUrl( item, 'original' ) || ''}
                   fill
                   style={{
                     objectFit : 'contain',
@@ -69,9 +68,9 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
                   className='drop-shadow-2xl'
                 />
               </div>
-              {!!caption && (
+              {!!item?.attributes?.caption && (
                 <div className="grow flex text-center w-full mx-auto max-w-3xl">
-                  <Markdown content={caption} />
+                  <Markdown content={item?.attributes?.caption} />
                 </div>
               )}
             </div>
@@ -92,11 +91,11 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
       </div>
       <div className="aspect-video absolute w-full top-0">
         <div className="flex flex-row gap-2 items-center justify-center h-[44px] mx-auto inset-x-0 z-30 absolute top-full">
-          <button className="btn-prev size-6 text-white/90 xl:hidden">
+          <button className="btn-prev size-6 text-white/90 min-[1156px]:hidden">
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
           <div className="paginationEL leading-none !translate-x-0"></div>
-          <button className="btn-next size-6 text-white/90 xl:hidden">
+          <button className="btn-next size-6 text-white/90 min-[1156px]:hidden">
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>

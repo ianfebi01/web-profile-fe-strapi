@@ -11,14 +11,14 @@ const nextConfig = {
     // Will only be available on the server side
     baseUrl : process.env.BASE_URL, // Pass through env variables
   },
-  async rewrites() {
-    return [
-      {
-        source      : '/api-web/:path*',
-        destination : `${process.env.BASE_URL}/:path*`,
-      },
-    ]
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source      : '/api-web/:path*',
+  //       destination : `${process.env.BASE_URL}/:path*`,
+  //     },
+  //   ]
+  // },
   images : {
     remotePatterns : [
       {

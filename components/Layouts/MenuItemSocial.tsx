@@ -16,7 +16,7 @@ interface Props {
 export default function MenuItemSocial( { title, socials }: Props ) {
   const [show, setShow] = useState<boolean>( false )
 
-  const email = useMemo( ()=>socials.find( ( item ) => item.platform === 'Email' ), [socials] )
+  const email = useMemo( ()=>socials?.find( ( item ) => item.platform === 'Email' ), [socials] )
 
   return (
     <div className="relative">

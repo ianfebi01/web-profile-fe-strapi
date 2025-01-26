@@ -71,7 +71,7 @@ const NavbarV2 = ( { items, socials }: Props ) => {
           </Link>
           <div className="grow"></div>
           <div className="flex items-center gap-4">
-            {items.map( ( item, i ) => (
+            {items?.map( ( item, i ) => (
               <div key={i}>
                 <MenuItem data={item} />
               </div>

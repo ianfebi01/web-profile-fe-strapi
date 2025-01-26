@@ -45,6 +45,9 @@
       },
       "icons": {
         "populate": "*"
+      },
+      "gallery": {
+        "populate": "*"
       }
     }
   }
