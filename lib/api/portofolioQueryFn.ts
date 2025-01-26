@@ -18,9 +18,7 @@ export const getDetail = async (
     },
   }
 
-  const res = await fetchAPI( `/portofolios`, urlParamsObject ).then( ( res ) =>
-    res.json()
-  )
+  const res = await fetchAPI( `/portofolios`, urlParamsObject )
   if ( res.data?.length === 0 ) return null
   else return res.data[0]
 }
@@ -37,9 +35,8 @@ export const getAllPortfolioSlugs = async (): Promise<
     },
   }
 
-  const res = await fetchAPI( `/portofolios`, urlParamsObject ).then( ( res ) =>
-    res.json()
-  )
+  const res = await fetchAPI( `/portofolios`, urlParamsObject )
+
   if ( res.data?.length === 0 ) return null
   else return res.data
 }

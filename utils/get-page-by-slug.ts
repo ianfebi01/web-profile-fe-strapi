@@ -1,4 +1,4 @@
-import { fetchAPI } from './fetsh-api'
+import { fetchAPI } from './fetch-api'
 import bannerQueries from '@/assets/queries/heroes.json'
 import sectionsQuery from '@/assets/queries/sections.json'
 

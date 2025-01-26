@@ -24,7 +24,7 @@ export const useGetDetail = (
       const res = await fetchAPI(
         `/portofolios`,
         urlParamsObject
-      ).then( ( response ) => response.json() )
+      )
       
       if ( res.data?.length === 0 ) return null
       else

@@ -1,4 +1,4 @@
-import { fetchAPI } from '@/utils/fetsh-api';
+import { fetchAPI } from '@/utils/fetch-api';
 import { FunctionComponent } from 'react';
 import Experience from '../Experience';
 

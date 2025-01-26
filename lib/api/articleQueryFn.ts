@@ -19,9 +19,7 @@ export const getDetail = async (
     },
   }
 
-  const res = await fetchAPI( `/articles`, urlParamsObject ).then( ( res ) =>
-    res.json()
-  )
+  const res = await fetchAPI( `/articles`, urlParamsObject )
   if ( res.data?.length === 0 ) return notFound()
   else {
     return res.data[0]
@@ -40,9 +38,7 @@ export const getAllArticleSlugs = async (): Promise<
     },
   }
 
-  const res = await fetchAPI( `/articles`, urlParamsObject ).then( ( res ) =>
-    res.json()
-  )
+  const res = await fetchAPI( `/articles`, urlParamsObject )
   if ( res.data?.length === 0 ) return null
   else return res.data
 }

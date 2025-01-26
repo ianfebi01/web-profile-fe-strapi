@@ -24,7 +24,7 @@ export const useGetDetail = (
       const res = await fetchAPI(
         `/articles`,
         urlParamsObject
-      ).then( ( response ) => response.json() )
+      )
       
       if ( res.data?.length === 0 ) return notFound()
       else

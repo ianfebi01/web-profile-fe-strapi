@@ -1,4 +1,4 @@
-import { fetchAPI } from './fetsh-api'
+import { fetchAPI } from './fetch-api'
 
 export async function getSiteData( lang: string ) {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN

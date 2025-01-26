@@ -1,4 +1,4 @@
-import { fetchAPI } from '@/utils/fetsh-api'
+import { fetchAPI } from '@/utils/fetch-api'
 import React from 'react'
 import CardPortofolio from '../Cards/CardPortofolio'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
