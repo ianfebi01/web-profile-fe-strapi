@@ -1,4 +1,4 @@
-import Detail from '@/components/Pages/Home/Portofolio/Detail'
+import Detail from '@/components/Pages/Portofolio/Detail'
 import { getAllPortfolioSlugs, getDetail } from '@/lib/api/portofolioQueryFn'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import imageUrl from '@/utils/imageUrl'

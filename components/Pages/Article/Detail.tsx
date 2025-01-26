@@ -5,7 +5,7 @@ import imageUrl from '@/utils/imageUrl'
 import Markdown from '@/components/Parsers/Markdown'
 import { useGetDetail } from '@/lib/hooks/api/article'
 import imageLoader from '@/lib/constans/image-loader'
-import SkeletonDetail from '../Home/Portofolio/SkeletonDetail'
+import SkeletonDetail from '../Portofolio/SkeletonDetail'
 import Header from '@/components/Layouts/Header'
 import Chip from '@/components/Chip'
 
