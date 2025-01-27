@@ -25,7 +25,7 @@ const ArticleCard: React.FC<Props> = ( { data } ) => {
     <article
       className={cn(
         'bg-dark-secondary text-white flex flex-col gap-4 w-[calc(100%-0.5rem)] relative rounded-lg overflow-hidden',
-        'h-full sm:h-auto sm:basis-[calc(50%-1.5rem)] lg:basis-[calc(33.3%-1.5rem)]'
+        'h-full sm:basis-[calc(50%-1.5rem)] lg:basis-[calc(33.3%-1.5rem)]'
       )}
     >
       <div
