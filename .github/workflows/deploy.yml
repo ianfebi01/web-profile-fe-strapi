@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug SSH Connection
+        run: |
+          echo "${{ secrets.VPS_SSH_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -vvv -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "echo 'SSH Authentication Success'"
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
