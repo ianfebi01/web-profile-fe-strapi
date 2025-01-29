@@ -1,7 +1,8 @@
 import { $fetch } from 'ohmyfetch'
 
-const { NEXT_PUBLIC_STRAPI_API_URL } = process.env
-const BASE_URL = `${NEXT_PUBLIC_STRAPI_API_URL}/api`
+// const { NEXT_PUBLIC_STRAPI_API_URL } = process.env
+// const BASE_URL = `${NEXT_PUBLIC_STRAPI_API_URL}/api`
+const BASE_URL = `https://content.ianfebisastrataruna.my.id/api`
 
 export let locales = [
   {
@@ -68,5 +69,9 @@ export const contentTypes = [
   {
     apiPath  : 'articles',
     sitePath : 'article',
+  },
+  {
+    apiPath  : 'portofolios',
+    sitePath : 'portofolio',
   },
 ]

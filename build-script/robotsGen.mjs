@@ -1,9 +1,9 @@
 import fs from 'fs'
 
-let siteDomain = 'https://www.ianfebisastrataruna.my.id'
+let siteDomain = 'www.ianfebisastrataruna.my.id'
 
 // if env BRANCH_TYPE is "prod" create a permissive robots.txt that references sitemap.xml
-if ( process.env.NODE_ENV === 'production' ) {
+if ( process.env.BRANCH_TYPE === "prod" ) {
   const robots = `User-agent: *
 Disallow:
 Sitemap: https://${siteDomain}/sitemap.xml
