@@ -37,3 +37,6 @@ next-env.d.ts
 
 # ENV
 .env.local
+
+# Build script
+/build-script/node_modules
