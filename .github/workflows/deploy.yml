@@ -46,6 +46,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "web-profile-fe.tar"
           target: "~/tmp"
+          debug: true
 
   deploy:
     needs: build
