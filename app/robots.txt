@@ -2,4 +2,4 @@ User-Agent: *
 Allow: /
 Disallow: 
 
-Sitemap: https://ianfebisastrataruna.my.id/sitemap.xml
+Sitemap: https://www.ianfebisastrataruna.my.id/sitemap.xml
