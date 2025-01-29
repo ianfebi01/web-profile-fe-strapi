@@ -75,7 +75,7 @@ jobs:
             docker load -i /tmp/web-profile-fe.tar && \
             rm /tmp/web-profile-fe.tar && \
             # Navigate to the app folder
-            cd /path/to/your/project && \
+            cd app/web-profile-fe && \
             # Stop any existing containers (if needed) and restart with Docker Compose
             docker-compose down && \
             docker-compose up -d && \
