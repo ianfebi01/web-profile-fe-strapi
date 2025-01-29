@@ -9,7 +9,7 @@ services:
     networks:
       - app
     env_file:
-      - .env.local
+      - .env
 networks:
   app:
     driver: bridge

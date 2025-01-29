@@ -10,8 +10,9 @@ FROM node:${VERSION} as builder
 ARG DIR 
 WORKDIR /${DIR}
 COPY . .
-RUN yarn install
-RUN yarn build
+RUN npm install -g pnpm
+RUN pnpm install
+RUN pnpm build
 
 FROM node:${VERSION} as runner
 # redeclare ARG because ARG not in build environment
