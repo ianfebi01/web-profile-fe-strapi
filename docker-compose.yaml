@@ -8,8 +8,12 @@ services:
       - 3000:3000
     networks:
       - app
-    env_file:
-      - .env
+    environment:
+      - NEXT_PUBLIC_STRAPI_API_URL=${NEXT_PUBLIC_STRAPI_API_URL}
+      - NEXT_PUBLIC_GOOGLE_ANALYTICS=${NEXT_PUBLIC_GOOGLE_ANALYTICS}
+      - NEXT_PUBLIC_STRAPI_API_TOKEN=${NEXT_PUBLIC_STRAPI_API_TOKEN}
+      - NEXT_PUBLIC_SEARCH_URL=${NEXT_PUBLIC_SEARCH_URL}
+      - NEXT_PUBLIC_SEARCH_KEY=${NEXT_PUBLIC_SEARCH_KEY}
 networks:
   app:
     driver: bridge

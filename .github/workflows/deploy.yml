@@ -13,18 +13,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build Docker image with env variables
-        run: |
-          docker build \
-            --build-arg NEXT_PUBLIC_STRAPI_API_URL=${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }} \
-            --build-arg NEXT_PUBLIC_GOOGLE_ANALYTICS=${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS }} \
-            --build-arg NEXT_PUBLIC_STRAPI_API_TOKEN=${{ secrets.NEXT_PUBLIC_STRAPI_API_TOKEN }} \
-            --build-arg NEXT_PUBLIC_SEARCH_URL=${{ secrets.NEXT_PUBLIC_SEARCH_URL }} \
-            --build-arg NEXT_PUBLIC_SEARCH_KEY=${{ secrets.NEXT_PUBLIC_SEARCH_KEY }} \
-            -t web-profile-fe:latest .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Save Docker image as a tar file
-        run: docker save -o web-profile-fe.tar web-profile-fe:latest
+      - name: Build and push Docker image with Docker Compose
+        run: |
+          # Create a .env file from GitHub secrets for Docker Compose to use
+          echo "NEXT_PUBLIC_STRAPI_API_URL=${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}" >> .env
+          echo "NEXT_PUBLIC_GOOGLE_ANALYTICS=${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS }}" >> .env
+          echo "NEXT_PUBLIC_STRAPI_API_TOKEN=${{ secrets.NEXT_PUBLIC_STRAPI_API_TOKEN }}" >> .env
+          echo "NEXT_PUBLIC_SEARCH_URL=${{ secrets.NEXT_PUBLIC_SEARCH_URL }}" >> .env
+          echo "NEXT_PUBLIC_SEARCH_KEY=${{ secrets.NEXT_PUBLIC_SEARCH_KEY }}" >> .env
+
+          # Build the image using Docker Compose
+          docker-compose -f docker-compose.yml build
+
+      - name: Save Docker image as a tar file (Optional for VPS deployment)
+        run: |
+          docker save -o web-profile-fe.tar web-profile-fe:latest
 
       - name: Copy image to VPS
         uses: appleboy/scp-action@v0.1.4
@@ -47,9 +53,12 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            # Load the Docker image on the VPS
             docker load -i /tmp/web-profile-fe.tar && \
             rm /tmp/web-profile-fe.tar && \
-            cd app/web-profile-fe && \
-            docker compose down && \
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d && \
+            # Navigate to the app folder
+            cd /path/to/your/project && \
+            # Stop any existing containers (if needed) and restart with Docker Compose
+            docker-compose down && \
+            docker-compose up -d && \
             exit
