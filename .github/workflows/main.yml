@@ -1,0 +1,55 @@
+name: Build and Deploy Next.js
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker image with env variables
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_STRAPI_API_URL=${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }} \
+            --build-arg NEXT_PUBLIC_GOOGLE_ANALYTICS=${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS }} \
+            --build-arg NEXT_PUBLIC_STRAPI_API_TOKEN=${{ secrets.NEXT_PUBLIC_STRAPI_API_TOKEN }} \
+            --build-arg NEXT_PUBLIC_SEARCH_URL=${{ secrets.NEXT_PUBLIC_SEARCH_URL }} \
+            --build-arg NEXT_PUBLIC_SEARCH_KEY=${{ secrets.NEXT_PUBLIC_SEARCH_KEY }} \
+            -t web-profile-fe:latest .
+
+      - name: Save Docker image as a tar file
+        run: docker save -o web-profile-fe.tar web-profile-fe:latest
+
+      - name: Copy image to VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "web-profile-fe.tar"
+          target: "~/"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH into VPS and Deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            docker load -i /tmp/web-profile-fe.tar && \
+            rm /tmp/web-profile-fe.tar && \
+            cd app/web-profile-fe && \
+            docker compose down && \
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d && \
+            exit
