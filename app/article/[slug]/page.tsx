@@ -1,6 +1,7 @@
 import Detail from '@/components/Pages/Article/Detail'
 import { getAllArticleSlugs, getDetail } from '@/lib/api/articleQueryFn'
 import { ApiArticleArticle } from '@/types/generated/contentTypes'
+import { FALLBACK_SEO } from '@/utils/constants'
 import imageUrl from '@/utils/imageUrl'
 import {
   HydrationBoundary,
@@ -18,33 +19,57 @@ type Props = {
 
 export async function generateMetadata( { params }: Props ): Promise<Metadata> {
   const response = await getDetail( params.slug )
-
   const data = response?.attributes
-  const title = data?.title
-  const desc = `Potofolio for project called ${data?.title}`
+
+  // Extract SEO metadata
+  const seoMetadata = data?.seo // Assuming `seo` is the field containing SEO data
+  const title = seoMetadata?.metaTitle || data?.title || FALLBACK_SEO.title
+  const desc =
+    seoMetadata?.metaDescription ||
+    `Portfolio for project called ${data?.title}` ||
+    FALLBACK_SEO.description
+
+  // Extract social metadata (if available)
+  const socialMeta = seoMetadata?.metaSocial?.length
+    ? Object.fromEntries(
+      seoMetadata?.metaSocial?.map(
+        ( { socialNetwork, title, description, image }: any ) => [
+          socialNetwork.toLowerCase(),
+          { title, description, image },
+        ]
+      )
+    )
+    : {}
 
   return {
-    title,
-    description : desc,
+    title       : title || null,
+    description : desc || null,
+    keywords    : seoMetadata?.keywords || null, // Add keywords if available
+    robots      : seoMetadata?.metaRobots || null, // Add robots meta if available
     openGraph   : {
-      title,
-      description : desc,
-      url         : 'https://ianfebisastrataruna.my.id',
-      siteName    : title,
-      images      : [{ url : imageUrl( data?.featureImage.data, 'thumbnail' ) || '' }],
-      type        : 'article',
-      authors     : ['Ian Febi Sastrataruna'],
+      url         : seoMetadata?.canonicalURL || 'https://ianfebisastrataruna.my.id',
+      title       : title || null,
+      description : desc || null,
+      siteName    : 'Ian Febi Sastrataruna', // Replace with your site name
+      type        : 'article', // or "website"
+      images      : data?.featureImage?.data
+        ? [{ url : imageUrl( data?.featureImage?.data, 'thumbnail' ) || '' }]
+        : [], // Add Open Graph image
+      authors : ['Ian Febi Sastrataruna'], // Add authors if applicable
     },
     twitter : {
       card        : 'summary', // 'summary' for small card
       site        : '@ianfebi01', // Replace with your Twitter username
-      title,
-      description : desc,
-      images      : [
-        {
-          url : imageUrl( data?.featureImage.data, 'thumbnail' ) || '',
-        },
-      ],
+      title       : title || null,
+      description : socialMeta?.twitter?.description || desc || '',
+      images      : socialMeta?.twitter?.image?.data
+        ? [
+          {
+            url :
+                imageUrl( socialMeta?.twitter?.image?.data, 'thumbnail' ) || '',
+          },
+        ]
+        : [], // Twitter image
     },
   }
 }
@@ -67,8 +92,7 @@ export default async function ArticlePage( {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery( {
     queryKey : ['article', 'detail', params.slug],
-    queryFn  : (): Promise<ApiArticleArticle | null> =>
-      getDetail( params.slug ),
+    queryFn  : (): Promise<ApiArticleArticle | null> => getDetail( params.slug ),
   } )
 
   const dehydratedState = dehydrate( queryClient )
