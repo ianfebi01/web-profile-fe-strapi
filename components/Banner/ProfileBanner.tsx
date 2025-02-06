@@ -13,6 +13,7 @@ import imageUrl from '@/utils/imageUrl'
 import sanitize from '@/utils/sanitize'
 import parseMd from '@/utils/parseMd'
 import { ApiSocialSocial } from '@/types/generated/contentTypes'
+import imageLoader from '@/lib/constans/image-loader'
 
 interface Props {
   sectionData: BannerComponentsProfileBanner['attributes']
@@ -66,6 +67,8 @@ const ProfileBanner: FunctionComponent<Props> = ( props ) => {
             priority
             sizes="auto"
             className="object-cover"
+            placeholder={imageLoader}
+            loading='lazy'
           />
         </div>
       </div>
@@ -92,6 +95,8 @@ const ProfileBanner: FunctionComponent<Props> = ( props ) => {
             priority
             sizes="auto"
             className="object-cover"
+            placeholder={imageLoader}
+            loading='lazy'
           />
         </div>
       </div>
