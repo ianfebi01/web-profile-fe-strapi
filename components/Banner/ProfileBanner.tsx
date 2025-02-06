@@ -45,7 +45,33 @@ const ProfileBanner: FunctionComponent<Props> = ( props ) => {
       <Shape myposy={myposy ? myposy : 0} />
       <div
         className={cn(
-          'flex w-full h-56 relative bg-cover bg-center bg-no-repeat',
+          'flex w-full h-56 relative bg-cover bg-center bg-no-repeat md:hidden',
+        )}
+        style={{
+          backgroundImage : `url(${imageUrl( sectionData.bannerImage?.data, 'small' )})`
+        }}
+      >
+        <div
+          className="aspect-square w-48 border border-none rounded-full overflow-hidden inset-x-0 mx-auto absolute -bottom-24"
+          style={{
+            transform : `translate(0, ${translate.exponent( 1 )(
+              myposy ? -myposy : 0
+            )}px)`,
+          }}
+        >
+          <Image
+            src={imageUrl( sectionData.avatar.data, 'medium' ) || ''}
+            alt="Profile image"
+            fill
+            priority
+            sizes="auto"
+            className="object-cover"
+          />
+        </div>
+      </div>
+      <div
+        className={cn(
+          'w-full h-56 relative bg-cover bg-center bg-no-repeat hidden md:flex',
         )}
         style={{
           backgroundImage : `url(${imageUrl( sectionData.bannerImage?.data, 'medium' )})`
