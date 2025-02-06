@@ -60,7 +60,7 @@ const ProfileBanner: FunctionComponent<Props> = ( props ) => {
           }}
         >
           <Image
-            src={imageUrl( sectionData.avatar.data, 'medium' ) || ''}
+            src={imageUrl( sectionData.avatar.data, 'small' ) || ''}
             alt="Profile image"
             fill
             priority
