@@ -95,7 +95,6 @@ const ProfileBanner: FunctionComponent<Props> = ( props ) => {
             sizes="auto"
             className="object-cover"
             placeholder={imageLoader}
-            loading='lazy'
           />
         </div>
       </div>
