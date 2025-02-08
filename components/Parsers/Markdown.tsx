@@ -25,12 +25,7 @@ const Markdown = ( { content, excerpt }: Props ) => {
     }
 
     // Apply syntax highlighting to all <pre><code> blocks
-    const codeBlocks = bodyCopyRef.current?.querySelectorAll( 'pre code' )
-    if ( codeBlocks?.length ) {
-      codeBlocks.forEach( ( block ) => {
-        hljs.highlightElement( block as HTMLElement )
-      } )
-    }
+    hljs.highlightAll();
   }, [content] )
 
   return (
