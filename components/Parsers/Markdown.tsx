@@ -3,7 +3,6 @@ import parseMd from '@/utils/parseMd'
 import sanitize from '@/utils/sanitize'
 import truncate from '@/utils/truncate'
 import React, { useEffect, useRef } from 'react'
-import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
 
 interface Props {
@@ -25,7 +24,17 @@ const Markdown = ( { content, excerpt }: Props ) => {
     }
 
     // Apply syntax highlighting to all <pre><code> blocks
-    hljs.highlightAll();
+    // hljs.highlightAll();
+    const loadHljs = async () => {
+      const hljs = ( await import( 'highlight.js' ) ).default
+      if ( bodyCopyRef.current ) {
+        bodyCopyRef.current.querySelectorAll( 'pre code' ).forEach( ( block ) => {
+          hljs.highlightElement( block as HTMLElement )
+        } )
+      }
+    }
+
+    loadHljs()
   }, [content] )
 
   return (
