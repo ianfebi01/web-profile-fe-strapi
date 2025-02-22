@@ -15,18 +15,20 @@ const Markdown = ( { content, excerpt }: Props ) => {
   const bodyCopyRef = useRef<HTMLDivElement>( null )
 
   useEffect( () => {
-    // Add target and rel attributes to all <a> tags
-    const aTags = bodyCopyRef.current?.querySelectorAll( 'a' )
-    if ( aTags?.length ) {
-      aTags.forEach( ( t ) => {
-        t?.setAttribute( 'target', '_blank' )
-        t?.setAttribute( 'rel', 'noopener noreferrer' )
-      } )
-    }
+    if ( !bodyCopyRef.current ) return
 
-    // Apply syntax highlighting to all <pre><code> blocks
-    hljs.highlightAll()
-  }, [content] )
+    // Add target and rel attributes to all <a> tags
+    const aTags = bodyCopyRef.current.querySelectorAll( 'a' )
+    aTags.forEach( ( t ) => {
+      t.setAttribute( 'target', '_blank' )
+      t.setAttribute( 'rel', 'noopener noreferrer' )
+    } )
+
+    // Wait for the next render cycle before highlighting
+    requestAnimationFrame( () => {
+      hljs.highlightAll()
+    } )
+  }, [content] ) // Runs whenever content updates
 
   return (
     <div ref={bodyCopyRef}
