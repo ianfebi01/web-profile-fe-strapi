@@ -46,7 +46,7 @@ const Markdown = ( { content, excerpt }: Props ) => {
       {!excerpt && !!content ? (
         <div
           dangerouslySetInnerHTML={{
-            __html : sanitize( parseMd( content ), 'richtext' ),
+            __html : parseMd( content ),
           }}
         ></div>
       ) : !!content ? (
