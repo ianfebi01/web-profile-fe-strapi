@@ -35,6 +35,8 @@ const Markdown = ( { content, excerpt }: Props ) => {
     }
 
     loadHljs()
+    // eslint-disable-next-line no-console
+    console.log( 'tes', loadHljs )
   }, [content] )
 
   return (
