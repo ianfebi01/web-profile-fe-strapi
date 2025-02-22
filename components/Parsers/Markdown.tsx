@@ -4,6 +4,7 @@ import sanitize from '@/utils/sanitize'
 import truncate from '@/utils/truncate'
 import React, { useEffect, useRef } from 'react'
 import 'highlight.js/styles/atom-one-dark.css'
+import hljs from 'highlight.js'
 
 interface Props {
   content: string
@@ -24,25 +25,19 @@ const Markdown = ( { content, excerpt }: Props ) => {
     }
 
     // Apply syntax highlighting to all <pre><code> blocks
-    // hljs.highlightAll();
-    const loadHljs = async () => {
-      const hljs = ( await import( 'highlight.js' ) ).default
-      if ( bodyCopyRef.current ) {
-        bodyCopyRef.current.querySelectorAll( 'pre code' ).forEach( ( block ) => {
-          hljs.highlightElement( block as HTMLElement )
-        } )
-      }
-    }
-
-    loadHljs()
-    // eslint-disable-next-line no-console
-    console.log( 'tes', loadHljs )
+    hljs.highlightAll()
   }, [content] )
 
   return (
     <div ref={bodyCopyRef}
       className="body-copy w-full"
     >
+      <pre>
+        <code className="language-plaintext">
+          yarn create vite parallax-effect-example --template react-ts cd
+          parallax-effect-example yarn install
+        </code>
+      </pre>
       {!excerpt && !!content ? (
         <div
           dangerouslySetInnerHTML={{
