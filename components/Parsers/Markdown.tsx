@@ -34,12 +34,6 @@ const Markdown = ( { content, excerpt }: Props ) => {
     <div ref={bodyCopyRef}
       className="body-copy w-full"
     >
-      <pre>
-        <code className="language-plaintext">
-          yarn create vite parallax-effect-example --template react-ts cd
-          parallax-effect-example yarn install
-        </code>
-      </pre>
       {!excerpt && !!content ? (
         <div
           dangerouslySetInnerHTML={{
