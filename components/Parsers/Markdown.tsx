@@ -13,7 +13,7 @@ interface Props {
 
 const Markdown = ( { content, excerpt }: Props ) => {
   const bodyCopyRef = useRef<HTMLDivElement>( null )
-  
+
   useEffect( () => {
     if ( !bodyCopyRef.current ) return
 
@@ -25,9 +25,7 @@ const Markdown = ( { content, excerpt }: Props ) => {
     } )
 
     // Wait for the next render cycle before highlighting
-    requestAnimationFrame( () => {
-      hljs.highlightAll()
-    } )
+    hljs.highlightAll()
   }, [content] ) // Runs whenever content updates
 
   return (
