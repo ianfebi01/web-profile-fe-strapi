@@ -62,12 +62,12 @@ const Detail = ( { slug }: Props ) => {
             </div>
 
             <div className="flex flex-col gap-4 w-full">
-              {data?.attributes.date !== undefined && (
+              {!!data?.attributes.date && (
                 <Chip label={data?.attributes.date}
                   bg="dark-secondary"
                 />
               )}
-              {data?.attributes.content !== undefined && (
+              {!!data?.attributes.content && (
                 <div className="bg-dark-secondary p-4 border border-none rounded-lg flex flex-col gap-4 text-white/90">
                   <Markdown content={data?.attributes.content} />
                 </div>

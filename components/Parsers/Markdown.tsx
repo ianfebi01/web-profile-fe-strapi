@@ -25,9 +25,7 @@ const Markdown = ( { content, excerpt }: Props ) => {
     } )
 
     // Wait for the next render cycle before highlighting
-    requestAnimationFrame( () => {
-      hljs.highlightAll()
-    } )
+    hljs.highlightAll()
   }, [content] ) // Runs whenever content updates
 
   return (
@@ -37,7 +35,7 @@ const Markdown = ( { content, excerpt }: Props ) => {
       {!excerpt && !!content ? (
         <div
           dangerouslySetInnerHTML={{
-            __html : parseMd( content ),
+            __html : sanitize( parseMd( content ), 'richtext' ),
           }}
         ></div>
       ) : !!content ? (
