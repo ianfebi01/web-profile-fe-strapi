@@ -15,7 +15,8 @@ const Detail = ( { slug }: Props ) => {
   const { data, isFetching } = useGetDetail( slug )
 
   return (
-    <section id="portofolio"
+    <section
+      id="portofolio"
       className="w-full flex flex-col items-center bg-dark grow-[1]"
     >
       {isFetching && !data ? (
@@ -26,8 +27,6 @@ const Detail = ( { slug }: Props ) => {
             link={'/article'}
           />
           <div className="max-w-3xl w-full mx-auto flex flex-col gap-4">
-            <h1 className="mb-4 mt-0">{data?.attributes.title}</h1>
-
             <div className="relative aspect-video w-full">
               {!!data?.attributes?.featureImage?.data && (
                 <>
@@ -47,10 +46,8 @@ const Detail = ( { slug }: Props ) => {
                   <Image
                     className="h-full object-cover object-center w-full md:hidden"
                     src={
-                      imageUrl(
-                        data?.attributes?.featureImage?.data,
-                        'small'
-                      ) || ''
+                      imageUrl( data?.attributes?.featureImage?.data, 'small' ) ||
+                      ''
                     }
                     fill
                     alt={`${data?.attributes?.title} Image`}
@@ -60,6 +57,8 @@ const Detail = ( { slug }: Props ) => {
                 </>
               )}
             </div>
+
+            <h1 className="mt-4 mb-0">{data?.attributes.title}</h1>
 
             <div className="flex flex-col gap-4 w-full">
               {!!data?.attributes.date && (
