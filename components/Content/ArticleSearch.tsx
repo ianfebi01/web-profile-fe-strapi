@@ -34,7 +34,7 @@ const ArticleSearch = () => {
   return (
     <div className="flex flex-col gap-8 h-full pb-4">
       <InstantSearchNext
-        indexName="article"
+        indexName="article:date:desc"
         searchClient={searchClient}
         routing
       >
