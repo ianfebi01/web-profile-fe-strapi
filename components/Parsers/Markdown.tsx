@@ -15,18 +15,18 @@ const Markdown = ( { content, excerpt }: Props ) => {
   const bodyCopyRef = useRef<HTMLDivElement>( null )
 
   useEffect( () => {
-    if ( !bodyCopyRef.current ) return
-
     // Add target and rel attributes to all <a> tags
-    const aTags = bodyCopyRef.current.querySelectorAll( 'a' )
-    aTags.forEach( ( t ) => {
-      t.setAttribute( 'target', '_blank' )
-      t.setAttribute( 'rel', 'noopener noreferrer' )
-    } )
+    setTimeout( () => {
+      if ( !bodyCopyRef.current ) return
+      const aTags = bodyCopyRef.current.querySelectorAll( 'a' )
+      aTags.forEach( ( t ) => {
+        t.setAttribute( 'target', '_blank' )
+        t.setAttribute( 'rel', 'noopener noreferrer' )
+      } )
 
-    // Wait for the next render cycle before highlighting
-    hljs.highlightAll()
-  }, [content] ) // Runs whenever content updates
+      hljs.highlightAll()
+    }, 500 )
+  }, [content] )
 
   return (
     <div ref={bodyCopyRef}
