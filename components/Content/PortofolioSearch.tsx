@@ -34,7 +34,7 @@ const PortofolioSearch = () => {
   return (
     <div className="flex flex-col gap-8 h-full pb-4">
       <InstantSearchNext
-        indexName="portofolio"
+        indexName="portofolio:createdAt:desc"
         searchClient={searchClient}
         routing
       >
