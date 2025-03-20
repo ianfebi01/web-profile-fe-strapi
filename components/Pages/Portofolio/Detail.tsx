@@ -12,7 +12,8 @@ const Detail = ( { slug }: Props ) => {
   const { data, isFetching } = useGetDetail( slug )
 
   return (
-    <section id="portofolio"
+    <section
+      id="portofolio"
       className="w-full flex flex-col items-center bg-dark grow-[1]"
     >
       {isFetching && !data ? (
@@ -26,11 +27,20 @@ const Detail = ( { slug }: Props ) => {
             <GaleryCarousel data={data?.attributes.gallery?.data} />
           )}
           <div className="flex flex-col gap-4 max-w-3xl mx-auto w-full">
-            {data?.attributes.year !== undefined && (
-              <Chip label={data?.attributes.year}
-                bg="dark-secondary"
-              />
-            )}
+            <div className='flex flex-row gap-2 flex-wrap'>
+              {data?.attributes.year !== undefined && (
+                <Chip label={data?.attributes.year}
+                  bg="dark-secondary"
+                />
+              )}
+              {data?.attributes.url !== undefined && (
+                <Chip
+                  label="Url: "
+                  link={data?.attributes.url}
+                  bg="dark-secondary"
+                />
+              )}
+            </div>
             {data?.attributes.description !== undefined && (
               <div className="bg-dark-secondary p-4 border border-none rounded-lg flex flex-col gap-4 text-white/90">
                 <Markdown content={data?.attributes.description} />

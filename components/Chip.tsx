@@ -4,8 +4,9 @@ interface Props {
   label: string
   bg?: 'dark' | 'dark-secondary'
   className?: string
+  link?: string
 }
-const Chip = ( { label, bg = 'dark', className }: Props ) => {
+const Chip = ( { label, bg = 'dark', className, link }: Props ) => {
   return (
     <div
       className={cn( [
@@ -15,7 +16,19 @@ const Chip = ( { label, bg = 'dark', className }: Props ) => {
         className,
       ] )}
     >
-      <span className="text-sm-medium">{label}</span>
+      <p className="text-sm-medium m-0">
+        <span>{label}</span>
+        {!!link && (
+          <a href={link}
+            aria-label={label}
+            rel='noopener noreferrer'
+            target='_blank'
+            className='text-orange hover:underline underline-offset-4'
+          >
+            {link}
+          </a>
+        )}
+      </p>
     </div>
   )
 }
