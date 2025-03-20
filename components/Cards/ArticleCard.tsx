@@ -5,6 +5,7 @@ import Image from 'next/image'
 import imageUrl from '@/utils/imageUrl'
 import { ApiArticleArticle } from '@/types/generated/contentTypes'
 import imageLoader from '@/lib/constans/image-loader'
+import { getPlainText } from '@/utils/parseMd'
 
 interface Props {
   data: ApiArticleArticle['attributes']
@@ -52,7 +53,7 @@ const ArticleCard: React.FC<Props> = ( { data } ) => {
           {data.title}
         </h3>
         <div className="mb-4 lg:mb-8 xxl:text-xl">
-          <p className="line-clamp-3">{data.content}</p>
+          <p className="line-clamp-3 m-0">{getPlainText( data.content )}</p>
         </div>
         <div className="grow"></div>
         <Link

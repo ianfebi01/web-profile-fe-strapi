@@ -1,4 +1,4 @@
-import sanitize from './sanitize' // Ensure sanitize works similarly to sanitize-html.
+import sanitize from './sanitize'
 import { Marked, Renderer, Tokens } from 'marked'
 import hljs from 'highlight.js'
 import { markedHighlight } from 'marked-highlight'
@@ -75,3 +75,23 @@ const parseMd = ( content: string ): string => {
 }
 
 export default parseMd
+
+/**
+ * Converts markdown to plain text by extracting tokens
+ * @param markdown - The markdown content
+ * @returns Plain text string
+ */
+export const getPlainText = ( markdown: string ): string => {
+  const tokens: Tokens.Generic[] = marked.lexer( markdown );
+  
+  return tokens
+    .map( token => {
+      if ( 'text' in token && typeof token.text === 'string' ) {
+        return token.text.replace( /\*\*|__/g, "" ); // Remove **bold** and __underline__
+      }
+      
+      return ""; // Ignore non-text tokens
+    } )
+    .join( " " )
+    .trim();
+};
