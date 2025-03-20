@@ -20,7 +20,7 @@ const linkTokenizer = {
         text   : match[1],
         href   : match[2],
         title  : match[3] || null,
-        tokens : marked.lexer( match[1] ),
+        tokens : [],
       }
     }
 
@@ -31,9 +31,7 @@ const linkTokenizer = {
 
     return `<a href="${
       token.href
-    }" target="_blank" rel="noopener noreferrer"${titleAttr}>${marked.parseInline(
-      token.tokens.map( ( t ) => t.raw ).join( '' )
-    )}</a>`
+    }" target="_blank" rel="noopener noreferrer"${titleAttr}>${token.text}</a>`
   },
 }
 
@@ -82,16 +80,16 @@ export default parseMd
  * @returns Plain text string
  */
 export const getPlainText = ( markdown: string ): string => {
-  const tokens: Tokens.Generic[] = marked.lexer( markdown );
-  
+  const tokens: Tokens.Generic[] = marked.lexer( markdown )
+
   return tokens
-    .map( token => {
+    .map( ( token ) => {
       if ( 'text' in token && typeof token.text === 'string' ) {
-        return token.text.replace( /\*\*|__/g, "" ); // Remove **bold** and __underline__
+        return token.text.replace( /\*\*|__/g, '' ) // Remove **bold** and __underline__
       }
-      
-      return ""; // Ignore non-text tokens
+
+      return '' // Ignore non-text tokens
     } )
-    .join( " " )
-    .trim();
-};
+    .join( ' ' )
+    .trim()
+}
