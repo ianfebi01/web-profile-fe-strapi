@@ -41,6 +41,11 @@ const nextConfig = {
       },
     ],
   },
+  i18n : {
+    locales         : ['en', 'id'],
+    defaultLocale   : 'en',
+    localeDetection : true, // This should be enabled
+  },
 }
 
 module.exports = nextConfig
