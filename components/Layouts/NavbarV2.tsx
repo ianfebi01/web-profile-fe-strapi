@@ -17,12 +17,15 @@ import {
   NavCategoriesNavCategories,
 } from '@/types/generated/components'
 import MenuItemSocial from './MenuItemSocial'
+import { useTranslations } from 'next-intl'
+import LocaleSwitcher from './LocaleSwitcher'
 
 interface Props {
   items: NavCategoriesNavCategories['attributes'][]
   socials: ArraysSocials['attributes'][]
 }
 const NavbarV2 = ( { items, socials }: Props ) => {
+  const t = useTranslations()
   const { scrollY } = useScroll()
   const visibilityControl = useAnimation()
 
@@ -76,9 +79,10 @@ const NavbarV2 = ( { items, socials }: Props ) => {
                 <MenuItem data={item} />
               </div>
             ) )}
-            <MenuItemSocial title="Contact"
+            <MenuItemSocial title={t( 'contact' )}
               socials={socials}
             />
+            <LocaleSwitcher/>
           </div>
         </div>
         <div className="h-16 flex items-center pl-6 md:hidden">

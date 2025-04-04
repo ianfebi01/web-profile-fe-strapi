@@ -7,12 +7,14 @@ import imageLoader from '@/lib/constans/image-loader'
 import SkeletonDetail from '../Portofolio/SkeletonDetail'
 import Header from '@/components/Layouts/Header'
 import Chip from '@/components/Chip'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   slug: string | number
 }
 const Detail = ( { slug }: Props ) => {
   const { data, isFetching } = useGetDetail( slug )
+  const t = useTranslations();
 
   return (
     <section
@@ -23,7 +25,7 @@ const Detail = ( { slug }: Props ) => {
         <SkeletonDetail />
       ) : (
         <div className="w-full h-full grow-[1] max-w-5xl px-6 lg:px-8 mt-20 sm:mt-20 mb-8 flex flex-col gap-4">
-          <Header text={'Back'}
+          <Header text={t( 'back' )}
             link={'/article'}
           />
           <div className="max-w-3xl w-full mx-auto flex flex-col gap-4">

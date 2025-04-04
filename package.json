@@ -2,6 +2,7 @@
   "name": "portofolio",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -39,6 +40,7 @@
     "marked-highlight": "^2.2.1",
     "negotiator": "^1.0.0",
     "next": "^14.2.4",
+    "next-intl": "^4.0.2",
     "nextjs-toploader": "^3.6.15",
     "postcss": "8.4.30",
     "qs": "^6.13.0",

@@ -1,0 +1,15 @@
+{
+    "back": "Back",
+    "contact": "Contact",
+    "article": {
+        "title": "Article",
+        "desc": "Article of Ian Febi Sastrataruna"
+    },
+    "portofolio": {
+        "title": "Portofolio",
+        "desc": "Portofolio of Ian Febi Sastrataruna"
+    },
+    "locale-switcher": {
+        "title": "Change Language"
+    }
+}

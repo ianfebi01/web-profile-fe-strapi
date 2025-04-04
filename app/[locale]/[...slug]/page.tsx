@@ -7,13 +7,13 @@ import { notFound } from 'next/navigation'
 
 type Props = {
   params: {
-    lang: string
+    locale: string
     slug: string
   }
 }
 
 export async function generateMetadata( { params }: Props ): Promise<Metadata> {
-  const page = await getPageBySlug( params.slug, params.lang )
+  const page = await getPageBySlug( params.slug, params.locale )
 
   const metadata = page.data[0]?.attributes?.seo
 
@@ -59,7 +59,7 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
 }
 
 export default async function PageRoute( { params }: Props ) {
-  const page = await getPageBySlug( params.slug || 'home', params.lang )
+  const page = await getPageBySlug( params.slug || 'home-id', params.locale )
   if ( page.data?.length === 0 ) return notFound()
 
   return <HeroesAndSections page={page.data[0]?.attributes} />

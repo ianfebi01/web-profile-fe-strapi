@@ -1,0 +1,15 @@
+{
+    "back": "Kembali",
+    "contact": "Kontak",
+    "article": {
+        "title": "Artikel",
+        "desc": "Daftar artikel oleh Ian Febi Sastrataruna"
+    },
+    "portofolio": {
+        "title": "Portofolio",
+        "desc": "Daftar portofolio oleh Ian Febi Sastrataruna"
+    },
+    "locale-switcher":{
+        "title": "Ubah Bahasa"
+    }
+}
