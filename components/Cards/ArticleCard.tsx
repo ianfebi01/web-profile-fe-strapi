@@ -12,18 +12,18 @@ interface Props {
   data: ApiArticleArticle['attributes']
 }
 
-const ArticleCard: React.FC<Props> = ({ data }) => {
+const ArticleCard: React.FC<Props> = ( { data } ) => {
   const t = useTranslations()
   const locale = useLocale()
 
-  const formatDate = (dateString: string) => {
+  const formatDate = ( dateString: string ) => {
     const options: Intl.DateTimeFormatOptions = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+      year  : 'numeric',
+      month : 'long',
+      day   : 'numeric',
     }
 
-    return new Date(dateString).toLocaleDateString(locale, options)
+    return new Date( dateString ).toLocaleDateString( locale, options )
   }
 
   return (
@@ -40,7 +40,7 @@ const ArticleCard: React.FC<Props> = ({ data }) => {
         )}
       >
         <Image
-          src={imageUrl(data.featureImage, 'medium') || ''}
+          src={imageUrl( data.featureImage, 'medium' ) || ''}
           alt={`${data.title} Picture`}
           className="object-cover w-full h-full object-top"
           loading="lazy"
@@ -51,21 +51,21 @@ const ArticleCard: React.FC<Props> = ({ data }) => {
 
       <div className="relative flex flex-col px-4 pb-6 h-full">
         <span className="text-xs lg:text-sm line-clamp-1 text-greydark mb-2">
-          {formatDate(data.date || data.createdAt)}
+          {formatDate( data.date || data.createdAt )}
         </span>
         <h3 className="pt-0 text-xl xxl:text-3xl xxl:leading-[2rem] font-extra-bold lg:mb-6">
           {data.title}
         </h3>
         <div className="mb-4 lg:mb-8 xxl:text-xl">
-          <p className="line-clamp-3 m-0">{getPlainText(data.content)}</p>
+          <p className="line-clamp-3 m-0">{getPlainText( data.content )}</p>
         </div>
         <div className="grow"></div>
         <Link
           href={`/article/${data.slug}`}
-          className={cn('button button-primary')}
+          className={cn( 'button button-primary' )}
           aria-label={`Read more ${data.title} article`}
         >
-          <span>{t('read-more')}</span>
+          <span>{t( 'read-more' )}</span>
         </Link>
       </div>
     </article>
