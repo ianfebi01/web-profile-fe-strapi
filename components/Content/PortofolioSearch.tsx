@@ -1,6 +1,6 @@
 'use client'
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
-import { Configure, SearchBox } from 'react-instantsearch';
+import { Configure, SearchBox } from 'react-instantsearch'
 import { InstantSearchNext } from 'react-instantsearch-nextjs'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import CustomInfiniteHits from '../CustomInfiniteHits'
@@ -9,8 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import NoDataFound from '../NoDataFound'
 import { NoResultsBoundary } from '../NoResutsBoundary'
+import { useTranslations } from 'next-intl'
 
 const PortofolioSearch = () => {
+  const t = useTranslations()
+
   const { meilisearch } = {
     meilisearch : {
       url : process.env.NEXT_PUBLIC_SEARCH_URL || '',
@@ -42,7 +45,7 @@ const PortofolioSearch = () => {
         <div className="flex gap-4 justify-between">
           <SearchBox
             queryHook={queryHook}
-            placeholder="Search"
+            placeholder={t( 'search' )}
             submitIconComponent={() => (
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             )}

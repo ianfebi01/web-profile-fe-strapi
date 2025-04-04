@@ -9,8 +9,10 @@ import NoDataFound from '../NoDataFound'
 import { NoResultsBoundary } from '../NoResutsBoundary'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { useTranslations } from 'next-intl'
 
 const ArticleSearch = () => {
+  const t = useTranslations()
   const { meilisearch } = {
     meilisearch : {
       url : process.env.NEXT_PUBLIC_SEARCH_URL || '',
@@ -42,7 +44,7 @@ const ArticleSearch = () => {
         <div className="flex gap-4 justify-between">
           <SearchBox
             queryHook={queryHook}
-            placeholder="Search"
+            placeholder={t( 'search' )}
             submitIconComponent={() => (
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             )}
