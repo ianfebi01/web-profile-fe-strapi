@@ -1,7 +1,7 @@
 import React from 'react'
 import { cn } from '@/lib/utils'
-import Link from 'next/link'
 import { ArraysLinks } from '@/types/generated/components'
+import { Link } from '@/i18n/navigation'
 
 interface ButtonGroupProps {
   buttons?: ArraysLinks['attributes'][]

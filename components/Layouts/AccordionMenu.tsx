@@ -1,7 +1,7 @@
 import React from 'react'
 import { Disclosure } from '@headlessui/react'
 import { Transition } from '@headlessui/react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import {

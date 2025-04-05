@@ -1,10 +1,12 @@
 import PortofolioSearch from '@/components/Content/PortofolioSearch'
 import Header from '@/components/Layouts/Header'
 import { Props } from '@/types'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 export async function generateMetadata( props: Omit<Props, 'children'> ) {
   const { locale } = await props.params
+
+  setRequestLocale( locale )
 
   const t = await getTranslations( { locale, namespace : 'portofolio' } )
 

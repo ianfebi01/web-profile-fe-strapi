@@ -15,7 +15,7 @@ import { NavCategoriesNavCategories } from '@/types/generated/components'
 import ClientPortal from './ClientPortal'
 import Hamburger from '../Icons/Hamburger'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 interface Props {
   isOpen: boolean

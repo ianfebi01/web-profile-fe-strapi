@@ -8,7 +8,7 @@ import {
   NavCategoriesNavCategories,
   NavItemsNavItems,
 } from '@/types/generated/components'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import constructNavUrl from '@/utils/construct-nav-url'
 import { ApiPagePage } from '@/types/generated/contentTypes'
 

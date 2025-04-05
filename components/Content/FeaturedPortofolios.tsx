@@ -2,8 +2,8 @@ import { fetchAPI } from '@/utils/fetch-api'
 import React from 'react'
 import CardPortofolio from '../Cards/CardPortofolio'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
-import Link from 'next/link'
 import Button2 from '../Buttons/Button2'
+import { Link } from '@/i18n/navigation'
 
 const FeaturedPortofolios = async () => {
   const path = `/portofolios`

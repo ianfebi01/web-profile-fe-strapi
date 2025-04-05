@@ -11,7 +11,6 @@ import Hamburger from '../Icons/Hamburger'
 import { cn } from '@/lib/utils'
 import MobileNavbar from './MobileNavbar'
 import Image from 'next/image'
-import Link from 'next/link'
 import {
   ArraysSocials,
   NavCategoriesNavCategories,
@@ -19,6 +18,7 @@ import {
 import MenuItemSocial from './MenuItemSocial'
 import { useTranslations } from 'next-intl'
 import LocaleSwitcher from './LocaleSwitcher'
+import { Link } from '@/i18n/navigation'
 
 interface Props {
   items: NavCategoriesNavCategories['attributes'][]

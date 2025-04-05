@@ -27,7 +27,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="text-lg flex gap-4 text-center w-full justify-center flex-wrap">
+        <div className="text-lg flex gap-4 text-center w-full justify-center items-center flex-wrap">
           <LinkOpenNewTab
             url={'https://www.instagram.com/ianfebi01/'}
             label={'Instagram'}
@@ -42,12 +42,6 @@ const Footer = () => {
             icon={<LinkedinIcon size={20} />}
           />
           •
-          {/* <LinkOpenNewTab
-            url={'mailto:ianfebi01@gmail.com'}
-            label={'Email'}
-            className="text-md"
-            icon={<EnvelopSimpleIcon size={20} />}
-          /> */}
           <div className=" flex flex-row items-center gap-2">
             <CopyToClipboard
               copyText="ianfebi01@gmail.com"

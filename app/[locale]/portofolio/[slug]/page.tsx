@@ -8,15 +8,20 @@ import {
   dehydrate,
 } from '@tanstack/react-query'
 import { Metadata } from 'next'
+import { Locale } from 'next-intl'
+import { setRequestLocale } from 'next-intl/server'
 
 type Props = {
   params: {
-    lang: string
+    locale: Locale
     slug: string
   }
 }
 
 export async function generateMetadata( { params }: Props ): Promise<Metadata> {
+  const { locale } = await params
+  setRequestLocale( locale )
+  
   const response = await getDetail( params.slug )
 
   const data = response?.attributes
