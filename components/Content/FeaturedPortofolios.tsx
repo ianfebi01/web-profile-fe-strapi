@@ -4,8 +4,12 @@ import CardPortofolio from '../Cards/CardPortofolio'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import Button2 from '../Buttons/Button2'
 import { Link } from '@/i18n/navigation'
+import NoDataFound from '../NoDataFound'
+import { getLocale } from 'next-intl/server'
 
 const FeaturedPortofolios = async () => {
+  const locale = await getLocale()
+
   const path = `/portofolios`
   const urlParamsObject = {
     sort     : { createdAt : 'desc' },
@@ -17,10 +21,11 @@ const FeaturedPortofolios = async () => {
       start : 0,
       limit : 4,
     },
+    locale,
   }
 
   const responseData = await fetchAPI( path, urlParamsObject )
-  if ( responseData.data?.length === 0 ) return null
+  if ( responseData.data?.length === 0 ) return <NoDataFound />
 
   return (
     <div className="flex flex-col gap-4">
