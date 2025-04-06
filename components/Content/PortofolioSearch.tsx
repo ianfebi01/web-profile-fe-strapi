@@ -7,12 +7,11 @@ import CustomInfiniteHits from '../CustomInfiniteHits'
 import CardPortofolio from '../Cards/CardPortofolio'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
-import NoDataFound from '../NoDataFound'
-import { NoResultsBoundary } from '../NoResutsBoundary'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 const PortofolioSearch = () => {
   const t = useTranslations()
+  const locale = useLocale()
 
   const { meilisearch } = {
     meilisearch : {
@@ -41,7 +40,9 @@ const PortofolioSearch = () => {
         searchClient={searchClient}
         routing
       >
-        <Configure hitsPerPage={9} />
+        <Configure hitsPerPage={9}
+          filters={`locale = ${locale}`}
+        />
         <div className="flex gap-4 justify-between">
           <SearchBox
             queryHook={queryHook}
@@ -62,9 +63,7 @@ const PortofolioSearch = () => {
           ></SearchBox>
         </div>
         <div>
-          <NoResultsBoundary fallback={<NoDataFound />}>
-            <CustomInfiniteHits component={Hit} />
-          </NoResultsBoundary>
+          <CustomInfiniteHits component={Hit} />
         </div>
       </InstantSearchNext>
     </div>
