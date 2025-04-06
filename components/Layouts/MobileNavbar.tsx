@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { socials } from '@/lib/constans/socials-media'
 import { cn, openNewTab } from '@/lib/utils'
 import { Transition } from '@headlessui/react'
@@ -16,6 +16,7 @@ import ClientPortal from './ClientPortal'
 import Hamburger from '../Icons/Hamburger'
 import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
+import LocaleSwitcherAccordion from './LocaleSwitcherAccordion';
 
 interface Props {
   isOpen: boolean
@@ -63,9 +64,10 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
           // leaveFrom="no-doc-scroll bg-black opacity-100"
           // leaveTo="opacity-0"
         >
-          <Link href={'/'}
-            className='h-16 flex items-center pl-6'
-            onClick={()=> setIsOpen( false )}
+          <Link
+            href={'/'}
+            className="h-16 flex items-center pl-6"
+            onClick={() => setIsOpen( false )}
           >
             <Image src="/Logo.svg"
               alt="Logo image"
@@ -108,8 +110,8 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
                   initial="hidden"
                   animate={animationControl}
                   transition={{
-                    duration : isOpen ? 0.6 : 0.6,
-                    delay    : isOpen ? 0 + index / 12 : 0 + index / 12,
+                    duration : isOpen ? 0.3 : 0.3,
+                    delay    : isOpen ? 0 + index / 20 : 0 + index / 20,
                     ease     : easeInOut,
                   }}
                 >
@@ -117,6 +119,28 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
                 </motion.div>
               </button>
             ) )}
+            <motion.div
+              variants={{
+                hidden : {
+                  opacity : 0,
+                  y       : isOpen ? 75 : -75,
+                },
+                visible : {
+                  opacity : 1,
+                  y       : 0,
+                },
+              }}
+              initial="hidden"
+              animate={animationControl}
+              transition={{
+                duration : isOpen ? 0.3 : 0.3,
+                delay    : isOpen ? 0 : 0,
+                ease     : easeInOut,
+              }}
+              className='mt-4'
+            >
+              <LocaleSwitcherAccordion />
+            </motion.div>
           </div>
         </Transition.Child>
       </Transition>

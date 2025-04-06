@@ -11,6 +11,7 @@ import {
 import constructNavUrl from '@/utils/construct-nav-url'
 import { cn } from '@/lib/utils'
 import { motion, easeInOut } from 'framer-motion'
+import { ApiPagePage } from '@/types/generated/contentTypes'
 
 interface AccordionMenuProps {
   menus: NavCategoriesNavCategories['attributes'][]
@@ -126,7 +127,9 @@ const AccordionMenu: React.FC<AccordionMenuProps> = ( {
                                           setMobileMenuOpen( false )
                                         }
                                       >
-                                        {subItem?.name}
+                                        {subItem?.name ||
+                                          ( subItem.page?.data as ApiPagePage )
+                                            ?.attributes?.title}
                                       </Link>
                                     )
                                   )}
@@ -139,7 +142,6 @@ const AccordionMenu: React.FC<AccordionMenuProps> = ( {
                     )}
                   </Disclosure>
                 ) : !!item.categoryName && item.navItem ? (
-
                   <Link
                     href={constructNavUrl( item.navItem ) || ''}
                     className={cn(
@@ -157,7 +159,6 @@ const AccordionMenu: React.FC<AccordionMenuProps> = ( {
                   >
                     {item.categoryName}
                   </Link>
-
                 ) : null}
               </motion.div>
             </div>
