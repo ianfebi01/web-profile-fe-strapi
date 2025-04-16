@@ -40,7 +40,7 @@ const Detail = ( { slug }: Props ) => {
                     }
                     fill
                     alt={`${data?.attributes?.title} Image`}
-                    loading="lazy"
+                    loading="eager"
                     placeholder={imageLoader}
                   />
                   <Image
