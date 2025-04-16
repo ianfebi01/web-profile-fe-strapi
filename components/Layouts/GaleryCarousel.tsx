@@ -1,4 +1,4 @@
-'use client';;
+'use client'
 import React from 'react'
 
 // Swiper components, modules and styles
@@ -16,16 +16,15 @@ import {
   faCircleChevronLeft,
   faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
-import Markdown from '../Parsers/Markdown';
-import imageLoader from '@/lib/constans/image-loader';
-import { PluginUploadFile } from '@/types/generated/contentTypes';
+import Markdown from '../Parsers/Markdown'
+import imageLoader from '@/lib/constans/image-loader'
+import { PluginUploadFile } from '@/types/generated/contentTypes'
 
 interface Props {
   data: PluginUploadFile[]
 }
 
 const GaleryCarousel: React.FC<Props> = ( { data } ) => {
-
   return (
     <ul className="w-full !m-0 relative">
       <Swiper
@@ -62,10 +61,10 @@ const GaleryCarousel: React.FC<Props> = ( { data } ) => {
                   style={{
                     objectFit : 'contain',
                   }}
-                  loading="lazy"
+                  loading={index === 0 ? 'eager' : 'lazy'}
                   sizes="auto"
                   placeholder={imageLoader}
-                  className='drop-shadow-2xl'
+                  className="drop-shadow-2xl"
                 />
               </div>
               {!!item?.attributes?.caption && (
