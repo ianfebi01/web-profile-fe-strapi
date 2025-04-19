@@ -1,7 +1,10 @@
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import React from 'react'
 
 const NoDataFound = () => {
+  const t = useTranslations()
+  
   return (
     <div className='w-full flex-grow flex flex-col gap-6 items-center justify-center'>
       <div className='relative w-60 h-60'>
@@ -13,7 +16,7 @@ const NoDataFound = () => {
           priority
         />
       </div>
-      <h2 className='text-lg'>Data not found</h2>
+      <h2 className='text-lg'>{t( 'no-data-found' )}</h2>
     </div>
   )
 }

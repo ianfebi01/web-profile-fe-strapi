@@ -5,12 +5,13 @@ import { InstantSearchNext } from 'react-instantsearch-nextjs'
 import { ApiArticleArticle } from '@/types/generated/contentTypes'
 import CustomInfiniteHits from '../CustomInfiniteHits'
 import ArticleCard from '../Cards/ArticleCard'
-import NoDataFound from '../NoDataFound'
-import { NoResultsBoundary } from '../NoResutsBoundary'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { useLocale, useTranslations } from 'next-intl'
 
 const ArticleSearch = () => {
+  const locale = useLocale()
+  const t = useTranslations()
   const { meilisearch } = {
     meilisearch : {
       url : process.env.NEXT_PUBLIC_SEARCH_URL || '',
@@ -38,11 +39,13 @@ const ArticleSearch = () => {
         searchClient={searchClient}
         routing
       >
-        <Configure hitsPerPage={9} />
+        <Configure hitsPerPage={9}
+          filters={`locale = ${locale}`}
+        />
         <div className="flex gap-4 justify-between">
           <SearchBox
             queryHook={queryHook}
-            placeholder="Search"
+            placeholder={t( 'search' )}
             submitIconComponent={() => (
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             )}
@@ -59,12 +62,10 @@ const ArticleSearch = () => {
           ></SearchBox>
         </div>
         <div>
-          <NoResultsBoundary fallback={<NoDataFound />}>
-            <CustomInfiniteHits
-              wrapperClass="mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 list-none"
-              component={Hit}
-            />
-          </NoResultsBoundary>
+          <CustomInfiniteHits
+            wrapperClass="mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 list-none"
+            component={Hit}
+          />
         </div>
       </InstantSearchNext>
     </div>

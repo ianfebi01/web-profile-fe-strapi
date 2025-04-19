@@ -8,7 +8,7 @@ import Image from 'next/image'
 import imageLoader from '@/lib/constans/image-loader'
 import Markdown from '../Parsers/Markdown'
 import imageUrl from '@/utils/imageUrl'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import AnimationProvider from '../Context/AnimationProvider'
 
 interface Props {

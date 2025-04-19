@@ -1,17 +1,21 @@
 import React from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import imageUrl from '@/utils/imageUrl'
 import { ApiArticleArticle } from '@/types/generated/contentTypes'
 import imageLoader from '@/lib/constans/image-loader'
 import { getPlainText } from '@/utils/parseMd'
+import { useLocale, useTranslations } from 'next-intl'
 
 interface Props {
   data: ApiArticleArticle['attributes']
 }
 
 const ArticleCard: React.FC<Props> = ( { data } ) => {
+  const t = useTranslations()
+  const locale = useLocale()
+
   const formatDate = ( dateString: string ) => {
     const options: Intl.DateTimeFormatOptions = {
       year  : 'numeric',
@@ -19,7 +23,7 @@ const ArticleCard: React.FC<Props> = ( { data } ) => {
       day   : 'numeric',
     }
 
-    return new Date( dateString ).toLocaleDateString( undefined, options )
+    return new Date( dateString ).toLocaleDateString( locale, options )
   }
 
   return (
@@ -61,7 +65,7 @@ const ArticleCard: React.FC<Props> = ( { data } ) => {
           className={cn( 'button button-primary' )}
           aria-label={`Read more ${data.title} article`}
         >
-          <span>Read More</span>
+          <span>{t( 'read-more' )}</span>
         </Link>
       </div>
     </article>

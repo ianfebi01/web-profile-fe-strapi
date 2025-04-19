@@ -1,3 +1,4 @@
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -19,14 +20,14 @@ const Chip = ( { label, bg = 'dark', className, link }: Props ) => {
       <p className="text-sm-medium m-0">
         <span>{label}</span>
         {!!link && (
-          <a href={link}
+          <Link href={link}
             aria-label={label}
             rel='noopener noreferrer'
             target='_blank'
             className='text-orange hover:underline underline-offset-4'
           >
             {link}
-          </a>
+          </Link>
         )}
       </p>
     </div>

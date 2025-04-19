@@ -1,4 +1,7 @@
+import createNextIntlPlugin from 'next-intl/plugin'
+
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode : false,
 
@@ -43,4 +46,5 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+const withNextIntl = createNextIntlPlugin( './i18n/request.tsx' )
+export default withNextIntl( nextConfig )

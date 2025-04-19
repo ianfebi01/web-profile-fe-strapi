@@ -8,8 +8,9 @@ import {
   NavCategoriesNavCategories,
   NavItemsNavItems,
 } from '@/types/generated/components'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import constructNavUrl from '@/utils/construct-nav-url'
+import { ApiPagePage } from '@/types/generated/contentTypes'
 
 interface Props {
   data: NavCategoriesNavCategories['attributes']
@@ -94,10 +95,10 @@ export default function MenuItem( { data }: Props ) {
                                   'flex items-center rounded-lg p-2 min-h-20   w-full',
                                   ' text-sm xl:text-base font-medium text-left ',
                                   'transition duration-150 ease-in-out',
-                                  'hover:bg-dark focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 hover:shadow-xl',
+                                  'hover:bg-dark focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 hover:shadow-xl'
                                 )}
                               >
-                                {item?.name}
+                                {item?.name || ( item.page?.data as ApiPagePage )?.attributes?.title}
                               </button>
                             </Link>
                           </div>

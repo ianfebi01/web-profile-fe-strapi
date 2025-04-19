@@ -8,12 +8,14 @@ import InstagramIcon from '../Icons/InstagramIcon'
 import LinkedinIcon from '../Icons/LinkedinIcon'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   title: string
   socials: ArraysSocials['attributes'][]
 }
 export default function MenuItemSocial( { title, socials }: Props ) {
+  const t = useTranslations( 'socials-desc' )
   const [show, setShow] = useState<boolean>( false )
 
   const email = useMemo( ()=>socials?.find( ( item ) => item.platform === 'Email' ), [socials] )
@@ -78,7 +80,7 @@ export default function MenuItemSocial( { title, socials }: Props ) {
                                 {item.platform}
                               </p>
                               <p className="text-sm text-white/50 text-left m-0">
-                                  Follow me on Instagram to get closer to me
+                                {t( 'instagram' )}
                               </p>
                             </div>
                           </button>
@@ -98,7 +100,7 @@ export default function MenuItemSocial( { title, socials }: Props ) {
                                 {item.platform}
                               </p>
                               <p className="text-sm text-white/50 text-left m-0">
-                                  Connect with my profesional side on LinkedIn
+                                {t( 'linkedin' )}
                               </p>
                             </div>
                           </button>

@@ -1,0 +1,22 @@
+{
+    "back": "Kembali",
+    "contact": "Kontak",
+    "search": "Cari",
+    "read-more": "Baca Selengkapnya",
+    "no-data-found": "Data tidak ditemukan",
+    "article": {
+        "title": "Artikel",
+        "desc": "Daftar artikel oleh Ian Febi Sastrataruna"
+    },
+    "portofolio": {
+        "title": "Portofolio",
+        "desc": "Daftar portofolio oleh Ian Febi Sastrataruna"
+    },
+    "locale-switcher":{
+        "title": "Ubah Bahasa"
+    },
+    "socials-desc": {
+    "linkedin": "Terhubung dengan sisi profesional saya di LinkedIn",
+    "instagram": "Ikuti saya di Instagram untuk lebih dekat dengan saya"
+}
+}

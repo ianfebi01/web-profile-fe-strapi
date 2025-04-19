@@ -1,7 +1,7 @@
 'use client'
-import { openNewTab } from '@/lib/utils'
-import Button2 from './Button2'
 import { ReactElement } from 'react'
+import { Link } from '@/i18n/navigation'
+import { cn } from '@/lib/utils'
 
 interface Props {
   url: string
@@ -11,15 +11,15 @@ interface Props {
 }
 const LinkOpenNewTab = ( { url, label, icon, className = '' }: Props ) => {
   return (
-    <Button2
-      variant="link"
-      type="button"
-      className={className}
-      onClick={() => openNewTab( url )}
+    <Link
+      href={url}
+      className={cn( ['button', 'button-link'], className )}
+      rel="noopener noreferrer"
+      target="_blank"
     >
       {icon}
       {label}
-    </Button2>
+    </Link>
   )
 }
 

@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Url } from 'next/dist/shared/lib/router/router'
 
 interface Props {
