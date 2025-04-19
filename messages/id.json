@@ -14,5 +14,9 @@
     },
     "locale-switcher":{
         "title": "Ubah Bahasa"
-    }
+    },
+    "socials-desc": {
+    "linkedin": "Terhubung dengan sisi profesional saya di LinkedIn",
+    "instagram": "Ikuti saya di Instagram untuk lebih dekat dengan saya"
+}
 }

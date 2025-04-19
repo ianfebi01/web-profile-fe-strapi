@@ -14,5 +14,9 @@
     },
     "locale-switcher": {
         "title": "Change Language"
+    },
+    "socials-desc": {
+        "linkedin": "Connect with my profesional side on LinkedIn",
+        "instagram": "Follow me on Instagram to get closer to me"
     }
 }
