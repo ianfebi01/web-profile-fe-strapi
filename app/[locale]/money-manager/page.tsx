@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils"
 import { Locale } from "next-intl"
 import { getTranslations } from "next-intl/server"
 

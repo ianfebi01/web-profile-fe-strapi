@@ -1,4 +1,3 @@
-import Login from '@/components/Login'
 import Register from '@/components/Register'
 import { Link } from '@/i18n/navigation'
 import { Metadata } from 'next'
