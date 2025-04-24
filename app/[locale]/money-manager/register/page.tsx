@@ -62,7 +62,7 @@ export default async function PageMoneyManagerLogin( { params }: Props ) {
           <h1 className="m-0">{t( 'register' )}</h1>
           <Login />
           <p>
-            {t( 'have-an-account' )}{' '}
+            {t( 'have_an_account' )}{' '}
             <Link href={'/money-manager/login'}
               className="text-orange"
             >

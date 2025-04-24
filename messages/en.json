@@ -2,7 +2,7 @@
     "back": "Back",
     "contact": "Contact",
     "search": "Search",
-    "read-more": "Read More",
+    "read_more": "Read More",
     "no-data-found": "Data not found",
     "article": {
         "title": "Article",
@@ -23,10 +23,11 @@
     "register": "Register",
     "email": "Email",
     "password": "Password",
-    "dont-have-account": "Doesn't have account?",
-    "have-an-account": "Have an account?",
+    "dont_have_account": "Doesn't have account?",
+    "have_an_account": "Have an account?",
     "placeholder": {
         "email": "eg. example@example.com",
         "password": "eg. ********"
-    }
+    },
+    "something_went_wrong_title": "Something went wrong!"
 }

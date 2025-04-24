@@ -65,7 +65,7 @@ const ArticleCard: React.FC<Props> = ( { data } ) => {
           className={cn( 'button button-primary' )}
           aria-label={`Read more ${data.title} article`}
         >
-          <span>{t( 'read-more' )}</span>
+          <span>{t( 'read_more' )}</span>
         </Link>
       </div>
     </article>
