@@ -30,7 +30,8 @@ export default function middleware( req: NextRequest ) {
   // Apply auth ONLY to /money-manager/** EXCEPT /money-manager/login
   if (
     basePath.startsWith( '/money-manager' ) &&
-    !basePath.startsWith( '/money-manager/login' )
+    !basePath.startsWith( '/money-manager/login' ) &&
+    !basePath.startsWith( '/money-manager/register' )
   ) {
     const authResponse = authMiddleware( req );
     if ( authResponse.status !== 200 ) {

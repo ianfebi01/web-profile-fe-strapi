@@ -12,11 +12,21 @@
         "title": "Portofolio",
         "desc": "Daftar portofolio oleh Ian Febi Sastrataruna"
     },
-    "locale-switcher":{
+    "locale-switcher": {
         "title": "Ubah Bahasa"
     },
     "socials-desc": {
-    "linkedin": "Terhubung dengan sisi profesional saya di LinkedIn",
-    "instagram": "Ikuti saya di Instagram untuk lebih dekat dengan saya"
-}
+        "linkedin": "Terhubung dengan sisi profesional saya di LinkedIn",
+        "instagram": "Ikuti saya di Instagram untuk lebih dekat dengan saya"
+    },
+    "login": "Masuk",
+    "register": "Daftar",
+    "email": "Email",
+    "password": "Kata sandi",
+    "dont-have-account": "Tidak punya akun?",
+    "have-an-account": "Sudah punya akun?",
+    "placeholder": {
+        "email": "cth. contoh@mail.com",
+        "password": "cth. ********"
+    }
 }

@@ -18,5 +18,15 @@
     "socials-desc": {
         "linkedin": "Connect with my profesional side on LinkedIn",
         "instagram": "Follow me on Instagram to get closer to me"
+    },
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "dont-have-account": "Doesn't have account?",
+    "have-an-account": "Have an account?",
+    "placeholder": {
+        "email": "eg. example@example.com",
+        "password": "eg. ********"
     }
 }

@@ -86,7 +86,7 @@ const Modal: FunctionComponent<Props> = ( props ) => {
             >
               <Dialog.Panel
                 className={cn(
-                  'inset-x-0 inset-y-0 m-auto max-w-2xl w-full max-h-[600px] flex flex-col bg-dark border border-none rounded-lg overflow-hidden',
+                  'inset-x-0 inset-y-0 m-auto max-w-2xl w-full max-h-[600px] flex flex-col bg-dark shadow-2xl border border-none rounded-lg overflow-hidden',
                   [variant === 'warning' && 'max-w-sm'],
                   [variant === 'fullscreen' && 'max-w-[unset] max-h-[unset] h-screen'],
                 )}

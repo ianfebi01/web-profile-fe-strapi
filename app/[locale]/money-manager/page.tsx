@@ -1,4 +1,6 @@
 import { cn } from "@/lib/utils"
+import { Locale } from "next-intl"
+import { getTranslations } from "next-intl/server"
 
 type Props = {
   params: {
@@ -8,6 +10,11 @@ type Props = {
 }
 
 export default async function PageMoneyManager( { params }: Props ) {
+
+  const { locale } = await params
+
+  const t = await getTranslations( { locale } )
+  
   return (
     <main>
       <section id="money-manager"
