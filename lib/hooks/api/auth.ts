@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from '@/i18n/navigation'
 import toast from 'react-hot-toast'
 import { useTranslations } from 'next-intl'
-import { IAuth, IBodyLogin } from '@/types/api/auth'
+import { IAuth, IBodyLogin, IBodyRegister } from '@/types/api/auth'
 import { useState } from 'react'
 import { AxiosResponse } from 'axios'
 
@@ -38,7 +38,7 @@ export const useLogin = () => {
         return true
       } else {
         setLoading( false )
-        
+
         return false
       }
     } catch ( err ) {
@@ -52,6 +52,49 @@ export const useLogin = () => {
   }
 
   return { login, loading }
+}
+
+/**
+ *  Register
+ */
+export const useRegister = () => {
+  const axiosAuth = useAxiosAuth()
+  const router = useRouter()
+  const t = useTranslations()
+  const [loading, setLoading] = useState( false )
+
+  const register = async ( body: IBodyRegister ) => {
+    try {
+      setLoading( true )
+
+      const res: AxiosResponse<IAuth> = await axiosAuth.post( `${baseUrl}/register`, {
+        ...body
+      } )
+
+      if ( res && res?.data ) {
+        setCookie( 'token', JSON.stringify( res.data.jwt ) )
+        // setCookie( 'refreshToken', JSON.stringify( res.data.data?.refresh ) )
+
+        setLoading( false )
+        router.replace( '/money-manager' )
+
+        return true
+      } else {
+        setLoading( false )
+
+        return false
+      }
+    } catch ( err ) {
+      // const error = err as AxiosError
+      toast.error( t( 'register_failed' ) )
+
+      setLoading( false )
+
+      return false
+    }
+  }
+
+  return { register, loading }
 }
 
 export const useRemoveUserData = () => {

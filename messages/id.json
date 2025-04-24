@@ -22,11 +22,13 @@
     "login": "Masuk",
     "register": "Daftar",
     "email": "Email",
+    "username": "Username",
     "password": "Kata sandi",
     "dont_have_account": "Tidak punya akun?",
     "have_an_account": "Sudah punya akun?",
     "placeholder": {
         "email": "cth. contoh@mail.com",
+        "username": "cth. ianfebi01",
         "password": "cth. ********"
     },
     "something_went_wrong_title": "Maaf, terjadi kesalahan.",

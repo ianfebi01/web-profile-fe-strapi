@@ -22,11 +22,13 @@
     "login": "Login",
     "register": "Register",
     "email": "Email",
+    "username": "Username",
     "password": "Password",
     "dont_have_account": "Doesn't have account?",
     "have_an_account": "Have an account?",
     "placeholder": {
         "email": "eg. example@example.com",
+        "username": "eg. ianfebi01",
         "password": "eg. ********"
     },
     "something_went_wrong_title": "Something went wrong!",

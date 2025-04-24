@@ -1,4 +1,5 @@
 import Login from '@/components/Login'
+import Register from '@/components/Register'
 import { Link } from '@/i18n/navigation'
 import { Metadata } from 'next'
 import { Locale } from 'next-intl'
@@ -13,18 +14,18 @@ type Props = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = {
-    metaTitle : 'Login | Money Manager | Ian Febi Sastrataruna',
+    metaTitle : 'Register | Money Manager | Ian Febi Sastrataruna',
     metaDescription :
-      'Login to access your personal finance dashboard with Money Manager by Ian Febi Sastrataruna.',
+      'Register to access your personal finance dashboard with Money Manager by Ian Febi Sastrataruna.',
     keywords :
-      'login, money manager, finance, personal budgeting, Ian Febi Sastrataruna',
+      'register, money manager, finance, personal budgeting, Ian Febi Sastrataruna',
     metaRobots : 'index, follow',
   }
 
   const socialMeta = {
     twitter : {
       description :
-        'Securely log in to manage your finances with Money Manager by Ian Febi Sastrataruna.',
+        'Securely register to manage your finances with Money Manager by Ian Febi Sastrataruna.',
     },
   }
 
@@ -48,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function PageMoneyManagerLogin( { params }: Props ) {
+export default async function PageMoneyManagerRegister( { params }: Props ) {
   const { locale } = await params
 
   const t = await getTranslations( { locale } )
@@ -60,7 +61,7 @@ export default async function PageMoneyManagerLogin( { params }: Props ) {
       >
         <div className="max-w-sm mx-auto px-6 lg:px-8 py-6 lg:py-8  flex flex-col gap-4 items-center rounded-lg bg-dark-secondary">
           <h1 className="m-0">{t( 'register' )}</h1>
-          <Login />
+          <Register />
           <p>
             {t( 'have_an_account' )}{' '}
             <Link href={'/money-manager/login'}
