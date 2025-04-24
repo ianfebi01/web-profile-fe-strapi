@@ -1,11 +1,46 @@
-import createMiddleware from 'next-intl/middleware';
+import createIntlMiddleware from 'next-intl/middleware';
+import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 
-export default createMiddleware( routing );
- 
+const intlMiddleware = createIntlMiddleware( routing );
+
+function authMiddleware( req: NextRequest ) {
+  const isAuthenticated = Boolean( req.cookies.get( 'auth-token' )?.value ); // Adjust for your auth logic
+
+  if ( !isAuthenticated ) {
+    const loginUrl = new URL( '/money-manager/login', req.url );
+    
+    return NextResponse.redirect( loginUrl );
+  }
+
+  return NextResponse.next();
+}
+
+export default function middleware( req: NextRequest ) {
+  const locale = routing.locales.find( locale =>
+    req.nextUrl.pathname.startsWith( `/${locale}/` )
+  );
+
+  // Get the path without the locale
+  const basePath = locale ? req.nextUrl.pathname.replace( `/${locale}`, '' ) : req.nextUrl.pathname;
+
+  // Run i18n middleware first
+  const intlResponse = intlMiddleware( req );
+
+  // Apply auth ONLY to /money-manager/** EXCEPT /money-manager/login
+  if (
+    basePath.startsWith( '/money-manager' ) &&
+    !basePath.startsWith( '/money-manager/login' )
+  ) {
+    const authResponse = authMiddleware( req );
+    if ( authResponse.status !== 200 ) {
+      return authResponse;
+    }
+  }
+
+  return intlResponse;
+}
+
 export const config = {
-  // Match all pathnames except for
-  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
-  // - … the ones containing a dot (e.g. `favicon.ico`)
-  matcher : '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
+  matcher : '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
 };
