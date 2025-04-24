@@ -1,7 +1,7 @@
 // import axios, { AxiosError } from 'axios'
 // import Cookies from 'universal-cookie'
 
-import axios from "axios";
+import axios from 'axios'
 
 // const cookie = new Cookies()
 
@@ -15,7 +15,7 @@ import axios from "axios";
 //     // Modify the request config here (add headers, authentication tokens)
 
 //     console.log(cookie.get('accessToken'))
-    
+
 //     const accessToken = cookie.get('accessToken')
 
 //     // If token is present add it to request's Authorization Header
@@ -66,15 +66,15 @@ import axios from "axios";
 // });
 
 const api = axios.create( {
-  baseURL         : '/api-web', 
-  headers         : { "Content-Type" : "application/json" },
-  withCredentials : false
+  baseURL         : process.env.NEXT_PUBLIC_STRAPI_API_URL || '/api-web',
+  headers         : { 'Content-Type' : 'application/json' },
+  withCredentials : false,
 } )
 
 export default api
 
 export const apiAuth = axios.create( {
-  baseURL         : '/api-web',
-  headers         : { "Content-Type" : "application/json" },
-  withCredentials : false
+  baseURL         : process.env.NEXT_PUBLIC_STRAPI_API_URL || '/api-web',
+  headers         : { 'Content-Type' : 'application/json' },
+  withCredentials : false,
 } )

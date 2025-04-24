@@ -29,5 +29,6 @@
         "email": "eg. example@example.com",
         "password": "eg. ********"
     },
-    "something_went_wrong_title": "Something went wrong!"
+    "something_went_wrong_title": "Something went wrong!",
+    "login_failed": "Unable to log in. Make sure your credentials are correct."
 }

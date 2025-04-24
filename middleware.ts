@@ -1,47 +1,54 @@
-import createIntlMiddleware from 'next-intl/middleware';
-import { NextRequest, NextResponse } from 'next/server';
-import { routing } from './i18n/routing';
+import createIntlMiddleware from 'next-intl/middleware'
+import { NextRequest, NextResponse } from 'next/server'
+import { routing } from './i18n/routing'
 
-const intlMiddleware = createIntlMiddleware( routing );
+const intlMiddleware = createIntlMiddleware( routing )
 
-function authMiddleware( req: NextRequest ) {
-  const isAuthenticated = Boolean( req.cookies.get( 'auth-token' )?.value ); // Adjust for your auth logic
-
-  if ( !isAuthenticated ) {
-    const loginUrl = new URL( '/money-manager/login', req.url );
-    
-    return NextResponse.redirect( loginUrl );
-  }
-
-  return NextResponse.next();
+function isAuthenticated( req: NextRequest ): boolean {
+  return Boolean( req.cookies.get( 'token' )?.value )
 }
 
 export default function middleware( req: NextRequest ) {
-  const locale = routing.locales.find( locale =>
+  const locale = routing.locales.find( ( locale ) =>
     req.nextUrl.pathname.startsWith( `/${locale}/` )
-  );
+  )
 
   // Get the path without the locale
-  const basePath = locale ? req.nextUrl.pathname.replace( `/${locale}`, '' ) : req.nextUrl.pathname;
+  const basePath = locale
+    ? req.nextUrl.pathname.replace( `/${locale}`, '' )
+    : req.nextUrl.pathname
 
   // Run i18n middleware first
-  const intlResponse = intlMiddleware( req );
+  const intlResponse = intlMiddleware( req )
 
-  // Apply auth ONLY to /money-manager/** EXCEPT /money-manager/login
+  const authed = isAuthenticated( req )
+
+  // If authenticated, redirect away from login/register
   if (
-    basePath.startsWith( '/money-manager' ) &&
-    !basePath.startsWith( '/money-manager/login' ) &&
-    !basePath.startsWith( '/money-manager/register' )
+    authed &&
+    ( basePath === '/money-manager/login' ||
+      basePath === '/money-manager/register' )
   ) {
-    const authResponse = authMiddleware( req );
-    if ( authResponse.status !== 200 ) {
-      return authResponse;
-    }
+    const dashboardUrl = new URL( `/${locale ?? 'en'}/money-manager`, req.url )
+    
+    return NextResponse.redirect( dashboardUrl )
   }
 
-  return intlResponse;
+  // If NOT authenticated and accessing protected routes
+  if (
+    !authed &&
+    basePath.startsWith( '/money-manager' ) &&
+    basePath !== '/money-manager/login' &&
+    basePath !== '/money-manager/register'
+  ) {
+    const loginUrl = new URL( `/${locale ?? 'en'}/money-manager/login`, req.url )
+    
+    return NextResponse.redirect( loginUrl )
+  }
+
+  return intlResponse
 }
 
 export const config = {
   matcher : '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
-};
+}

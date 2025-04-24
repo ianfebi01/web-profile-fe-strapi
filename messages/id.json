@@ -29,5 +29,6 @@
         "email": "cth. contoh@mail.com",
         "password": "cth. ********"
     },
-    "something_went_wrong_title": "Maaf, terjadi kesalahan."
+    "something_went_wrong_title": "Maaf, terjadi kesalahan.",
+    "login_failed": "Login tidak berhasil. Pastikan informasi yang Anda masukkan sudah benar."
 }
