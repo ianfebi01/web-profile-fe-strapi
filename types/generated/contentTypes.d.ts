@@ -742,7 +742,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -799,11 +798,39 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    title: Attribute.String & Attribute.Required;
-    slug: Attribute.String & Attribute.Required & Attribute.Unique;
-    date: Attribute.Date;
-    featureImage: Attribute.Media<'images'> & Attribute.Required;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    date: Attribute.Date &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    featureImage: Attribute.Media<'images'> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     content: Attribute.RichText &
       Attribute.Required &
       Attribute.CustomField<
@@ -812,13 +839,23 @@ export interface ApiArticleArticle extends Schema.CollectionType {
           output: 'Markdown';
           preset: 'standard';
         }
-      >;
+      > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     tags: Attribute.Relation<
       'api::article.article',
       'manyToMany',
       'api::tag.tag'
     >;
-    seo: Attribute.Component<'shared.seo'>;
+    seo: Attribute.Component<'shared.seo'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -834,6 +871,12 @@ export interface ApiArticleArticle extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::article.article',
+      'oneToMany',
+      'api::article.article'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -882,11 +925,39 @@ export interface ApiExperienceExperience extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    companyName: Attribute.String & Attribute.Required;
-    startDate: Attribute.Date & Attribute.Required;
-    endDate: Attribute.Date;
-    role: Attribute.String & Attribute.Required;
+    companyName: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    startDate: Attribute.Date &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    endDate: Attribute.Date &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    role: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     description: Attribute.RichText &
       Attribute.CustomField<
         'plugin::ckeditor.CKEditor',
@@ -894,7 +965,12 @@ export interface ApiExperienceExperience extends Schema.CollectionType {
           output: 'Markdown';
           preset: 'standard';
         }
-      >;
+      > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -906,6 +982,93 @@ export interface ApiExperienceExperience extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::experience.experience',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::experience.experience',
+      'oneToMany',
+      'api::experience.experience'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiHomePageHomePage extends Schema.SingleType {
+  collectionName: 'home_pages';
+  info: {
+    singularName: 'home-page';
+    pluralName: 'home-pages';
+    displayName: 'HomePage';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    page: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'api::page.page'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToMany',
+      'api::home-page.home-page'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiMmCategoryMmCategory extends Schema.CollectionType {
+  collectionName: 'mm_categories';
+  info: {
+    singularName: 'mm-category';
+    pluralName: 'mm-categories';
+    displayName: 'MM Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    user: Attribute.Relation<
+      'api::mm-category.mm-category',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::mm-category.mm-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::mm-category.mm-category',
       'oneToOne',
       'admin::user'
     > &
@@ -939,7 +1102,6 @@ export interface ApiPagePage extends Schema.CollectionType {
       }>;
     slug: Attribute.String &
       Attribute.Required &
-      Attribute.Unique &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1017,11 +1179,33 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    title: Attribute.String & Attribute.Required;
-    slug: Attribute.String & Attribute.Required;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     year: Attribute.Integer &
       Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
       Attribute.SetMinMax<
         {
           min: 2000;
@@ -1030,8 +1214,19 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
         number
       > &
       Attribute.DefaultTo<2024>;
-    featureImage: Attribute.Media<'images'> & Attribute.Required;
-    url: Attribute.String;
+    featureImage: Attribute.Media<'images'> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    url: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     skills: Attribute.Relation<
       'api::portofolio.portofolio',
       'oneToMany',
@@ -1044,8 +1239,18 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
           output: 'Markdown';
           preset: 'standard';
         }
-      >;
-    gallery: Attribute.Media<'images', true>;
+      > &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    gallery: Attribute.Media<'images', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1061,6 +1266,12 @@ export interface ApiPortofolioPortofolio extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::portofolio.portofolio',
+      'oneToMany',
+      'api::portofolio.portofolio'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1255,14 +1466,54 @@ export interface ApiSiteSite extends Schema.SingleType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
   attributes: {
-    name: Attribute.String;
-    description: Attribute.String;
-    logo: Attribute.Media<'images'>;
-    favicon: Attribute.Media<'images'>;
-    socials: Attribute.Component<'arrays.socials', true>;
-    mainNavMenu: Attribute.Component<'nav-categories.nav-categories', true>;
-    footerNavMenu: Attribute.Component<'nav-categories.nav-categories', true>;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    logo: Attribute.Media<'images'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    favicon: Attribute.Media<'images'> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    socials: Attribute.Component<'arrays.socials', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    mainNavMenu: Attribute.Component<'nav-categories.nav-categories', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    footerNavMenu: Attribute.Component<'nav-categories.nav-categories', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1270,6 +1521,12 @@ export interface ApiSiteSite extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::site.site', 'oneToOne', 'admin::user'> &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::site.site',
+      'oneToMany',
+      'api::site.site'
+    >;
+    locale: Attribute.String;
   };
 }
 
@@ -1395,6 +1652,49 @@ export interface ApiTagTag extends Schema.CollectionType {
   };
 }
 
+export interface ApiTransactionTransaction extends Schema.CollectionType {
+  collectionName: 'transactions';
+  info: {
+    singularName: 'transaction';
+    pluralName: 'transactions';
+    displayName: 'Transaction';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    amount: Attribute.Decimal;
+    type: Attribute.Enumeration<['income', 'expense']>;
+    description: Attribute.String;
+    date: Attribute.DateTime;
+    user: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    mm_category: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'api::mm-category.mm-category'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::transaction.transaction',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1416,6 +1716,8 @@ declare module '@strapi/types' {
       'api::article.article': ApiArticleArticle;
       'api::colour.colour': ApiColourColour;
       'api::experience.experience': ApiExperienceExperience;
+      'api::home-page.home-page': ApiHomePageHomePage;
+      'api::mm-category.mm-category': ApiMmCategoryMmCategory;
       'api::page.page': ApiPagePage;
       'api::portofolio.portofolio': ApiPortofolioPortofolio;
       'api::product.product': ApiProductProduct;
@@ -1425,6 +1727,7 @@ declare module '@strapi/types' {
       'api::skill.skill': ApiSkillSkill;
       'api::social.social': ApiSocialSocial;
       'api::tag.tag': ApiTagTag;
+      'api::transaction.transaction': ApiTransactionTransaction;
     }
   }
 }

@@ -4,6 +4,9 @@ export const useFormatDate = () => {
   const normal = ( date: Date | string ) => {
     return format( new Date( date ), 'dd:MM:yyyy' )
   }
+  const month = ( date: Date | string ) => {
+    return format( new Date( date ), 'MM' )
+  }
   const year = ( date: Date | string ) => {
     return format( new Date( date ), 'yyyy' )
   }
@@ -38,7 +41,8 @@ export const useFormatDate = () => {
     birthDayAndYear,
     startDateNoTime,
     endDateNoTime,
-    year
+    year,
+    month
   }
 }
 

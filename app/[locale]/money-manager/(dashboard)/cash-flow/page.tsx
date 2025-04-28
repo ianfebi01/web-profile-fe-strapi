@@ -1,4 +1,5 @@
 import Header from '@/components/Layouts/Header'
+import CashFlow from '@/components/Pages/CashFlow'
 import { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
@@ -17,7 +18,7 @@ export default async function PageMoneyManagerCashFlow( { params }: Props ) {
   return (
     <div>
       <Header text="Cashflow" />
-      
+      <CashFlow/>
     </div>
   )
 }
