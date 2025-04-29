@@ -32,5 +32,17 @@
         "password": "cth. ********"
     },
     "something_went_wrong_title": "Maaf, terjadi kesalahan.",
-    "login_failed": "Login tidak berhasil. Pastikan informasi yang Anda masukkan sudah benar."
+    "login_failed": "Login tidak berhasil. Pastikan informasi yang Anda masukkan sudah benar.",
+    "mm_categories": {
+        "food": "Makanan",
+        "social_life": "Kebutuhan Sosial",
+        "apparel": "Pakaian",
+        "culture": "Budaya",
+        "beauty": "Kecantikan",
+        "health": "Kesehatan",
+        "education": "Pendidikan",
+        "gift": "Hadiah",
+        "house_hold": "Rumah Tangga",
+        "other": "Lainnya"
+    }
 }

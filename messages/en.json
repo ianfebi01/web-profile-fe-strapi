@@ -32,5 +32,17 @@
         "password": "eg. ********"
     },
     "something_went_wrong_title": "Something went wrong!",
-    "login_failed": "Unable to log in. Make sure your credentials are correct."
+    "login_failed": "Unable to log in. Make sure your credentials are correct.",
+    "mm_categories": {
+        "food": "Food",
+        "social_life": "Social Life",
+        "apparel": "Apparel",
+        "culture": "Culture",
+        "beauty": "Beauty",
+        "health": "Health",
+        "education": "Education",
+        "gift": "Gift",
+        "house_hold": "Household",
+        "other": "Other"
+    }
 }

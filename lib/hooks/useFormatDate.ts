@@ -22,6 +22,10 @@ export const useFormatDate = () => {
     return format( new Date( date ), 'dd MMM yyyy' )
   }
 
+  const spaceMonthYear = ( date: Date | string ) => {
+    return format( new Date( date ), 'MMM yyyy' )
+  }
+
   const birthDayAndYear = ( date: Date | string ) => {
     return `${format( new Date( date ), 'dd MMM yyyy' )} (${calculateAge( new Date( date ) )} tahun)`
   }
@@ -42,7 +46,8 @@ export const useFormatDate = () => {
     startDateNoTime,
     endDateNoTime,
     year,
-    month
+    month,
+    spaceMonthYear
   }
 }
 
