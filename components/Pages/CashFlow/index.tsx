@@ -106,8 +106,8 @@ const CashFlow = () => {
               </div>
             </div>
           ) )}
-        {!isLoading && data?.transactions.length === 0 && <NoDataFound />}
       </div>
+      {!isLoading && data?.transactions.length === 0 && <NoDataFound />}
     </div>
   )
 }
