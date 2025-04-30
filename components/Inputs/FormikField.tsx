@@ -43,7 +43,7 @@ const FormikField = ( props: Props ) => {
         {requiredIcon}
       </label>
 
-      {['text', 'email', 'password', 'number'].includes( type ) && (
+      {['text', 'email', 'password', 'number', 'currency-id'].includes( type ) && (
         <TextField type={type}
           {...props}
         />

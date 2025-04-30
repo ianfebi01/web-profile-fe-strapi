@@ -1,5 +1,6 @@
 'use client'
 import DefaultCategories from '@/components/DefaultCategories'
+import AddTransaction from '@/components/Modal/AddTransaction'
 import NoDataFound from '@/components/NoDataFound'
 import { IFilter, useGetDatas } from '@/lib/hooks/api/cashFlow'
 import { useFormatDate } from '@/lib/hooks/useFormatDate'
@@ -41,28 +42,32 @@ const CashFlow = () => {
 
   return (
     <div>
-      <div className="flex gap-2 items-center">
-        <button
-          className="hover:text-white-overlay transition-default"
-          onClick={() => changeMonth( 'prev' )}
-        >
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </button>
-        <h2 className="h3 font-normal m-0">
-          {spaceMonthYear( new Date( `${filter.year}-${filter.month}-01` ) )}
-        </h2>
-        <button
-          className="hover:text-white-overlay transition-default"
-          onClick={() => changeMonth( 'next' )}
-        >
-          <FontAwesomeIcon icon={faChevronRight} />
-        </button>
+      <div className="flex gap-4">
+        <div className="flex gap-2 items-center">
+          <button
+            className="hover:text-white-overlay text-white-overlay-2 transition-default"
+            onClick={() => changeMonth( 'prev' )}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+          <h2 className="h3 font-normal m-0">
+            {spaceMonthYear( new Date( `${filter.year}-${filter.month}-01` ) )}
+          </h2>
+          <button
+            className="hover:text-white-overlay text-white-overlay-2 transition-default"
+            onClick={() => changeMonth( 'next' )}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        </div>
+        <div className="grow"></div>
+        <AddTransaction />
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 mt-8">
         {isLoading &&
-          mockLoop.map( ( item ) => (
+          mockLoop.map( ( _item, i ) => (
             <div
-              key={item}
+              key={i}
               className="animate-pulse h-32 w-full rounded-lg bg-dark-secondary"
             />
           ) )}

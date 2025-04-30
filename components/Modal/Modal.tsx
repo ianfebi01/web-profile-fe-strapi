@@ -93,7 +93,7 @@ const Modal: FunctionComponent<Props> = ( props ) => {
               >
                 {title && variant !== 'warning' ? (
                   <Dialog.Title
-                    className={cn( `px-4 pt-4 text-xl text-left max-w-7xl mx-auto w-full xl:px-0`, [
+                    className={cn( `px-4 pt-4 text-xl text-left max-w-7xl mx-auto w-full`, [
                       !desciption && [
                         border && 'border-b-[1px] border-white/25 pb-4',
                       ],
@@ -106,7 +106,7 @@ const Modal: FunctionComponent<Props> = ( props ) => {
                 )}
                 {desciption && variant !== 'warning' ? (
                   <Dialog.Description
-                    className={cn( 'px-4 pb-4 max-w-7xl mx-auto w-full xl:px-0', [
+                    className={cn( 'px-4 pb-4 max-w-7xl mx-auto w-full', [
                       border && 'border-b-[1px] border-white/25',
                     ] )}
                   >

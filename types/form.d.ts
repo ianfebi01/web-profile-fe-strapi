@@ -25,6 +25,7 @@ export type TFieldType =
   | 'month-year'
   | 'text-editor'
   | 'phone'
+  | 'currency-id'
 
 export type IOptions = {
   label: string
