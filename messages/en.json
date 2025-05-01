@@ -44,5 +44,8 @@
         "gift": "Gift",
         "house_hold": "Household",
         "other": "Other"
-    }
+    },
+    "reset": "Reset",
+    "set_date": "Select Date",
+    "close": "Close"
 }

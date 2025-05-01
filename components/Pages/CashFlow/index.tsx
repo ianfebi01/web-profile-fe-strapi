@@ -1,16 +1,19 @@
 'use client'
 import DefaultCategories from '@/components/DefaultCategories'
+import DateRangePicker from '@/components/Inputs/DateRangePicker'
 import AddTransaction from '@/components/Modal/AddTransaction'
 import NoDataFound from '@/components/NoDataFound'
 import { IFilter, useGetDatas } from '@/lib/hooks/api/cashFlow'
 import { useFormatDate } from '@/lib/hooks/useFormatDate'
 import { cn } from '@/lib/utils'
+import { ISelectedRange } from '@/types'
 import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
+import SingleDatePicker from '@/components/Inputs/SingleDatePicker'
 
 const CashFlow = () => {
   const { month, year, spaceMonthYear } = useFormatDate()
@@ -40,6 +43,11 @@ const CashFlow = () => {
     }
   }
 
+  const [dateRangeValue, setDateRangeValue] = useState<ISelectedRange>( {
+    startDate : null,
+    endDate   : null
+  } );
+
   return (
     <div>
       <div className="flex gap-4">
@@ -61,6 +69,13 @@ const CashFlow = () => {
           </button>
         </div>
         <div className="grow"></div>
+        <DateRangePicker value={dateRangeValue}
+          setValue={setDateRangeValue}
+        />
+        <SingleDatePicker value={dateRangeValue}
+          setValue={setDateRangeValue}
+        />
+        <pre>{JSON.stringify( dateRangeValue, null, 2 )}</pre>
         <AddTransaction />
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 mt-8">

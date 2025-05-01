@@ -44,5 +44,8 @@
         "gift": "Hadiah",
         "house_hold": "Rumah Tangga",
         "other": "Lainnya"
-    }
+    },
+    "reset": "Reset",
+    "set_date": "Set tanggal",
+    "close": "Tutup"
 }
