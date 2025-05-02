@@ -8,7 +8,6 @@ export type Props = {
 export type TActivatorProps = {
   rawValue: ISelectedRange
   value?: string
-  handleOpenMenu: () => void
 }
 
 type BasePlacement = 'top' | 'right' | 'bottom' | 'left'

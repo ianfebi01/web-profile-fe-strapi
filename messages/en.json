@@ -47,5 +47,12 @@
     },
     "reset": "Reset",
     "set_date": "Select Date",
-    "close": "Close"
+    "close": "Close",
+    "date": "Date",
+    "month": "Month",
+    "last_14_days": "Last 14 days",
+    "last_30_days": "Last 30 days",
+    "select_type": "Select Type",
+    "select_month": "Select Month",
+    "select_date": "Select Date"
 }

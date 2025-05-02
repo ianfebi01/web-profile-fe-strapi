@@ -1,17 +1,17 @@
 'use client'
 import {
   useState,
-  useRef,
   useEffect,
   useMemo,
   createElement,
   FunctionComponent,
+  Fragment,
 } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { format } from 'date-fns'
 import { id, enUS } from 'date-fns/locale'
-import { ISelectedRange, Placement, TActivatorProps } from '@/types'
+import { Placement } from '@/types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCalendarAlt,
@@ -22,19 +22,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useLocale, useTranslations } from 'next-intl'
 import '@/assets/css/react-datepicker.css'
+import { Popover, Transition } from '@headlessui/react'
+import { usePopper } from 'react-popper'
+import { cn } from '@/lib/utils'
 
 interface Props {
-  value: ISelectedRange
-  setValue: ( val: ISelectedRange ) => void
+  value: Date | null
+  setValue: (val: Date | null) => void
   min?: Date
   max?: Date
-  activator?: FunctionComponent<TActivatorProps>
+  activator?: FunctionComponent<{ rawValue: Date | null }>
   position?: Placement
   isTableFilter?: boolean
-  handleCommitted?: ( val: ISelectedRange ) => void
+  handleCommitted?: (val: Date | null) => void
 }
 
-const SingleDatePicker = ( {
+const SingleDatePicker = ({
   min,
   max,
   activator,
@@ -43,136 +46,195 @@ const SingleDatePicker = ( {
   isTableFilter = false,
   setValue,
   handleCommitted,
-}: Props ) => {
+}: Props) => {
   const t = useTranslations()
   const locale = useLocale()
 
   const dateLocale = locale === 'id' ? id : enUS
 
-  const datePickerRef = useRef<DatePicker>( null )
+  const [state, setState] = useState<Date | null>(null)
 
-  const [state, setState] = useState<ISelectedRange>( {
-    startDate : null,
-    endDate   : null,  // Keep this for consistency but it won't be used
-  } )
+  useEffect(() => {
+    setState(value)
+  }, [])
 
-  useEffect( () => {
-    setState( value )
-  }, [] )
-
-  const handleChange = ( newStartDate: Date | null ) => {
-    setState( { startDate : newStartDate, endDate : null } ) // No need for an endDate in single date picker
+  const handleChange = (newDate: Date | null) => {
+    setState(newDate) // No need for an endDate in single date picker
   }
 
   const onReset = () => {
-    datePickerRef.current?.setOpen( false )
-    setValue( { startDate : null, endDate : null } )
-    setState( { startDate : null, endDate : null } )
+    setValue(null)
+    setState(null)
   }
 
   const handleClose = () => {
-    datePickerRef.current?.setOpen( false )
-    setState( value )
+    setState(value)
   }
 
   const handleSave = () => {
-    datePickerRef.current?.setOpen( false )
-    setValue( state )
-    if ( handleCommitted ) {
-      handleCommitted( state )
+    setValue(state)
+    if (handleCommitted) {
+      handleCommitted(state)
     }
   }
 
-  const handleOpenMenu = () => {
-    datePickerRef.current?.setOpen( true )
-  }
-
-  const selectedTextValue = useMemo( () => {
-    const startDate = value.startDate
-      ? format( value.startDate, 'd MMMM yyyy', { locale : dateLocale } )
+  const selectedTextValue = useMemo(() => {
+    const startDate = value
+      ? format(value, 'd MMMM yyyy', { locale: dateLocale })
       : ''
 
-    return startDate || t( isTableFilter ? 'all' : 'select_date' )
-  }, [value] )
+    return startDate || t(isTableFilter ? 'all' : 'select_date')
+  }, [value])
+
+  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
+    null
+  )
+  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null)
+
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: position,
+    modifiers: [
+      {
+        name: 'preventOverflow',
+        options: {
+          boundary:
+            typeof window !== 'undefined'
+              ? (document.body as Element)
+              : undefined,
+        },
+      },
+      {
+        name: 'flip',
+        options: {
+          allowedAutoPlacements: ['bottom-end'],
+          fallbackPlacements: ['bottom-end', 'top-end'],
+          altBoundary: true,
+        },
+      },
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 4],
+        },
+      },
+    ],
+  })
 
   const DefaultActivator = () => (
     <button
-      onClick={handleOpenMenu}
-      className={`w-full text-left border rounded px-3 py-2 text-sm flex justify-between items-center ${
-        isTableFilter ? 'h-8 text-xs' : 'min-w-[300px]'
-      }`}
+      className={cn(
+        'w-full min-w-[300px]',
+        'flex justify-between items-center text-left',
+        'p-2 border rounded-lg bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none transition-colors duration-500 ease-in-out',
+        'text-sm lg:text-base',
+        ['focus:border-white/50 border-white/25'],
+        ['pr-4'],
+        [!value && 'text-white-overlay', !!value && 'text-white']
+      )}
     >
       <span>{selectedTextValue}</span>
-      <FontAwesomeIcon icon={faCalendarAlt}
-        className="text-gray-500 ml-2"
-      />
+      <FontAwesomeIcon icon={faCalendarAlt} className="text-gray-500 ml-2" />
     </button>
   )
 
   return (
-    <DatePicker
-      ref={datePickerRef}
-      popperPlacement={position}
-      minDate={min}
-      maxDate={max}
-      shouldCloseOnSelect={false}
-      showPopperArrow={false}
-      tabIndex={1}
-      selected={state.startDate}
-      onChange={handleChange}
-      renderDayContents={RenderDayContent}
-      renderCustomHeader={RenderCustomHeader( dateLocale )}
-      popperProps={{ strategy : 'absolute' }}
-      portalId="root"
-      customInput={
-        activator ? (
-          createElement( activator, { rawValue : value, handleOpenMenu } )
-        ) : (
-          <DefaultActivator />
-        )
-      }
-    >
-      <div className="px-3 pb-3 flex flex-col gap-3">
-        <div className="grid grid-cols-1 gap-2">
-          <input
-            className="border rounded px-2 py-1 text-sm bg-gray-100"
-            disabled
-            placeholder="-"
-            value={
-              state.startDate
-                ? format( state.startDate, 'dd MMM yyyy', { locale : dateLocale } )
-                : ''
-            }
-          />
-        </div>
-        <hr />
-        <div className="flex justify-end gap-2">
-          <button onClick={onReset}
-            className="text-sm text-gray-700"
-          >
-            {t( 'reset' )}
-          </button>
-          <button
-            onClick={handleClose}
-            className="border rounded px-3 py-1 text-sm flex items-center gap-1 border-gray-300 text-gray-900"
-          >
-            <FontAwesomeIcon icon={faBan} /> {t( 'close' )}
-          </button>
-          <button
-            onClick={handleSave}
-            className="bg-blue-600 text-white rounded px-3 py-1 text-sm flex items-center gap-1"
-          >
-            <FontAwesomeIcon icon={faCheckCircle} /> {t( 'set_date' )}
-          </button>
-        </div>
-      </div>
-    </DatePicker>
+    <>
+      <Popover className="relative">
+        {({ close }) => (
+          <>
+            <Popover.Button as="div" ref={setReferenceElement}>
+              {activator ? (
+                createElement(activator, { rawValue: value })
+              ) : (
+                <DefaultActivator />
+              )}
+            </Popover.Button>
+            <Transition
+              as={Fragment}
+              enter="transition-opacity ease-out duration-200"
+              enterFrom="opacity-0 "
+              enterTo="opacity-100 "
+              leave="transition-opacity ease-in duration-150"
+              leaveFrom="opacity-100 "
+              leaveTo="opacity-0 "
+            >
+              <Popover.Panel
+                static
+                className="absolute origin-top-right z-50 pt-3 w-screen max-w-xs px-4 sm:px-0"
+                ref={setPopperElement}
+                style={styles.popper}
+                {...attributes.popper}
+              >
+                <DatePicker
+                  inline
+                  minDate={min}
+                  maxDate={max}
+                  selected={state}
+                  onChange={(e) => {
+                    handleChange(e)
+                  }}
+                  renderDayContents={RenderDayContent}
+                  renderCustomHeader={RenderCustomHeader(dateLocale)}
+                >
+                  <div className="px-3 pb-3 flex flex-col gap-3">
+                    <div className="grid grid-cols-1 gap-2">
+                      <input
+                        className="border rounded px-2 py-1 text-sm bg-gray-100"
+                        disabled
+                        placeholder="-"
+                        value={
+                          state
+                            ? format(state, 'dd MMM yyyy', {
+                                locale: dateLocale,
+                              })
+                            : ''
+                        }
+                      />
+                    </div>
+                    <hr />
+                    <div className="flex justify-end gap-2">
+                      <button
+                        className="text-sm text-gray-700"
+                        onClick={() => {
+                          onReset()
+                          close()
+                        }}
+                      >
+                        {t('reset')}
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleClose()
+                          close()
+                        }}
+                        className="border rounded px-3 py-1 text-sm flex items-center gap-1 border-gray-300 text-gray-900"
+                      >
+                        <FontAwesomeIcon icon={faBan} /> {t('close')}
+                      </button>
+                      <button
+                        className="bg-blue-600 text-white rounded px-3 py-1 text-sm flex items-center gap-1"
+                        onClick={() => {
+                          handleSave()
+                          close()
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faCheckCircle} /> {t('set_date')}
+                      </button>
+                    </div>
+                  </div>
+                </DatePicker>
+              </Popover.Panel>
+            </Transition>
+          </>
+        )}
+      </Popover>
+    </>
   )
 }
 
 export default SingleDatePicker
 
-const RenderDayContent = ( day: number ) => <span>{day}</span>
+const RenderDayContent = (day: number) => <span>{day}</span>
 
 type TCustomHeaderProps = {
   date: Date
@@ -180,53 +242,48 @@ type TCustomHeaderProps = {
   increaseYear: () => void
   prevYearButtonDisabled: boolean
   nextYearButtonDisabled: boolean
-  changeYear: ( date: number ) => void
-  changeMonth: ( date: number ) => void
+  changeYear: (date: number) => void
+  changeMonth: (date: number) => void
   decreaseMonth: () => void
   increaseMonth: () => void
   prevMonthButtonDisabled: boolean
   nextMonthButtonDisabled: boolean
 }
 
-const RenderCustomHeader =
-  ( dateLocale: Locale ) => {
-    const CustomHeader = ( {
-      date,
-      decreaseMonth,
-      increaseMonth,
-      prevMonthButtonDisabled,
-      nextMonthButtonDisabled,
-    }: TCustomHeaderProps ) => {
-      return (
-        <div className="flex items-center justify-between px-3 py-2">
-          <button
-            type="button"
-            onClick={decreaseMonth}
-            disabled={prevMonthButtonDisabled}
-            className="text-gray-700"
-          >
-            <FontAwesomeIcon icon={faChevronLeft}
-              size="sm"
-            />
-          </button>
-          <span className="text-sm font-medium">
-            {format( date, 'MMM, yyyy', { locale : dateLocale } )}
-          </span>
-          <button
-            type="button"
-            onClick={increaseMonth}
-            disabled={nextMonthButtonDisabled}
-            className="text-gray-700"
-          >
-            <FontAwesomeIcon icon={faChevronRight}
-              size="sm"
-            />
-          </button>
-        </div>
-      )
-    }
-
-    CustomHeader.displayName = 'CustomDatePickerHeader'
-
-    return CustomHeader
+const RenderCustomHeader = (dateLocale: Locale) => {
+  const CustomHeader = ({
+    date,
+    decreaseMonth,
+    increaseMonth,
+    prevMonthButtonDisabled,
+    nextMonthButtonDisabled,
+  }: TCustomHeaderProps) => {
+    return (
+      <div className="flex items-center justify-between px-3 py-2">
+        <button
+          type="button"
+          onClick={decreaseMonth}
+          disabled={prevMonthButtonDisabled}
+          className="text-gray-700"
+        >
+          <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+        </button>
+        <span className="text-sm font-medium">
+          {format(date, 'MMM, yyyy', { locale: dateLocale })}
+        </span>
+        <button
+          type="button"
+          onClick={increaseMonth}
+          disabled={nextMonthButtonDisabled}
+          className="text-gray-700"
+        >
+          <FontAwesomeIcon icon={faChevronRight} size="sm" />
+        </button>
+      </div>
+    )
   }
+
+  CustomHeader.displayName = 'CustomDatePickerHeader'
+
+  return CustomHeader
+}
