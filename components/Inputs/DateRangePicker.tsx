@@ -28,16 +28,16 @@ import { cn } from '@/lib/utils'
 
 interface Props {
   value: ISelectedRange
-  setValue: (val: ISelectedRange) => void
+  setValue: ( val: ISelectedRange ) => void
   min?: Date
   max?: Date
   activator?: FunctionComponent<TActivatorProps>
   position?: Placement
   isTableFilter?: boolean
-  handleCommitted?: (val: ISelectedRange) => void
+  handleCommitted?: ( val: ISelectedRange ) => void
 }
 
-const DateRangePicker = ({
+const DateRangePicker = ( {
   min,
   max,
   activator,
@@ -46,76 +46,76 @@ const DateRangePicker = ({
   isTableFilter = false,
   setValue,
   handleCommitted,
-}: Props) => {
+}: Props ) => {
   const t = useTranslations()
   const locale = useLocale()
   const dateLocale = locale === 'id' ? id : enUS
 
-  const [state, setState] = useState<ISelectedRange>({
-    startDate: null,
-    endDate: null,
-  })
+  const [state, setState] = useState<ISelectedRange>( {
+    startDate : null,
+    endDate   : null,
+  } )
 
-  useEffect(() => {
-    setState(value)
-  }, [])
+  useEffect( () => {
+    setState( value )
+  }, [] )
 
-  const handleChange = ([startDate, endDate]: Array<Date | null>) => {
-    setState({ startDate, endDate })
+  const handleChange = ( [startDate, endDate]: Array<Date | null> ) => {
+    setState( { startDate, endDate } )
   }
 
   const onReset = () => {
-    setValue({ startDate: null, endDate: null })
-    setState({ startDate: null, endDate: null })
+    setValue( { startDate : null, endDate : null } )
+    setState( { startDate : null, endDate : null } )
   }
 
   const handleClose = () => {
-    setState(value)
+    setState( value )
   }
 
   const handleSave = () => {
-    setValue(state)
-    if (handleCommitted) {
-      handleCommitted(state)
+    setValue( state )
+    if ( handleCommitted ) {
+      handleCommitted( state )
     }
   }
 
-  const selectedTextValue = useMemo(() => {
+  const selectedTextValue = useMemo( () => {
     const startDate = value.startDate
-      ? format(value.startDate, 'd MMMM yyyy', { locale: dateLocale })
+      ? format( value.startDate, 'd MMMM yyyy', { locale : dateLocale } )
       : ''
     const endDate = value.endDate
-      ? format(value.endDate, 'd MMMM yyyy', { locale: dateLocale })
+      ? format( value.endDate, 'd MMMM yyyy', { locale : dateLocale } )
       : ''
 
     return value.startDate && value.endDate
       ? `${startDate} - ${endDate}`
-      : t(isTableFilter ? 'all' : 'select_date')
-  }, [value])
+      : t( isTableFilter ? 'all' : 'select_date' )
+  }, [value] )
 
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
     null
   )
-  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null)
+  const [popperElement, setPopperElement] = useState<HTMLElement | null>( null )
 
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: position,
-    modifiers: [
+  const { styles, attributes } = usePopper( referenceElement, popperElement, {
+    placement : position,
+    modifiers : [
       {
-        name: 'offset',
-        options: { offset: [0, 4] },
+        name    : 'offset',
+        options : { offset : [0, 4] },
       },
       {
-        name: 'preventOverflow',
-        options: {
-          boundary:
+        name    : 'preventOverflow',
+        options : {
+          boundary :
             typeof window !== 'undefined'
-              ? (document.body as Element)
+              ? ( document.body as Element )
               : undefined,
         },
       },
     ],
-  })
+  } )
 
   const DefaultActivator = () => (
     <button
@@ -133,19 +133,23 @@ const DateRangePicker = ({
       )}
     >
       <span>{selectedTextValue}</span>
-      <FontAwesomeIcon icon={faCalendarAlt} className="text-gray-500 ml-2" />
+      <FontAwesomeIcon icon={faCalendarAlt}
+        className="text-gray-500 ml-2"
+      />
     </button>
   )
 
   return (
     <Popover className="relative">
-      {({ close }) => (
+      {( { close } ) => (
         <>
-          <Popover.Button as="div" ref={setReferenceElement}>
+          <Popover.Button as="div"
+            ref={setReferenceElement}
+          >
             {activator ? (
-              createElement(activator, {
-                rawValue: value,
-              })
+              createElement( activator, {
+                rawValue : value,
+              } )
             ) : (
               <DefaultActivator />
             )}
@@ -176,32 +180,32 @@ const DateRangePicker = ({
                 endDate={state.endDate ?? undefined}
                 selectsRange
                 renderDayContents={RenderDayContent}
-                renderCustomHeader={RenderCustomHeader(dateLocale)}
+                renderCustomHeader={RenderCustomHeader( dateLocale )}
               >
                 <div className="px-3 pb-3 flex flex-col gap-3">
                   <div className="flex flex-row items-center gap-2 overflow-hidden">
                     <input
-                      className="border rounded px-2 py-1 text-sm bg-gray-100 w-full"
+                      className="border rounded px-2 py-1 text-sm bg-dark-secondary w-full focus:border-white/50 border-white/25 text-white/80"
                       disabled
                       placeholder="-"
                       value={
                         state.startDate
-                          ? format(state.startDate, 'dd MMM yyyy', {
-                              locale: dateLocale,
-                            })
+                          ? format( state.startDate, 'dd MMM yyyy', {
+                            locale : dateLocale,
+                          } )
                           : ''
                       }
                     />
                     -
                     <input
-                      className="border rounded px-2 py-1 text-sm bg-gray-100 w-full"
+                      className="border rounded px-2 py-1 text-sm bg-dark-secondary w-full focus:border-white/50 border-white/25 text-white/80"
                       disabled
                       placeholder="-"
                       value={
                         state.endDate
-                          ? format(state.endDate, 'dd MMM yyyy', {
-                              locale: dateLocale,
-                            })
+                          ? format( state.endDate, 'dd MMM yyyy', {
+                            locale : dateLocale,
+                          } )
                           : ''
                       }
                     />
@@ -213,27 +217,27 @@ const DateRangePicker = ({
                         onReset()
                         close()
                       }}
-                      className="text-sm text-gray-700"
+                      className="button button-primary text-xs lg:text-sm"
                     >
-                      {t('reset')}
+                      {t( 'reset' )}
                     </button>
                     <button
                       onClick={() => {
                         handleClose()
                         close()
                       }}
-                      className="border rounded px-3 py-1 text-sm flex items-center gap-1 border-gray-300 text-gray-900"
+                      className="button button-primary text-xs lg:text-sm"
                     >
-                      <FontAwesomeIcon icon={faBan} /> {t('close')}
+                      <FontAwesomeIcon icon={faBan} /> {t( 'close' )}
                     </button>
                     <button
                       onClick={() => {
                         handleSave()
                         close()
                       }}
-                      className="bg-blue-600 text-white rounded px-3 py-1 text-sm flex items-center gap-1"
+                      className="button button-secondary text-xs lg:text-sm"
                     >
-                      <FontAwesomeIcon icon={faCheckCircle} /> {t('set_date')}
+                      <FontAwesomeIcon icon={faCheckCircle} /> {t( 'set_date' )}
                     </button>
                   </div>
                 </div>
@@ -248,7 +252,7 @@ const DateRangePicker = ({
 
 export default DateRangePicker
 
-const RenderDayContent = (day: number) => <span>{day}</span>
+const RenderDayContent = ( day: number ) => <span>{day}</span>
 
 type TCustomHeaderProps = {
   date: Date
@@ -256,45 +260,50 @@ type TCustomHeaderProps = {
   increaseYear: () => void
   prevYearButtonDisabled: boolean
   nextYearButtonDisabled: boolean
-  changeYear: (date: number) => void
-  changeMonth: (date: number) => void
+  changeYear: ( date: number ) => void
+  changeMonth: ( date: number ) => void
   decreaseMonth: () => void
   increaseMonth: () => void
   prevMonthButtonDisabled: boolean
   nextMonthButtonDisabled: boolean
 }
 
-const RenderCustomHeader = (dateLocale: Locale) => {
-  const CustomHeader = ({
+const RenderCustomHeader = ( dateLocale: Locale ) => {
+  const CustomHeader = ( {
     date,
     decreaseMonth,
     increaseMonth,
     prevMonthButtonDisabled,
     nextMonthButtonDisabled,
-  }: TCustomHeaderProps) => (
+  }: TCustomHeaderProps ) => (
     <div className="flex items-center justify-between px-3 py-2">
       <button
         type="button"
         onClick={decreaseMonth}
         disabled={prevMonthButtonDisabled}
-        className="text-gray-700"
+        className="text-white hover:drop-shadow-lg"
       >
-        <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+        <FontAwesomeIcon icon={faChevronLeft}
+          size="sm"
+        />
       </button>
       <span className="text-sm font-medium">
-        {format(date, 'MMM, yyyy', { locale: dateLocale })}
+        {format( date, 'MMM, yyyy', { locale : dateLocale } )}
       </span>
       <button
         type="button"
         onClick={increaseMonth}
         disabled={nextMonthButtonDisabled}
-        className="text-gray-700"
+        className="text-white hover:drop-shadow-lg"
       >
-        <FontAwesomeIcon icon={faChevronRight} size="sm" />
+        <FontAwesomeIcon icon={faChevronRight}
+          size="sm"
+        />
       </button>
     </div>
   )
 
   CustomHeader.displayName = 'CustomDatePickerHeader'
+  
   return CustomHeader
 }
