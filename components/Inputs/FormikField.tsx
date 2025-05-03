@@ -1,6 +1,6 @@
 'use client'
 import { useMemo } from 'react'
-import TextField from './WithFormik/TextField'
+import TextField from './TextField'
 import ImageField from './WithFormik/ImageField'
 import SwitchField from './WithFormik/SwitchField'
 import { IOptions, TFieldType } from '@/types/form'
@@ -26,7 +26,7 @@ interface Props {
 const FormikField = ( props: Props ) => {
   const { name, label, type = 'text', required } = props
 
-  const [, meta] = useField( name )
+  const [field, meta, helpers] = useField( name )
 
   const requiredIcon = useMemo( () => {
     if ( required ) return <span className="text-red-500">*</span>
@@ -44,8 +44,17 @@ const FormikField = ( props: Props ) => {
       </label>
 
       {['text', 'email', 'password', 'number', 'currency-id'].includes( type ) && (
-        <TextField type={type}
-          {...props}
+        <TextField
+          name={name}
+          type={type}
+          placeholder={props.placeholder}
+          value={field.value}
+          onChange={( val ) => helpers.setValue( val )}
+          onBlur={field.onBlur}
+          touched={meta.touched}
+          error={meta.touched ? meta.error : undefined}
+          disabled={props.disabled}
+          loading={props.loading}
         />
       )}
       {type === 'image' && <ImageField {...props} />}

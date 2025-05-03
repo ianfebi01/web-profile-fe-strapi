@@ -1,8 +1,6 @@
 'use client'
 import { generateValidationSchema } from '@/lib/validation/generateValidationSchema'
 import { IDynamicForm } from '@/types/form'
-import { Form, FormikProvider, useFormik } from 'formik'
-import FormikField from '@/components/Inputs/FormikField'
 import { useTranslations } from 'next-intl'
 import { useLogin } from '@/lib/hooks/api/auth'
 import Button2 from '@/components/Buttons/Button2'
@@ -11,6 +9,7 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { IBodyTransaction } from '@/types/api/transaction'
+import SingleDatePicker from '../Inputs/SingleDatePicker'
 
 const AddTransaction = () => {
   const t = useTranslations()
@@ -50,34 +49,14 @@ const AddTransaction = () => {
   ]
 
   // @ NOTE Form
-  const schema = generateValidationSchema( fields )
 
-  // @ NOTE Formik
-  const initialValues: IBodyTransaction = {
-    amount      : 0,
-    date        : '',
-    mm_category : null,
-    type        : 'expense',
-    description : '',
-  }
-
-  const formik = useFormik( {
-    initialValues    : initialValues,
-    validationSchema : schema,
-    onSubmit         : ( value ) => {
-      onSubmitOk( value )
-    },
-  } )
-
-  const onSubmitOk = async ( value: IBodyTransaction ) => {
-    await login( value )
-  }
+  const [dateValue, setDateValue] = useState<Date | null>( null )
 
   return (
     <div className="w-fit">
       <Button2
         type="button"
-        variant='secondary'
+        variant="secondary"
         className="gap-2 flex"
         onClick={() => setIsOpen( true )}
       >
@@ -89,33 +68,21 @@ const AddTransaction = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onConfirm={() => null}
-        variant='normal'
+        variant="normal"
       >
-        <FormikProvider value={formik}>
-          <Form
-            onSubmit={formik.handleSubmit}
-            className="flex flex-col gap-2 w-full"
+        <form
+          className="flex flex-col gap-2 w-full"
+        >
+          <SingleDatePicker value={dateValue}
+            setValue={setDateValue}
+          />
+          <Button2 variant="secondary"
+            type="submit"
+            loading={loading}
           >
-            {fields.map( ( item: IDynamicForm ) => (
-              <FormikField
-                label={item.label}
-                name={item.name}
-                placeholder={item.placeholder}
-                key={item.name}
-                type={item.type}
-                required={item.validation?.required}
-                select={item?.select}
-                disabled={loading}
-              />
-            ) )}
-            <Button2 variant="primary"
-              type="submit"
-              loading={loading}
-            >
-              {t( 'login' )}
-            </Button2>
-          </Form>
-        </FormikProvider>
+            Add transaction
+          </Button2>
+        </form>
       </Modal>
     </div>
   )

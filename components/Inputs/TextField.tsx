@@ -1,45 +1,48 @@
 'use client'
-import { FormEvent, InputHTMLAttributes, useState } from 'react'
-import { useField } from 'formik'
+
+import { InputHTMLAttributes, useState, FormEvent } from 'react'
 import { cn } from '@/lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
-interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string
-  loading?: boolean
-  type?: string
-}
-
+interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
+    value: string
+    onChange: ( value: string ) => void
+    loading?: boolean
+    type?: string
+    error?: string
+    touched?: boolean
+  }
+  
 const TextField = ( {
-  name,
+  value,
+  onChange,
   loading,
   placeholder,
   disabled,
   type,
+  name,
+  error,
+  touched,
+  ...props
 }: TextFieldProps ) => {
-  const [field, meta, helpers] = useField( name )
-
   const [showPassword, setShowPassword] = useState<boolean>( false )
-
-  /**
-   *  Format Number to curency
-   */
-
-  const [value, setValue] = useState( '' )
 
   const formatRupiah = ( number: string ) => {
     const parsed = parseInt( number.replace( /\D/g, '' ), 10 )
     if ( isNaN( parsed ) ) return ''
-
+    
     return parsed.toLocaleString( 'id-ID' )
   }
 
   const handleChange = ( e: FormEvent<HTMLInputElement> ) => {
-    const input = ( e.target as HTMLInputElement )?.value
-    const numericValue = input.replace( /\D/g, '' )
-    setValue( formatRupiah( numericValue ) )
-    helpers.setValue( numericValue )
+    const input = ( e.target as HTMLInputElement ).value
+    if ( type === 'currency-id' ) {
+      const numericValue = input.replace( /\D/g, '' )
+      onChange( numericValue )
+    } else {
+      onChange( input )
+    }
   }
 
   return loading ? (
@@ -48,19 +51,20 @@ const TextField = ( {
     </div>
   ) : (
     <div className="relative">
-      {/* Currency */}
       {type === 'currency-id' && (
         <>
-          <span className="absolute left-2 inset-y-0 my-auto pointer-events-none h-fit p m-0">
+          <span className="absolute left-2 inset-y-0 my-auto pointer-events-none h-fit">
             Rp.
           </span>
           <input
             id={name}
             placeholder={placeholder}
-            type={'text'}
-            {...field}
-            value={value}
+            type="text"
+            name={name}
+            value={formatRupiah( value )}
             onChange={handleChange}
+            disabled={disabled}
+            {...props}
             className={cn(
               'w-full',
               'py-2 px-8',
@@ -68,12 +72,9 @@ const TextField = ( {
               'text-sm lg:text-base',
               [
                 'focus:border-white/50 border-white/25',
-                meta.touched &&
-                  meta.error &&
-                  'focus:border-red-500 border-red-500',
+                touched && error && 'focus:border-red-500 border-red-500',
               ]
             )}
-            disabled={disabled}
           />
         </>
       )}
@@ -81,24 +82,25 @@ const TextField = ( {
       {['text', 'password', 'number', 'email'].includes( String( type ) ) && (
         <input
           id={name}
+          name={name}
           placeholder={placeholder}
           type={
             type === 'password' ? ( showPassword ? 'text' : 'password' ) : type
           }
-          {...field}
+          value={value}
+          onChange={handleChange}
+          disabled={disabled}
+          {...props}
           className={cn(
             'w-full',
             'text-white p-2 border rounded-lg bg-transparent ring-0 focus:ring-0 shadow-none focus:outline-none transition-colors duration-500 ease-in-out',
             'text-sm lg:text-base',
             [
               'focus:border-white/50 border-white/25',
-              meta.touched &&
-                meta.error &&
-                'focus:border-red-500 border-red-500',
+              touched && error && 'focus:border-red-500 border-red-500',
             ],
             [type === 'password' && 'pr-4']
           )}
-          disabled={disabled}
         />
       )}
 
