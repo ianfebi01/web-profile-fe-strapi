@@ -1,10 +1,10 @@
 import { UseQueryResult, useQuery } from '@tanstack/react-query'
-import {
-  ApiTransactionTransaction,
-} from '@/types/generated/contentTypes'
+import { ApiTransactionTransaction } from '@/types/generated/contentTypes'
 import qs from 'qs'
 import useAxiosAuth from '../useAxiosAuth'
 import { AxiosResponse } from 'axios'
+import { IBodyTransaction } from '@/types/api/transaction'
+import toast from 'react-hot-toast'
 
 interface IMonthlyTransactions {
   income: number
@@ -20,6 +20,37 @@ interface IMonthlyTransactions {
 export interface IFilter {
   month: string
   year: string
+}
+
+/**
+ *  Get datas
+ */
+export const useCreate = () => {
+  const axiosAuth = useAxiosAuth()
+
+  const createMultiple = async ( body: IBodyTransaction[] ) => {
+    try {
+      const postTransactions = await Promise.all(
+        body.map( ( transactionBody ) =>
+          axiosAuth.post<ApiTransactionTransaction['attributes']>(
+            '/api/transactions',
+            {
+              data : {
+                ...transactionBody,
+              },
+            }
+          )
+        )
+      )
+
+      return postTransactions
+    } catch ( error ) {
+      toast.error( 'Error creating transactions' )
+      throw error
+    }
+  }
+
+  return { createMultiple }
 }
 /**
  *  Get datas

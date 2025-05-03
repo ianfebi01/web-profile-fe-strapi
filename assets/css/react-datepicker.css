@@ -1,5 +1,5 @@
 .react-datepicker {
-  @apply border border-none flex flex-col text-white w-[367px] bg-dark rounded-lg shadow-lg ring-1 ring-black/5;
+  @apply border border-none flex flex-col text-white w-[367px] bg-dark rounded-lg shadow-2xl ring-1 ring-black/5;
 }
 
 .react-datepicker-popper {

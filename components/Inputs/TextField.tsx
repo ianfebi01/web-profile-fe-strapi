@@ -4,12 +4,13 @@ import { InputHTMLAttributes, useState, FormEvent } from 'react'
 import { cn } from '@/lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { TFieldType } from '@/types/form'
 
 interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
     value: string
     onChange: ( value: string ) => void
     loading?: boolean
-    type?: string
+    type?: TFieldType
     error?: string
     touched?: boolean
   }
