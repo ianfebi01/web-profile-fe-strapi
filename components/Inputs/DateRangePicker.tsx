@@ -58,6 +58,7 @@ const DateRangePicker = ( {
 
   useEffect( () => {
     setState( value )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [] )
 
   const handleChange = ( [startDate, endDate]: Array<Date | null> ) => {
@@ -91,6 +92,7 @@ const DateRangePicker = ( {
     return value.startDate && value.endDate
       ? `${startDate} - ${endDate}`
       : t( isTableFilter ? 'all' : 'select_date' )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value] )
 
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(

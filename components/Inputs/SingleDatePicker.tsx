@@ -56,6 +56,7 @@ const SingleDatePicker = ( {
 
   useEffect( () => {
     setState( value )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [] )
 
   const handleChange = ( newDate: Date | null ) => {
@@ -84,6 +85,7 @@ const SingleDatePicker = ( {
       : ''
 
     return startDate || t( isTableFilter ? 'all' : 'select_date' )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value] )
 
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(
