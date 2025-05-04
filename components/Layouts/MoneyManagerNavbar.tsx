@@ -1,4 +1,3 @@
-import { Link } from '@/i18n/navigation'
 import { faDashboard, faWallet } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
@@ -14,7 +13,10 @@ const MoneyManagerNavbar = () => {
         className="flex items-center gap-2 no-underline text-white opacity-50"
         activeClass="opacity-100"
       >
-        <FontAwesomeIcon icon={faDashboard} className="text-orange" size="xl" />
+        <FontAwesomeIcon icon={faDashboard}
+          className="text-orange"
+          size="xl"
+        />
         <span className="p m-0">Summary</span>
       </NavigationLink>
       <NavigationLink
@@ -22,7 +24,10 @@ const MoneyManagerNavbar = () => {
         className="flex items-center gap-2 no-underline text-white opacity-50"
         activeClass="opacity-100"
       >
-        <FontAwesomeIcon icon={faWallet} size="xl" className="text-orange" />
+        <FontAwesomeIcon icon={faWallet}
+          size="xl"
+          className="text-orange"
+        />
         <span className="p m-0">Cashflow</span>
       </NavigationLink>
       <div className="grow" />
