@@ -55,5 +55,6 @@
     "last_30_days": "Last 30 days",
     "select_type": "Select Type",
     "select_month": "Select Month",
-    "select_date": "Select Date"
+    "select_date": "Select Date",
+    "cashflow": "Cashflow"
 }

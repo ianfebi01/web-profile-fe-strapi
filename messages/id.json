@@ -55,5 +55,6 @@
     "last_30_days": "30 hari lalu",
     "select_type": "Pilih Tipe",
     "select_month": "Pilih Bulan",
-    "select_date": "Pilih Tanggal"
+    "select_date": "Pilih Tanggal",
+    "cashflow": "transaksi"
 }

@@ -13,5 +13,5 @@ export default async function PageMoneyManager( { params }: Props ) {
 
   const t = await getTranslations( { locale } )
 
-  return <div>tes</div>
+  return <div>{t( 'cashflow' )}</div>
 }
