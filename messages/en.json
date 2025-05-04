@@ -56,5 +56,6 @@
     "select_type": "Select Type",
     "select_month": "Select Month",
     "select_date": "Select Date",
-    "cashflow": "Cashflow"
+    "cashflow": "Cashflow",
+    "add_transaction": "Add Transaction"
 }

@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils'
 import formatCurency from '@/utils/format-curency'
 import { IOptions } from '@/types/form'
 import { useCreate } from '@/lib/hooks/api/cashFlow'
+import { useTranslations } from 'next-intl'
 
 interface ITransactionFormInput
   extends Omit<IBodyTransaction, 'date' | 'mm_category'> {
@@ -27,7 +28,7 @@ interface ITransactionForm extends Omit<IBodyTransaction, 'mm_category'> {
 }
 
 const AddTransaction = () => {
-  // const t = useTranslations()
+  const t = useTranslations()
 
   const { createMultiple } = useCreate()
   const [isOpen, setIsOpen] = useState<boolean>( false )
@@ -134,7 +135,7 @@ const AddTransaction = () => {
         onClick={() => setIsOpen( true )}
       >
         <FontAwesomeIcon icon={faPlus} />
-        Add Skill
+        {t( 'add_transaction' )}
       </Button2>
       <Modal
         title="Add Transaction"

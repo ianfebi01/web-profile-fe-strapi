@@ -56,5 +56,6 @@
     "select_type": "Pilih Tipe",
     "select_month": "Pilih Bulan",
     "select_date": "Pilih Tanggal",
-    "cashflow": "transaksi"
+    "cashflow": "Transaksi",
+    "add_transaction": "Tambah Transaksi"
 }
