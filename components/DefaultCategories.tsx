@@ -1,6 +1,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {
   faBriefcaseMedical,
+  faCar,
   faEllipsis,
   faGift,
   faHouse,
@@ -21,15 +22,15 @@ type WrapperProps = {
 }
 
 const Wrapper = ( { text, icon }: WrapperProps ) => (
-  <div className="flex gap-2 items-center">
+  <div className="flex gap-2 items-center w-fit">
     {!!icon && (
-      <>
+      <div className='w-4 h-4'>
         <FontAwesomeIcon icon={icon}
           className="text-orange"
         />
-      </>
+      </div>
     )}
-    <p className="m-0 text-white-overlay">{text}</p>
+    <p className="m-0 text-inherit">{text}</p>
   </div>
 )
 
@@ -105,11 +106,19 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
         />
       </>
     )
-  case 'household':
+  case 'house-hold':
     return (
       <>
-        <Wrapper text={t( 'household' )}
+        <Wrapper text={t( 'house_hold' )}
           icon={faHouse}
+        />
+      </>
+    )
+  case 'transportation':
+    return (
+      <>
+        <Wrapper text={t( 'transportation' )}
+          icon={faCar}
         />
       </>
     )

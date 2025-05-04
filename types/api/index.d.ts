@@ -1,11 +1,6 @@
 export interface IApi<T = void> {
-  message: string
-  title?: string
-  status: number
-  data?: T
-  meta: {
-    status: number
-  }
+  data: T
+  meta: IMeta
 }
 
 /**
@@ -17,4 +12,13 @@ export interface IApiError {
   error: string
   title?: number
   message: string
+}
+
+export interface IMeta {
+  pagination: {
+    page: number
+    pageSize: number
+    pageCount: number
+    total: number
+  }
 }

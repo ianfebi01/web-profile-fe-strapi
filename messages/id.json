@@ -43,6 +43,7 @@
         "education": "Pendidikan",
         "gift": "Hadiah",
         "house_hold": "Rumah Tangga",
+        "transportation": "Transportasi",
         "other": "Lainnya"
     },
     "reset": "Reset",

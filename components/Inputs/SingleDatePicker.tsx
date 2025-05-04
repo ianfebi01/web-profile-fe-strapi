@@ -35,6 +35,7 @@ interface Props {
   position?: Placement
   isTableFilter?: boolean
   handleCommitted?: ( val: Date | null ) => void
+  boundaryRef?: React.RefObject<HTMLElement>
 }
 
 const SingleDatePicker = ( {
@@ -46,6 +47,7 @@ const SingleDatePicker = ( {
   isTableFilter = false,
   setValue,
   handleCommitted,
+  boundaryRef
 }: Props ) => {
   const t = useTranslations()
   const locale = useLocale()
@@ -101,7 +103,7 @@ const SingleDatePicker = ( {
         options : {
           boundary :
             typeof window !== 'undefined'
-              ? ( document.body as Element )
+              ?  boundaryRef?.current || ( document.body as Element )
               : undefined,
         },
       },

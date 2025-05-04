@@ -128,14 +128,14 @@ const Modal: FunctionComponent<Props> = ( props ) => {
                   )}
                   <div
                     className={cn(
-                      'p-4 overflow-y-scroll max-w-7xl mx-auto w-full',
+                      'p-4 overflow-auto max-w-7xl mx-auto w-full',
                       [
                         border &&
                           variant !== 'warning' &&
                           'border-b-[1px] border-white/25',
                         !border && 'pb-0',
                         variant === 'warning' && 'pb-0',
-                        variant === 'fullscreen' && 'grow xl:px-0',
+                        variant === 'fullscreen' && 'grow',
                       ]
                     )}
                   >
