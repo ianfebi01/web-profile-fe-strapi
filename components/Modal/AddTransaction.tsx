@@ -4,6 +4,7 @@ import Modal from './Modal'
 import { FormEvent, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faPenSquare,
   faPlus,
   faSquareMinus,
 } from '@fortawesome/free-solid-svg-icons'
@@ -121,6 +122,13 @@ const AddTransaction = () => {
   }
 
   const handleDelete = ( index: number ) => {
+    setTransactions( ( prev ) => prev.filter( ( _, i ) => i !== index ) )
+  }
+
+  const handleEdit = ( index: number ) => {
+    setForm( {
+      ...transactions[index],
+    } )
     setTransactions( ( prev ) => prev.filter( ( _, i ) => i !== index ) )
   }
 
@@ -262,6 +270,13 @@ const AddTransaction = () => {
                     icon={faSquareMinus}
                     className="text-white-overlay"
                     onClick={() => handleDelete( index )}
+                  />
+                </Button2>
+                <Button2 variant="iconOnly">
+                  <FontAwesomeIcon
+                    icon={faPenSquare}
+                    className="text-white-overlay"
+                    onClick={() => handleEdit( index )}
                   />
                 </Button2>
                 <DefaultCategories name={item.mm_category.label} />
