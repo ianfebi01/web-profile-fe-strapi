@@ -40,7 +40,6 @@ export const useCreate = () => {
           axiosAuth.post<ApiTransactionTransaction>( '/api/transactions', {
             data : {
               ...transactionBody,
-              user : 42
             },
           } )
         )

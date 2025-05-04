@@ -103,7 +103,7 @@ export const useRemoveUserData = () => {
   const removeUserData = () => {
     deleteCookie( 'token' )
     deleteCookie( 'refreshToken' )
-    queryClient.resetQueries()
+    queryClient.clear()
     router.replace( '/money-manager/login' )
   }
 
