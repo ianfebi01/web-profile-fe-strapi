@@ -40,15 +40,15 @@ export const useCreate = () => {
           axiosAuth.post<ApiTransactionTransaction>( '/api/transactions', {
             data : {
               ...transactionBody,
-              user: 42
+              user : 42
             },
           } )
         )
       )
 
-      queryClient.invalidateQueries({
-        queryKey: ['transactions-monthly']
-      })
+      queryClient.invalidateQueries( {
+        queryKey : ['transactions-monthly']
+      } )
 
       return postTransactions
     } catch ( error ) {

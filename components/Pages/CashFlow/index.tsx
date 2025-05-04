@@ -17,20 +17,20 @@ const CashFlow = () => {
   const { month, year, spaceMonthYear } = useFormatDate()
 
   const date = new Date()
-  const [filter, setFilter] = useState<IFilter>({
-    month: month(date),
-    year: year(date),
-  })
+  const [filter, setFilter] = useState<IFilter>( {
+    month : month( date ),
+    year  : year( date ),
+  } )
 
-  const { data, isLoading } = useGetDatas(filter)
+  const { data, isLoading } = useGetDatas( filter )
 
-  const mockLoop = new Array(6).fill(0)
+  const mockLoop = new Array( 6 ).fill( 0 )
 
-  const changeMonth = (type: 'prev' | 'next') => {
-    if (type === 'prev') {
-      setFilter((prev) => ({ ...prev, month: String(Number(prev.month) - 1) }))
-    } else if (type === 'next') {
-      setFilter((prev) => ({ ...prev, month: String(Number(prev.month) + 1) }))
+  const changeMonth = ( type: 'prev' | 'next' ) => {
+    if ( type === 'prev' ) {
+      setFilter( ( prev ) => ( { ...prev, month : String( Number( prev.month ) - 1 ) } ) )
+    } else if ( type === 'next' ) {
+      setFilter( ( prev ) => ( { ...prev, month : String( Number( prev.month ) + 1 ) } ) )
     }
   }
 
@@ -40,16 +40,16 @@ const CashFlow = () => {
         <div className="flex gap-2 items-center">
           <button
             className="hover:text-white-overlay text-white-overlay-2 transition-default"
-            onClick={() => changeMonth('prev')}
+            onClick={() => changeMonth( 'prev' )}
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
           <h2 className="h3 font-normal m-0">
-            {spaceMonthYear(new Date(`${filter.year}-${filter.month}-01`))}
+            {spaceMonthYear( new Date( `${filter.year}-${filter.month}-01` ) )}
           </h2>
           <button
             className="hover:text-white-overlay text-white-overlay-2 transition-default"
-            onClick={() => changeMonth('next')}
+            onClick={() => changeMonth( 'next' )}
           >
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
@@ -59,16 +59,16 @@ const CashFlow = () => {
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 mt-8">
         {isLoading &&
-          mockLoop.map((_item, i) => (
+          mockLoop.map( ( _item, i ) => (
             <div
               key={i}
               className="animate-pulse h-32 w-full rounded-lg bg-dark-secondary"
             />
-          ))}
+          ) )}
         {!isLoading &&
           data?.transactions &&
           data?.transactions?.length > 0 &&
-          data?.transactions.map((item, index) => (
+          data?.transactions.map( ( item, index ) => (
             <div
               key={index}
               className="p-4 bg-dark-secondary shadow-xl rounded-lg flex flex-col gap-4"
@@ -77,19 +77,21 @@ const CashFlow = () => {
                 <h2 className="m-0">{item.day}</h2>
                 <div className="grow" />
                 <div className="w-28 text-right text-blue-400">
-                  <p className="m-0">{formatCurency(item.income)}</p>
+                  <p className="m-0">{formatCurency( item.income )}</p>
                 </div>
                 <div className="w-28 text-right text-orange">
-                  <p className="m-0">{formatCurency(item.expense)}</p>
+                  <p className="m-0">{formatCurency( item.expense )}</p>
                 </div>
               </div>
-              <table border={0} className="border-none table-auto w-full">
+              <table border={0}
+                className="border-none table-auto w-full"
+              >
                 <tbody>
-                  {item.transactions.map((subItem, subIndex) => (
+                  {item.transactions.map( ( subItem, subIndex ) => (
                     <tr key={subIndex}>
                       <td
                         className="p-0 text-white-overlay"
-                        style={{ width: '1px', whiteSpace: 'nowrap' }}
+                        style={{ width : '1px', whiteSpace : 'nowrap' }}
                       >
                         <DefaultCategories name={subItem.mm_category?.name} />
                       </td>
@@ -98,20 +100,20 @@ const CashFlow = () => {
                       </td>
                       <td className="p-0 text-right">
                         <p
-                          className={cn('m-0', {
-                            'text-blue-400': subItem.type === 'income',
-                            'text-orange': subItem.type === 'expense',
-                          })}
+                          className={cn( 'm-0', {
+                            'text-blue-400' : subItem.type === 'income',
+                            'text-orange'   : subItem.type === 'expense',
+                          } )}
                         >
-                          {formatCurency(subItem.amount)}
+                          {formatCurency( subItem.amount )}
                         </p>
                       </td>
                     </tr>
-                  ))}
+                  ) )}
                 </tbody>
               </table>
             </div>
-          ))}
+          ) )}
       </div>
       {!isLoading && data?.transactions.length === 0 && <NoDataFound />}
     </div>

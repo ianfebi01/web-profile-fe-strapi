@@ -10,43 +10,45 @@ import DefaultCategories from '../DefaultCategories'
 interface Props {
   label?: string
   value: IOptions['value']
-  onChange: (value: IOptions) => void
+  onChange: ( value: IOptions ) => void
   enabled: boolean
 }
 
-export default function DropdownCategories({
+export default function DropdownCategories( {
   label = 'Select category',
   value,
   onChange,
   enabled = false,
-}: Props) {
-  const filters = { user: { id: 42 } }
-  const { data } = useCategories(1, 100, enabled, filters)
+}: Props ) {
+  const filters = { user : { id : 42 } }
+  const { data } = useCategories( 1, 100, enabled, filters )
 
-  const options = useMemo(() => {
+  const options = useMemo( () => {
     return (
-      data?.data.map((category) => ({
-        label: category.attributes.name,
-        value: category.id,
-      })) || []
+      data?.data.map( ( category ) => ( {
+        label : category.attributes.name,
+        value : category.id,
+      } ) ) || []
     )
-  }, [data])
+  }, [data] )
 
-  const selectedLabel = useMemo(() => {
-    return options.find((opt) => opt.value === value)?.label || ''
-  }, [value, options])
+  const selectedLabel = useMemo( () => {
+    return options.find( ( opt ) => opt.value === value )?.label || ''
+  }, [value, options] )
 
-  const selectedValue = useMemo(() => {
-    return options.find((opt) => opt.value === value)?.value || ''
-  }, [value, options])
+  const selectedValue = useMemo( () => {
+    return options.find( ( opt ) => opt.value === value )?.value || ''
+  }, [value, options] )
 
-  const handleSelect = (value: IOptions) => {
-    onChange(value)
+  const handleSelect = ( value: IOptions ) => {
+    onChange( value )
   }
 
   return (
-    <Disclosure as="div" className="relative w-full">
-      {({ open, close }) => (
+    <Disclosure as="div"
+      className="relative w-full"
+    >
+      {( { open, close } ) => (
         <>
           <Disclosure.Button
             className={cn(
@@ -83,15 +85,17 @@ export default function DropdownCategories({
             leaveFrom="transform max-h-[500px] opacity-100 overflow-hidden"
             leaveTo="transform max-h-0 opacity-0 duration-700 ease-out overflow-hidden"
           >
-            <Disclosure.Panel static className="overflow-hidden">
+            <Disclosure.Panel static
+              className="overflow-hidden"
+            >
               <table className="table-fixed w-full border-collapse mt-2">
                 <tbody>
-                  {Array.from({ length: Math.ceil(options.length / 3) }).map(
-                    (_, rowIndex) => (
+                  {Array.from( { length : Math.ceil( options.length / 3 ) } ).map(
+                    ( _, rowIndex ) => (
                       <tr key={rowIndex}>
                         {options
-                          .slice(rowIndex * 3, rowIndex * 3 + 3)
-                          .map((item, index) => (
+                          .slice( rowIndex * 3, rowIndex * 3 + 3 )
+                          .map( ( item, index ) => (
                             <td
                               key={index}
                               className={`border border-white-overlay-2 p-0`}
@@ -99,7 +103,7 @@ export default function DropdownCategories({
                               <button
                                 type="button"
                                 onClick={() => {
-                                  handleSelect(item)
+                                  handleSelect( item )
                                   close()
                                 }}
                                 className={cn(
@@ -120,19 +124,19 @@ export default function DropdownCategories({
                                 )}
                               </button>
                             </td>
-                          ))}
+                          ) )}
                         {/* Fill empty cells if needed to complete the row */}
-                        {Array.from({
-                          length:
+                        {Array.from( {
+                          length :
                             3 -
-                            options.slice(rowIndex * 3, rowIndex * 3 + 3)
+                            options.slice( rowIndex * 3, rowIndex * 3 + 3 )
                               .length,
-                        }).map((_, i) => (
+                        } ).map( ( _, i ) => (
                           <td
                             key={`empty-${i}`}
                             className="border border-white-overlay-2 p-0"
                           />
-                        ))}
+                        ) )}
                       </tr>
                     )
                   )}

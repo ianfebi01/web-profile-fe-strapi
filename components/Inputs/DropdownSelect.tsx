@@ -9,26 +9,28 @@ interface Props {
   label?: string
   options: IOptions[]
   value: IOptions['value']
-  onChange: (value: IOptions['value']) => void
+  onChange: ( value: IOptions['value'] ) => void
 }
 
-export default function DropdownSelect({
+export default function DropdownSelect( {
   label = '',
   options = [],
   value,
   onChange,
-}: Props) {
-  const selectedLabel = useMemo(() => {
-    return options.find((opt) => opt.value === value)?.label || ''
-  }, [value, options])
+}: Props ) {
+  const selectedLabel = useMemo( () => {
+    return options.find( ( opt ) => opt.value === value )?.label || ''
+  }, [value, options] )
 
-  const handleSelect = (value: IOptions['value']) => {
-    onChange(value)
+  const handleSelect = ( value: IOptions['value'] ) => {
+    onChange( value )
   }
 
   return (
-    <Menu as="div" className="relative inline-block text-left w-full">
-      {({ open }) => (
+    <Menu as="div"
+      className="relative inline-block text-left w-full"
+    >
+      {( { open } ) => (
         <>
           <Menu.Button
             className={cn(
@@ -65,12 +67,12 @@ export default function DropdownSelect({
             <Menu.Items className="absolute left-0 mt-2 origin-top-left bg-dark shadow-2xl focus:outline-none w-full z-[11] rounded overflow-hidden">
               <div className="divide-y divide-white-overlay-2 max-h-[250px] overflow-y-auto">
                 {options.length ? (
-                  options.map((item, index) => (
+                  options.map( ( item, index ) => (
                     <Menu.Item key={index}>
-                      {({ active }) => (
+                      {( { active } ) => (
                         <button
                           type="button"
-                          onClick={() => handleSelect(item.value)}
+                          onClick={() => handleSelect( item.value )}
                           className={`flex items-center justify-between w-full gap-2 px-4 py-3 text-left no-underline transition-all duration-300 ease-in-out cursor-pointer ${
                             active ? 'bg-dark-secondary' : ''
                           }`}
@@ -87,7 +89,7 @@ export default function DropdownSelect({
                         </button>
                       )}
                     </Menu.Item>
-                  ))
+                  ) )
                 ) : (
                   <div className="flex items-center justify-between w-full gap-2 py-3 mx-4 text-left">
                     <p className="m-0">No options</p>

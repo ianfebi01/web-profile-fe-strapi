@@ -1,11 +1,9 @@
 'use client'
-import { useTranslations } from 'next-intl'
 import Button2 from '@/components/Buttons/Button2'
 import Modal from './Modal'
 import { FormEvent, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faMinusSquare,
   faPlus,
   faSquareMinus,
 } from '@fortawesome/free-solid-svg-icons'
@@ -29,106 +27,103 @@ interface ITransactionForm extends Omit<IBodyTransaction, 'mm_category'> {
 }
 
 const AddTransaction = () => {
-  const t = useTranslations()
+  // const t = useTranslations()
 
   const { createMultiple } = useCreate()
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [loading, setLoading] = useState(false)
-  const [sharedDate, setSharedDate] = useState<Date | null>(new Date())
-  const [form, setForm] = useState<ITransactionFormInput>({
-    type: 'expense',
-    amount: 0,
-    description: '',
-    mm_category: {
-      label: '',
-      value: '',
+  const [isOpen, setIsOpen] = useState<boolean>( false )
+  const [loading, setLoading] = useState( false )
+  const [sharedDate, setSharedDate] = useState<Date | null>( new Date() )
+  const [form, setForm] = useState<ITransactionFormInput>( {
+    type        : 'expense',
+    amount      : 0,
+    description : '',
+    mm_category : {
+      label : '',
+      value : '',
     },
-  })
-  const [transactions, setTransactions] = useState<ITransactionForm[]>([])
-  const [transactionsBody, setTransactionsBody] = useState<IBodyTransaction[]>(
-    []
-  )
+  } )
+  const [transactions, setTransactions] = useState<ITransactionForm[]>( [] )
 
-  const handleChange = (value: string | number | IOptions, name: string) => {
-    setForm((prev) => ({
+  const handleChange = ( value: string | number | IOptions, name: string ) => {
+    setForm( ( prev ) => ( {
       ...prev,
-      [name]: name === 'amount' ? Number(value) : value,
-    }))
+      [name] : name === 'amount' ? Number( value ) : value,
+    } ) )
   }
 
-  const handleAddTransaction = (e: FormEvent) => {
+  const handleAddTransaction = ( e: FormEvent ) => {
     e.preventDefault()
-    if (!sharedDate) {
-      alert('Please select a date first.')
+    if ( !sharedDate ) {
+      alert( 'Please select a date first.' )
 
       return
     }
 
     const newTransaction: ITransactionForm = {
       ...form,
-      date: new Date(sharedDate).toISOString(),
+      date : new Date( sharedDate ).toISOString(),
     }
 
-    setTransactions((prev) => [...prev, newTransaction])
+    setTransactions( ( prev ) => [...prev, newTransaction] )
 
     // Reset form
-    setForm({
-      type: 'expense',
-      amount: 0,
-      description: '',
-      mm_category: {
-        label: '',
-        value: '',
+    setForm( {
+      type        : 'expense',
+      amount      : 0,
+      description : '',
+      mm_category : {
+        label : '',
+        value : '',
       },
-    })
+    } )
   }
 
   const handleSubmitAll = async () => {
     const tmp = []
 
-    if (!!form.amount) {
-      tmp.push({
+    if ( !!form.amount ) {
+      tmp.push( {
         ...form,
-        date: sharedDate
-          ? new Date(sharedDate).toISOString()
+        date : sharedDate
+          ? new Date( sharedDate ).toISOString()
           : new Date().toISOString(),
-        mm_category: Number(form.mm_category.value),
-      })
+        mm_category : Number( form.mm_category.value ),
+      } )
     }
 
-    const transformTransactions = transactions.map((item) => ({
+    const transformTransactions = transactions.map( ( item ) => ( {
       ...item,
-      mm_category: Number(item.mm_category.value),
-    }))
+      mm_category : Number( item.mm_category.value ),
+    } ) )
 
     const combined = [...tmp, ...transformTransactions]
-    setLoading(true)
-    await createMultiple(combined)
+    setLoading( true )
+    await createMultiple( combined )
     resetForm()
-    setIsOpen(false)
-    setLoading(false)
+    setIsOpen( false )
+    setLoading( false )
   }
 
   const resetForm = () => {
-    setForm({
-      type: 'expense',
-      amount: 0,
-      description: '',
-      mm_category: {
-        label: '',
-        value: '',
+    setForm( {
+      type        : 'expense',
+      amount      : 0,
+      description : '',
+      mm_category : {
+        label : '',
+        value : '',
       },
-    })
+    } )
 
-    setTransactions([])
-    setSharedDate(new Date())
+    setTransactions( [] )
+    setSharedDate( new Date() )
   }
 
-  const handleDelete = (index: number) => {
-    setTransactions((prev) => prev.filter((_, i) => i !== index))
+  const handleDelete = ( index: number ) => {
+    setTransactions( ( prev ) => prev.filter( ( _, i ) => i !== index ) )
   }
 
-  const modalRef = useRef<HTMLDivElement | null>(null)
+  const modalRef = useRef<HTMLDivElement | null>( null )
 
   return (
     <div className="w-fit">
@@ -136,7 +131,7 @@ const AddTransaction = () => {
         type="button"
         variant="secondary"
         className="gap-2 flex"
-        onClick={() => setIsOpen(true)}
+        onClick={() => setIsOpen( true )}
       >
         <FontAwesomeIcon icon={faPlus} />
         Add Skill
@@ -150,7 +145,7 @@ const AddTransaction = () => {
         onConfirm={() => handleSubmitAll()}
         onCancel={() => {
           resetForm()
-          setIsOpen(false)
+          setIsOpen( false )
         }}
       >
         <div
@@ -158,7 +153,9 @@ const AddTransaction = () => {
           className="flex flex-col gap-2 w-full max-w-2xl mx-auto"
         >
           <div className="flex flex-col gap-2 relative mb-4">
-            <label htmlFor={'date'} className="w-fit text-sm lg:text-base">
+            <label htmlFor={'date'}
+              className="w-fit text-sm lg:text-base"
+            >
               <span>{'Date'}</span>
             </label>
             <SingleDatePicker
@@ -167,7 +164,7 @@ const AddTransaction = () => {
               boundaryRef={modalRef}
             />
           </div>
-          <form onSubmit={(e) => handleAddTransaction(e)}>
+          <form onSubmit={( e ) => handleAddTransaction( e )}>
             <div
               className={cn(
                 'flex flex-col gap-2 w-full p-4 border  rounded-lg',
@@ -184,30 +181,32 @@ const AddTransaction = () => {
                 </label>
                 <TextField
                   type="currency-id"
-                  value={String(form.amount)}
+                  value={String( form.amount )}
                   name="amount"
                   placeholder="eg. 1000"
-                  onChange={(val: string) => handleChange(val, 'amount')}
+                  onChange={( val: string ) => handleChange( val, 'amount' )}
                 />
               </div>
               <div className="flex flex-col gap-2 relative">
-                <label htmlFor={'type'} className="w-fit text-sm lg:text-base">
+                <label htmlFor={'type'}
+                  className="w-fit text-sm lg:text-base"
+                >
                   <span>{'Type'}</span>
                 </label>
                 <DropdownSelect
                   value={form.type as string | number}
                   options={[
                     {
-                      label: 'Income',
-                      value: 'income',
+                      label : 'Income',
+                      value : 'income',
                     },
                     {
-                      label: 'Expense',
-                      value: 'expense',
+                      label : 'Expense',
+                      value : 'expense',
                     },
                   ]}
-                  onChange={(value: string | number) =>
-                    handleChange(value, 'type')
+                  onChange={( value: string | number ) =>
+                    handleChange( value, 'type' )
                   }
                 />
               </div>
@@ -221,8 +220,8 @@ const AddTransaction = () => {
                 <DropdownCategories
                   value={form.mm_category.value}
                   enabled={isOpen}
-                  onChange={(value: IOptions) =>
-                    handleChange(value, 'mm_category')
+                  onChange={( value: IOptions ) =>
+                    handleChange( value, 'mm_category' )
                   }
                 />
               </div>
@@ -238,7 +237,7 @@ const AddTransaction = () => {
                   value={form.description}
                   name="description"
                   placeholder="eg. Burger"
-                  onChange={(val: string) => handleChange(val, 'description')}
+                  onChange={( val: string ) => handleChange( val, 'description' )}
                 />
               </div>
             </div>
@@ -246,33 +245,37 @@ const AddTransaction = () => {
               type="submit"
               className="mt-4 button button-secondary w-full h-20 text-center flex justify-center gap-2 items-center"
             >
-              <FontAwesomeIcon icon={faPlus} className="text-orange" />
+              <FontAwesomeIcon icon={faPlus}
+                className="text-orange"
+              />
               Add other
             </button>
           </form>
           <div className="flex flex-col gap-2 mt-4">
-            {transactions.map((item, index) => (
-              <div className="flex flex-row gap-4 items-center" key={index}>
+            {transactions.map( ( item, index ) => (
+              <div className="flex flex-row gap-4 items-center"
+                key={index}
+              >
                 <Button2 variant="iconOnly">
                   <FontAwesomeIcon
                     icon={faSquareMinus}
                     className="text-white-overlay"
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete( index )}
                   />
                 </Button2>
                 <DefaultCategories name={item.mm_category.label} />
                 <p className="m-0">{item.description}</p>
                 <div className="grow" />
                 <p
-                  className={cn('m-0', [
+                  className={cn( 'm-0', [
                     item.type === 'income' && 'text-blue-400',
                     item.type === 'expense' && 'text-orange',
-                  ])}
+                  ] )}
                 >
-                  {formatCurency(item.amount)}
+                  {formatCurency( item.amount )}
                 </p>
               </div>
-            ))}
+            ) )}
           </div>
         </div>
       </Modal>
