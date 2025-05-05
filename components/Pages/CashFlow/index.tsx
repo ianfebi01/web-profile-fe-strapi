@@ -1,17 +1,22 @@
 'use client'
+import Button2 from '@/components/Buttons/Button2'
 import DefaultCategories from '@/components/DefaultCategories'
 import AddTransaction from '@/components/Modal/AddTransaction'
+import Modal from '@/components/Modal/Modal'
 import NoDataFound from '@/components/NoDataFound'
-import { IFilter, useGetDatas } from '@/lib/hooks/api/cashFlow'
+import { IFilter, useDelete, useGetDatas } from '@/lib/hooks/api/cashFlow'
 import { useFormatDate } from '@/lib/hooks/useFormatDate'
 import { cn } from '@/lib/utils'
 import formatCurency from '@/utils/format-curency'
 import {
   faChevronLeft,
   faChevronRight,
+  faPenSquare,
+  faSquareMinus,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const CashFlow = () => {
   const { month, year, spaceMonthYear } = useFormatDate()
@@ -31,6 +36,33 @@ const CashFlow = () => {
       setFilter( ( prev ) => ( { ...prev, month : String( Number( prev.month ) - 1 ) } ) )
     } else if ( type === 'next' ) {
       setFilter( ( prev ) => ( { ...prev, month : String( Number( prev.month ) + 1 ) } ) )
+    }
+  }
+
+  /**
+   *  Handle Delete
+   */
+  const [deleteWarningAlert, setDeleteWarningAlert] = useState<boolean>( false )
+  const [deleteIsLoading, setDeleteIsLoading] = useState( false )
+  const [id, setId] = useState<number | null>( null )
+  const deleteTransaction = useDelete()
+
+  const handleDelete = ( id: number ) => {
+    setId( id )
+    setDeleteWarningAlert( true )
+  }
+
+  const onDeleteOk = async () => {
+    try {
+      setDeleteIsLoading( true )
+      if ( id ) {
+        await deleteTransaction( id )
+      }
+      setDeleteIsLoading( false )
+      setDeleteWarningAlert( false )
+    } catch ( error ) {
+      setDeleteWarningAlert( false )
+      toast.error( 'Failed to delete transaction' )
     }
   }
 
@@ -71,9 +103,9 @@ const CashFlow = () => {
           data?.transactions.map( ( item, index ) => (
             <div
               key={index}
-              className="p-4 bg-dark-secondary shadow-xl rounded-lg flex flex-col gap-4"
+              className="bg-dark-secondary shadow-xl rounded-lg flex flex-col"
             >
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center px-4 pt-4">
                 <h2 className="m-0">{item.day}</h2>
                 <div className="grow" />
                 <div className="w-28 text-right text-blue-400">
@@ -88,7 +120,31 @@ const CashFlow = () => {
               >
                 <tbody>
                   {item.transactions.map( ( subItem, subIndex ) => (
-                    <tr key={subIndex}>
+                    <tr key={subIndex}
+                      className="hover:bg-dark/80"
+                    >
+                      <td
+                        className={cn( 'px-4 text-white-overlay', [
+                          subIndex + 1 === item.transactions.length && 'pb-8',
+                        ] )}
+                        style={{ width : '1px', whiteSpace : 'nowrap' }}
+                      >
+                        <div className="flex gap-2 items-center translate-y-1">
+                          <Button2 variant="iconOnly">
+                            <FontAwesomeIcon
+                              icon={faSquareMinus}
+                              className="text-white-overlay"
+                              onClick={() => handleDelete( subItem.id )}
+                            />
+                          </Button2>
+                          <Button2 variant="iconOnly">
+                            <FontAwesomeIcon
+                              icon={faPenSquare}
+                              className="text-white-overlay"
+                            />
+                          </Button2>
+                        </div>
+                      </td>
                       <td
                         className="p-0 text-white-overlay"
                         style={{ width : '1px', whiteSpace : 'nowrap' }}
@@ -98,7 +154,7 @@ const CashFlow = () => {
                       <td className="px-4">
                         <p className="m-0">{subItem.description}</p>
                       </td>
-                      <td className="p-0 text-right">
+                      <td className="p-0 pr-4 text-right">
                         <p
                           className={cn( 'm-0', {
                             'text-blue-400' : subItem.type === 'income',
@@ -116,6 +172,17 @@ const CashFlow = () => {
           ) )}
       </div>
       {!isLoading && data?.transactions.length === 0 && <NoDataFound />}
+      <Modal
+        isOpen={deleteWarningAlert}
+        setIsOpen={setDeleteWarningAlert}
+        onConfirm={() => onDeleteOk()}
+        onCancel={() => setDeleteWarningAlert( false )}
+        variant="warning"
+        title="Are you sure?"
+        desciption="Are you sure want to delete transaction?"
+        confirmText="Confirm"
+        loading={deleteIsLoading}
+      ></Modal>
     </div>
   )
 }

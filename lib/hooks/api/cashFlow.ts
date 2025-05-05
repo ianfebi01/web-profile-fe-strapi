@@ -17,7 +17,7 @@ interface IMonthlyTransactions {
     day: string
     income: number
     expense: number
-    transactions: ApiTransactionTransaction['attributes'][]
+    transactions: ( ApiTransactionTransaction['attributes'] & { id: number } )[]
   }[]
 }
 
@@ -26,38 +26,6 @@ export interface IFilter {
   year: string
 }
 
-/**
- *  Get datas
- */
-export const useCreate = () => {
-  const axiosAuth = useAxiosAuth()
-  const queryClient = useQueryClient()
-
-  const createMultiple = async ( body: IBodyTransaction[] ) => {
-    try {
-      const postTransactions = await Promise.all(
-        body.map( ( transactionBody ) =>
-          axiosAuth.post<ApiTransactionTransaction>( '/api/transactions', {
-            data : {
-              ...transactionBody,
-            },
-          } )
-        )
-      )
-
-      queryClient.invalidateQueries( {
-        queryKey : ['transactions-monthly']
-      } )
-
-      return postTransactions
-    } catch ( error ) {
-      toast.error( 'Error creating transactions' )
-      throw error
-    }
-  }
-
-  return { createMultiple }
-}
 /**
  *  Get datas
  */
@@ -88,6 +56,66 @@ export const useGetDatas = (
 
   return data
 }
+
+/**
+ *  Create datas
+ */
+export const useCreate = () => {
+  const axiosAuth = useAxiosAuth()
+  const queryClient = useQueryClient()
+
+  const createMultiple = async ( body: IBodyTransaction[] ) => {
+    try {
+      const postTransactions = await Promise.all(
+        body.map( ( transactionBody ) =>
+          axiosAuth.post<ApiTransactionTransaction>( '/api/transactions', {
+            data : {
+              ...transactionBody,
+            },
+          } )
+        )
+      )
+
+      queryClient.invalidateQueries( {
+        queryKey : ['transactions-monthly'],
+      } )
+
+      return postTransactions
+    } catch ( error ) {
+      toast.error( 'Error creating transactions' )
+      throw error
+    }
+  }
+
+  return { createMultiple }
+}
+
+/**
+ *  Delete data
+ */
+export const useDelete = () => {
+  const axiosAuth = useAxiosAuth()
+  const queryClient = useQueryClient()
+
+  const deleteTransaction = async ( id: number ) => {
+    try {
+      const res = await axiosAuth.delete<ApiTransactionTransaction>(
+        '/api/transactions/' + id
+      )
+
+      queryClient.invalidateQueries( {
+        queryKey : ['transactions-monthly'],
+      } )
+
+      return res
+    } catch ( error ) {
+      toast.error( 'Error creating transactions' )
+      throw error
+    }
+  }
+
+  return deleteTransaction
+}
 /**
  *  Get mm categories
  */
@@ -97,7 +125,7 @@ export const useCategories = (
   enabled: boolean = true,
   filters?: Record<string, any>,
   populate?: Record<string, any>
-): UseQueryResult<IApi<( ApiMmCategoryMmCategory & {id: number} )[]>> => {
+): UseQueryResult<IApi<( ApiMmCategoryMmCategory & { id: number } )[]>> => {
   const axiosAuth = useAxiosAuth()
   // query
   const query = {
@@ -111,18 +139,19 @@ export const useCategories = (
 
   const queryString = qs.stringify( query, { addQueryPrefix : true } )
 
-  const data: UseQueryResult<IApi<( ApiMmCategoryMmCategory & {id: number} )[]>> = useQuery<
-    IApi<( ApiMmCategoryMmCategory & {id: number} )[]>
-      >( {
-        queryKey : ['mm-categories', page, pageSize, filters, populate],
-        queryFn  : async () => {
-          const res: AxiosResponse<IApi<( ApiMmCategoryMmCategory & {id: number} )[]>> =
-        await axiosAuth( `/api/mm-categories${queryString}` )
+  const data: UseQueryResult<
+    IApi<( ApiMmCategoryMmCategory & { id: number } )[]>
+  > = useQuery<IApi<( ApiMmCategoryMmCategory & { id: number } )[]>>( {
+    queryKey : ['mm-categories', page, pageSize, filters, populate],
+    queryFn  : async () => {
+      const res: AxiosResponse<
+        IApi<( ApiMmCategoryMmCategory & { id: number } )[]>
+      > = await axiosAuth( `/api/mm-categories${queryString}` )
 
-          return res.data
-        },
-        enabled : enabled,
-      } )
+      return res.data
+    },
+    enabled : enabled,
+  } )
 
   return data
 }
