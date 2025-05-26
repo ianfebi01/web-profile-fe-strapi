@@ -73,6 +73,7 @@ const MobileNavbar = ( { isOpen, items, setIsOpen }: Props ) => {
               alt="Logo image"
               width={40}
               height={40}
+              priority
             />
           </Link>
           <div className="absolute top-4 right-4 z-50 md:hidden">
