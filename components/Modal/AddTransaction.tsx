@@ -194,6 +194,7 @@ const AddTransaction = () => {
                   name="amount"
                   placeholder="eg. 1000"
                   onChange={( val: string ) => handleChange( val, 'amount' )}
+                  autoFocus
                 />
               </div>
               <div className="flex flex-col gap-2 relative">

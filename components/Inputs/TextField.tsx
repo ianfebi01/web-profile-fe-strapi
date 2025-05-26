@@ -1,6 +1,6 @@
 'use client'
 
-import { InputHTMLAttributes, useState, FormEvent } from 'react'
+import { InputHTMLAttributes, useState, FormEvent, useRef, useEffect } from 'react'
 import { cn } from '@/lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
@@ -13,6 +13,7 @@ interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'on
     type?: TFieldType
     error?: string
     touched?: boolean
+    autoFocus?: boolean
   }
   
 const TextField = ( {
@@ -46,6 +47,16 @@ const TextField = ( {
     }
   }
 
+  const ref = useRef<HTMLInputElement>( null )
+
+  // AutoFocus
+  useEffect( ()=> {
+    if ( props.autoFocus && ref.current ) {
+      ref.current?.focus()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [] )
+
   return loading ? (
     <div className="h-8 p-2 w-full border border-white/25 rounded-lg">
       <div className="h-full max-w-sm bg-dark-secondary animate-pulse" />
@@ -58,6 +69,7 @@ const TextField = ( {
             Rp.
           </span>
           <input
+            ref={ref}
             id={name}
             placeholder={placeholder}
             type="text"
