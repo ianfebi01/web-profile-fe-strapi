@@ -64,6 +64,28 @@ export const useCreate = () => {
   const axiosAuth = useAxiosAuth()
   const queryClient = useQueryClient()
 
+  const create = async ( body: IBodyTransaction ) => {
+    try {
+      const postTransaction = await axiosAuth.post<ApiTransactionTransaction>(
+        '/api/transactions',
+        {
+          data : {
+            ...body,
+          },
+        }
+      )
+
+      queryClient.invalidateQueries( {
+        queryKey : ['transactions-monthly'],
+      } )
+
+      return postTransaction
+    } catch ( error ) {
+      toast.error( 'Error edit transaction' )
+      throw error
+    }
+  }
+
   const createMultiple = async ( body: IBodyTransaction[] ) => {
     try {
       const postTransactions = await Promise.all(
@@ -87,7 +109,7 @@ export const useCreate = () => {
     }
   }
 
-  return { createMultiple }
+  return { createMultiple, create }
 }
 
 /**
