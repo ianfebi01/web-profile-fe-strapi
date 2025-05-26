@@ -57,5 +57,7 @@
     "select_month": "Pilih Bulan",
     "select_date": "Pilih Tanggal",
     "cashflow": "Transaksi",
-    "add_transaction": "Tambah Transaksi"
+    "add_transaction": "Tambah Transaksi",
+    "edit": "Ubah",
+    "cancel": "Batal"
 }
