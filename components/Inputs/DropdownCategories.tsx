@@ -87,9 +87,9 @@ export default function DropdownCategories( {
 
           <Transition
             enterFrom="transform max-h-0 opacity-0 overflow-hidden"
-            enterTo="transform max-h-[500px] opacity-100 duration-700 ease-out overflow-hidden"
+            enterTo="transform max-h-[500px] opacity-100 duration-300 ease-out overflow-hidden"
             leaveFrom="transform max-h-[500px] opacity-100 overflow-hidden"
-            leaveTo="transform max-h-0 opacity-0 duration-700 ease-out overflow-hidden"
+            leaveTo="transform max-h-0 opacity-0 duration-300 ease-out overflow-hidden"
           >
             <Disclosure.Panel static
               className="overflow-hidden"
