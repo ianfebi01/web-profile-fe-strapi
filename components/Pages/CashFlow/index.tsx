@@ -2,11 +2,13 @@
 import Button2 from '@/components/Buttons/Button2'
 import DefaultCategories from '@/components/DefaultCategories'
 import AddTransaction from '@/components/Modal/AddTransaction'
+import EditTransaction from '@/components/Modal/EditTransaction'
 import Modal from '@/components/Modal/Modal'
 import NoDataFound from '@/components/NoDataFound'
 import { IFilter, useDelete, useGetDatas } from '@/lib/hooks/api/cashFlow'
 import { useFormatDate } from '@/lib/hooks/useFormatDate'
 import { cn } from '@/lib/utils'
+import { ApiTransactionTransaction } from '@/types/generated/contentTypes'
 import formatCurency from '@/utils/format-curency'
 import {
   faChevronLeft,
@@ -64,6 +66,19 @@ const CashFlow = () => {
       setDeleteWarningAlert( false )
       toast.error( 'Failed to delete transaction' )
     }
+  }
+
+  /**
+   *  Handle Edit
+   */
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>( false );
+  const [editData, setEditData] = useState<ApiTransactionTransaction['attributes'] >();
+
+  const handleEdit = ( item: ApiTransactionTransaction['attributes'] ) => {
+    setIsEditModalOpen( true )
+    setEditData( item )
+
   }
 
   return (
@@ -130,14 +145,19 @@ const CashFlow = () => {
                         style={{ width : '1px', whiteSpace : 'nowrap' }}
                       >
                         <div className="flex gap-2 items-center translate-y-1">
-                          <Button2 variant="iconOnly">
+                          <Button2
+                            variant="iconOnly"
+                            onClick={() => handleDelete( subItem.id )}
+                          >
                             <FontAwesomeIcon
                               icon={faSquareMinus}
                               className="text-white-overlay"
-                              onClick={() => handleDelete( subItem.id )}
                             />
                           </Button2>
-                          <Button2 variant="iconOnly">
+                          <Button2
+                            variant="iconOnly"
+                            onClick={() => handleEdit( subItem )}
+                          >
                             <FontAwesomeIcon
                               icon={faPenSquare}
                               className="text-white-overlay"
@@ -183,6 +203,10 @@ const CashFlow = () => {
         confirmText="Confirm"
         loading={deleteIsLoading}
       ></Modal>
+      <EditTransaction isOpen={isEditModalOpen}
+        setIsOpen={setIsEditModalOpen}
+        initialValue={editData}
+      />
     </div>
   )
 }

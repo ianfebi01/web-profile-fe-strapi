@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWarning } from '@fortawesome/free-solid-svg-icons'
 import ClientPortal from '../Layouts/ClientPortal'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   isOpen: boolean
@@ -21,6 +22,7 @@ interface Props {
   variant?: 'warning' | 'normal' | 'fullscreen'
 }
 const Modal: FunctionComponent<Props> = ( props ) => {
+  const t = useTranslations()
   const {
     isOpen,
     setIsOpen,
@@ -29,7 +31,7 @@ const Modal: FunctionComponent<Props> = ( props ) => {
     children,
     onConfirm,
     confirmText = 'Save',
-    cancelText = 'Cancel',
+    cancelText = t( 'cancel' ),
     onCancel,
     loading,
     border = true,
