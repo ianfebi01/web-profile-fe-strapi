@@ -73,9 +73,9 @@ const CashFlow = () => {
    */
 
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>( false );
-  const [editData, setEditData] = useState<ApiTransactionTransaction['attributes'] >();
+  const [editData, setEditData] = useState<ApiTransactionTransaction['attributes']  & { id: number } | undefined>();
 
-  const handleEdit = ( item: ApiTransactionTransaction['attributes'] ) => {
+  const handleEdit = ( item: ApiTransactionTransaction['attributes']  & { id: number } ) => {
     setIsEditModalOpen( true )
     setEditData( item )
 

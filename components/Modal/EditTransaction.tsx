@@ -20,7 +20,7 @@ interface ITransactionFormInput
 interface Props {
   isOpen: boolean
   setIsOpen: ( value: boolean ) => void
-  initialValue: ApiTransactionTransaction['attributes']
+  initialValue?: ApiTransactionTransaction['attributes'] & { id: number }
 }
 
 const EditTransaction = ( { isOpen, setIsOpen, initialValue }: Props ) => {
@@ -40,7 +40,7 @@ const EditTransaction = ( { isOpen, setIsOpen, initialValue }: Props ) => {
   } )
 
   useEffect( () => {
-    if ( isOpen ) {
+    if ( isOpen && initialValue ) {
       setForm( {
         type        : initialValue?.type,
         amount      : initialValue?.amount,
@@ -82,7 +82,7 @@ const EditTransaction = ( { isOpen, setIsOpen, initialValue }: Props ) => {
   }
 
   const handleSubmit = async () => {
-    if ( !!form.amount ) {
+    if ( !!form.amount && initialValue?.id ) {
       try {
         setLoading( true )
         await edit( {
@@ -147,6 +147,7 @@ const EditTransaction = ( { isOpen, setIsOpen, initialValue }: Props ) => {
             boundaryRef={modalRef}
           />
         </div>
+        <pre>{JSON.stringify( initialValue, null, 2 )}</pre>
         <form onSubmit={( e ) => handleAddTransaction( e )}>
           <div
             className={cn(
