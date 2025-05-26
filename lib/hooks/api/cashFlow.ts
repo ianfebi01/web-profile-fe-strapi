@@ -81,7 +81,7 @@ export const useCreate = () => {
 
       return postTransaction
     } catch ( error ) {
-      toast.error( 'Error edit transaction' )
+      toast.error( 'Error create transaction' )
       throw error
     }
   }
@@ -110,6 +110,37 @@ export const useCreate = () => {
   }
 
   return { createMultiple, create }
+}
+/**
+ *  edit data
+ */
+export const useEdit = () => {
+  const axiosAuth = useAxiosAuth()
+  const queryClient = useQueryClient()
+
+  const edit = async ( body: IBodyTransaction, id: number ) => {
+    try {
+      const postTransaction = await axiosAuth.put<ApiTransactionTransaction>(
+        `/api/transactions/${id}`,
+        {
+          data : {
+            ...body,
+          },
+        }
+      )
+
+      queryClient.invalidateQueries( {
+        queryKey : ['transactions-monthly'],
+      } )
+
+      return postTransaction
+    } catch ( error ) {
+      toast.error( 'Error edit transaction' )
+      throw error
+    }
+  }
+
+  return { edit }
 }
 
 /**
