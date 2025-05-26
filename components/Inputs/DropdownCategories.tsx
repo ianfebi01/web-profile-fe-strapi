@@ -1,4 +1,5 @@
-import { Fragment, useMemo } from 'react'
+"use client"
+import { useMemo, useState } from 'react'
 import { Disclosure, Transition } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons'
@@ -6,6 +7,7 @@ import { IOptions } from '@/types/form'
 import { cn } from '@/lib/utils'
 import { useCategories } from '@/lib/hooks/api/cashFlow'
 import DefaultCategories from '../DefaultCategories'
+import { getCookie } from 'cookies-next'
 
 interface Props {
   label?: string
@@ -20,9 +22,13 @@ export default function DropdownCategories( {
   onChange,
   enabled = false,
 }: Props ) {
-  const filters = { user : { id : 42 } }
+  const userId = getCookie( 'userId' )
+    ? JSON.parse( getCookie( 'userId' ) as string )
+    : ''
+  
+  const [filters] = useState( { user : { id : userId } } );
   const { data } = useCategories( 1, 100, enabled, filters )
-
+  
   const options = useMemo( () => {
     return (
       data?.data.map( ( category ) => ( {

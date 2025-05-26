@@ -30,6 +30,7 @@ export const useLogin = () => {
 
       if ( res && res?.data ) {
         setCookie( 'token', JSON.stringify( res.data.jwt ) )
+        setCookie( 'userId', JSON.stringify( res.data.user.id ) )
         // setCookie( 'refreshToken', JSON.stringify( res.data.data?.refresh ) )
 
         setLoading( false )
@@ -73,6 +74,7 @@ export const useRegister = () => {
 
       if ( res && res?.data ) {
         setCookie( 'token', JSON.stringify( res.data.jwt ) )
+        setCookie( 'userId', JSON.stringify( res.data.user.id ) )
         // setCookie( 'refreshToken', JSON.stringify( res.data.data?.refresh ) )
 
         setLoading( false )
@@ -102,6 +104,7 @@ export const useRemoveUserData = () => {
   const router = useRouter()
   const removeUserData = () => {
     deleteCookie( 'token' )
+    deleteCookie( 'userId' )
     deleteCookie( 'refreshToken' )
     queryClient.clear()
     router.replace( '/money-manager/login' )
