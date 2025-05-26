@@ -99,11 +99,15 @@ const AddTransaction = () => {
     } ) )
 
     const combined = [...tmp, ...transformTransactions]
-    setLoading( true )
-    await createMultiple( combined )
-    resetForm()
-    setIsOpen( false )
-    setLoading( false )
+    try {
+      setLoading( true )
+      await createMultiple( combined )
+      resetForm()
+      setIsOpen( false )
+      setLoading( false )
+    } catch ( error ) {
+      setLoading( false )
+    }
   }
 
   const resetForm = () => {
