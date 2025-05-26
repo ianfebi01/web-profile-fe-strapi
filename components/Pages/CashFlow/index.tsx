@@ -10,14 +10,9 @@ import { useFormatDate } from '@/lib/hooks/useFormatDate'
 import { cn } from '@/lib/utils'
 import { ApiTransactionTransaction } from '@/types/generated/contentTypes'
 import formatCurency from '@/utils/format-curency'
-import {
-  faChevronLeft,
-  faChevronRight,
-  faPenSquare,
-  faSquareMinus,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight, faSquareMinus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState } from 'react';
 import toast from 'react-hot-toast'
 
 const CashFlow = () => {
@@ -49,7 +44,8 @@ const CashFlow = () => {
   const [id, setId] = useState<number | null>( null )
   const deleteTransaction = useDelete()
 
-  const handleDelete = ( id: number ) => {
+  const handleDelete = ( e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: number ) => {
+    e.stopPropagation()
     setId( id )
     setDeleteWarningAlert( true )
   }
@@ -136,7 +132,8 @@ const CashFlow = () => {
                 <tbody>
                   {item.transactions.map( ( subItem, subIndex ) => (
                     <tr key={subIndex}
-                      className="hover:bg-dark/80"
+                      className="hover:bg-dark/80 cursor-pointer"
+                      onClick={() => handleEdit( subItem )}
                     >
                       <td
                         className={cn( 'px-4 text-white-overlay', [
@@ -147,19 +144,10 @@ const CashFlow = () => {
                         <div className="flex gap-2 items-center translate-y-1">
                           <Button2
                             variant="iconOnly"
-                            onClick={() => handleDelete( subItem.id )}
+                            onClick={( e ) => handleDelete( e, subItem.id )}
                           >
                             <FontAwesomeIcon
                               icon={faSquareMinus}
-                              className="text-white-overlay"
-                            />
-                          </Button2>
-                          <Button2
-                            variant="iconOnly"
-                            onClick={() => handleEdit( subItem )}
-                          >
-                            <FontAwesomeIcon
-                              icon={faPenSquare}
                               className="text-white-overlay"
                             />
                           </Button2>
