@@ -147,7 +147,6 @@ const EditTransaction = ( { isOpen, setIsOpen, initialValue }: Props ) => {
             boundaryRef={modalRef}
           />
         </div>
-        <pre>{JSON.stringify( initialValue, null, 2 )}</pre>
         <form onSubmit={( e ) => handleAddTransaction( e )}>
           <div
             className={cn(
