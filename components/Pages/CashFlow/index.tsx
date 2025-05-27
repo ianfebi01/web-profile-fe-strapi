@@ -133,6 +133,7 @@ const CashFlow = () => {
                   {item.transactions.map( ( subItem, subIndex ) => (
                     <tr key={subIndex}
                       className="hover:bg-dark/80 cursor-pointer"
+                      role='button'
                       onClick={() => handleEdit( subItem )}
                     >
                       <td
