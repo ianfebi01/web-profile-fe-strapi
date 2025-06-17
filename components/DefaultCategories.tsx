@@ -24,7 +24,7 @@ type WrapperProps = {
 }
 
 const Wrapper = ( { text, icon }: WrapperProps ) => (
-  <div className="flex flex-wrap gap-2 justify-center items-center w-fit">
+  <div className="flex flex-wrap md:flex-nowrap gap-2 justify-center items-center w-fit">
     {!!icon && (
       <div className='w-4 h-4'>
         <FontAwesomeIcon icon={icon}
