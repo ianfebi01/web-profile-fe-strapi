@@ -83,7 +83,7 @@ const CashFlow = () => {
       <div className="flex gap-4 flex-wrap">
         <div className="flex gap-2 items-center">
           <button
-            className="hover:text-white-overlay text-white-overlay-2 transition-default"
+            className="border rounded-md w-6 h-6 border-white-overlay-2 hover:border-white-overlay transition-default"
             onClick={() => changeMonth( 'prev' )}
           >
             <FontAwesomeIcon icon={faChevronLeft} />
@@ -92,7 +92,7 @@ const CashFlow = () => {
             {spaceMonthYear( new Date( `${filter.year}-${filter.month}-01` ) )}
           </h2>
           <button
-            className="hover:text-white-overlay text-white-overlay-2 transition-default"
+            className="border rounded-md w-6 h-6 border-white-overlay-2 hover:border-white-overlay transition-default"
             onClick={() => changeMonth( 'next' )}
           >
             <FontAwesomeIcon icon={faChevronRight} />
