@@ -1,6 +1,7 @@
 'use client'
 import Button2 from '@/components/Buttons/Button2'
 import DefaultCategories from '@/components/DefaultCategories'
+import ErrorLoadingData from '@/components/Layouts/ErrorLoadingData'
 import AddTransaction from '@/components/Modal/AddTransaction'
 import EditTransaction from '@/components/Modal/EditTransaction'
 import Modal from '@/components/Modal/Modal'
@@ -24,7 +25,7 @@ const CashFlow = () => {
     year  : year( date ),
   } )
 
-  const { data, isLoading } = useGetDatas( filter )
+  const { data, isLoading, isError } = useGetDatas( filter )
 
   const mockLoop = new Array( 6 ).fill( 0 )
 
@@ -181,6 +182,7 @@ const CashFlow = () => {
           ) )}
       </div>
       {!isLoading && data?.transactions.length === 0 && <NoDataFound />}
+      {!isLoading && isError && <ErrorLoadingData />}
       <Modal
         isOpen={deleteWarningAlert}
         setIsOpen={setDeleteWarningAlert}
