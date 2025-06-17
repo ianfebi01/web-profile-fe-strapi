@@ -113,7 +113,9 @@ export default function DropdownCategories( {
                                   close()
                                 }}
                                 className={cn(
-                                  'flex items-center justify-between w-full gap-2 px-4 py-3 text-left no-underline transition-all duration-300 ease-in-out cursor-pointer hover:bg-dark-secondary',
+                                  'flex flex-wrap items-center justify-center w-full gap-2 px-4 py-3 text-left no-underline transition-all duration-300 ease-in-out cursor-pointer hover:bg-dark-secondary',
+                                  'overflow-hidden',
+                                  'text-center',
                                   [
                                     selectedValue === item.value
                                       ? 'bg-dark-secondary text-white'

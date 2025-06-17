@@ -24,7 +24,7 @@ type WrapperProps = {
 }
 
 const Wrapper = ( { text, icon }: WrapperProps ) => (
-  <div className="flex gap-2 items-center w-fit">
+  <div className="flex flex-wrap gap-2 justify-center items-center w-fit">
     {!!icon && (
       <div className='w-4 h-4'>
         <FontAwesomeIcon icon={icon}
@@ -32,7 +32,7 @@ const Wrapper = ( { text, icon }: WrapperProps ) => (
         />
       </div>
     )}
-    <p className="m-0 text-inherit">{text}</p>
+    <p className="m-0 text-inherit break-all">{text}</p>
   </div>
 )
 
