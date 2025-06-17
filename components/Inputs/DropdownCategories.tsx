@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import { useMemo, useState } from 'react'
 import { Disclosure, Transition } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -25,10 +25,10 @@ export default function DropdownCategories( {
   const userId = getCookie( 'userId' )
     ? JSON.parse( getCookie( 'userId' ) as string )
     : ''
-  
-  const [filters] = useState( { user : { id : userId } } );
+
+  const [filters] = useState( { user : { id : userId } } )
   const { data } = useCategories( 1, 100, enabled, filters )
-  
+
   const options = useMemo( () => {
     return (
       data?.data.map( ( category ) => ( {
@@ -104,23 +104,26 @@ export default function DropdownCategories( {
                           .map( ( item, index ) => (
                             <td
                               key={index}
-                              className={`border border-white-overlay-2 p-0`}
+                              className={cn(
+                                `border border-white-overlay-2 p-0 align-middle`,
+                                'cursor-pointer hover:bg-dark-secondary',
+                                [
+                                  selectedValue === item.value
+                                    ? 'bg-dark-secondary text-white'
+                                    : 'text-white-overlay',
+                                ]
+                              )}
+                              onClick={() => {
+                                handleSelect( item )
+                                close()
+                              }}
                             >
                               <button
                                 type="button"
-                                onClick={() => {
-                                  handleSelect( item )
-                                  close()
-                                }}
                                 className={cn(
-                                  'flex flex-wrap items-center justify-center w-full gap-2 px-4 py-3 text-left no-underline transition-all duration-300 ease-in-out cursor-pointer hover:bg-dark-secondary',
+                                  'flex flex-wrap items-center justify-center w-full gap-2 px-4 py-3 text-left no-underline transition-all duration-300 ease-in-out',
                                   'overflow-hidden',
-                                  'text-center',
-                                  [
-                                    selectedValue === item.value
-                                      ? 'bg-dark-secondary text-white'
-                                      : 'text-white-overlay',
-                                  ]
+                                  'text-center'
                                 )}
                               >
                                 <DefaultCategories name={item?.label} />
