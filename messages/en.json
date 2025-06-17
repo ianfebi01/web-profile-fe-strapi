@@ -44,6 +44,7 @@
         "gift": "Gift",
         "house_hold": "Household",
         "work": "Work",
+        "bill_subscription": "Bill & Subscription",
         "transportation": "Transportation",
         "other": "Other"
     },

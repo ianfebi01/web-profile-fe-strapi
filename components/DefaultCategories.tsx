@@ -4,6 +4,7 @@ import {
   faBriefcaseMedical,
   faCar,
   faEllipsis,
+  faFileInvoice,
   faGift,
   faHouse,
   faMasksTheater,
@@ -120,6 +121,14 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'work' )}
           icon={faBriefcase}
+        />
+      </>
+    )
+  case 'bill-subscription':
+    return (
+      <>
+        <Wrapper text={t( 'bill_subscription' )}
+          icon={faFileInvoice}
         />
       </>
     )
