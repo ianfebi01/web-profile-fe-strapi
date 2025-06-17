@@ -61,5 +61,6 @@
     "cashflow": "Transaksi",
     "add_transaction": "Tambah Transaksi",
     "edit": "Ubah",
-    "cancel": "Batal"
+    "cancel": "Batal",
+    "summary": "Rangkuman Transaksi"
 }

@@ -61,5 +61,6 @@
     "cashflow": "Cashflow",
     "add_transaction": "Add Transaction",
     "edit": "Edit",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "summary": "Transaction Summary"
 }
