@@ -30,8 +30,17 @@ export default function DropdownCategories( {
   const { data } = useCategories( 1, 100, enabled, filters )
 
   const options = useMemo( () => {
+    if ( !data?.data ) return []
+    const withoutOther = data?.data
+      ?.filter( ( item ) => item.attributes.name !== 'other' )
+      .sort( ( a, b ) => a.attributes.name.localeCompare( b.attributes.name ) )
+
+    const other = data?.data?.find( ( item ) => item.attributes.name === 'other' )
+
+    const sorted = other ? [...withoutOther, other] : withoutOther
+
     return (
-      data?.data.map( ( category ) => ( {
+      sorted?.map( ( category ) => ( {
         label : category.attributes.name,
         value : category.id,
       } ) ) || []
@@ -68,7 +77,9 @@ export default function DropdownCategories( {
           >
             {selectedLabel ? (
               <div className="text-white">
-                <DefaultCategories name={selectedLabel} />
+                <DefaultCategories name={selectedLabel}
+                  center
+                />
               </div>
             ) : (
               <span className="line-clamp-1 text-white-overlay">{label}</span>
@@ -126,7 +137,9 @@ export default function DropdownCategories( {
                                   'text-center'
                                 )}
                               >
-                                <DefaultCategories name={item?.label} />
+                                <DefaultCategories name={item?.label}
+                                  center
+                                />
                                 {value === item.value && (
                                   <FontAwesomeIcon
                                     icon={faCheck}

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {
   faBriefcase,
@@ -21,12 +22,19 @@ import React, { FunctionComponent } from 'react'
 type WrapperProps = {
   text: string
   icon?: IconProp
+  center?: boolean
 }
 
-const Wrapper = ( { text, icon }: WrapperProps ) => (
-  <div className="flex flex-wrap md:flex-nowrap gap-2 justify-center items-center w-fit">
+const Wrapper = ( { text, icon, center = false }: WrapperProps ) => (
+  <div
+    className={cn( [
+      center &&
+        'flex flex-wrap md:flex-nowrap gap-2 justify-center items-center w-fit',
+      !center && 'flex gap-2 items-center w-fit',
+    ] )}
+  >
     {!!icon && (
-      <div className='w-4 h-4'>
+      <div className="w-4 h-4">
         <FontAwesomeIcon icon={icon}
           className="text-orange"
         />
@@ -38,9 +46,10 @@ const Wrapper = ( { text, icon }: WrapperProps ) => (
 
 interface Props {
   name: string
+  center?: boolean
 }
 
-const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
+const DefaultCategories: FunctionComponent<Props> = ( { name, center = false } ) => {
   const t = useTranslations( 'mm_categories' )
 
   switch ( name ) {
@@ -49,6 +58,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'food' )}
           icon={faUtensils}
+          center={center}
         />
       </>
     )
@@ -57,6 +67,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'social_life' )}
           icon={faPeopleGroup}
+          center={center}
         />
       </>
     )
@@ -65,6 +76,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'apparel' )}
           icon={faShirt}
+          center={center}
         />
       </>
     )
@@ -73,6 +85,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'culture' )}
           icon={faMasksTheater}
+          center={center}
         />
       </>
     )
@@ -81,6 +94,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'beauty' )}
           icon={faSprayCanSparkles}
+          center={center}
         />
       </>
     )
@@ -89,6 +103,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'health' )}
           icon={faBriefcaseMedical}
+          center={center}
         />
       </>
     )
@@ -97,6 +112,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'education' )}
           icon={faUserGraduate}
+          center={center}
         />
       </>
     )
@@ -105,6 +121,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'gift' )}
           icon={faGift}
+          center={center}
         />
       </>
     )
@@ -113,6 +130,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'house_hold' )}
           icon={faHouse}
+          center={center}
         />
       </>
     )
@@ -121,6 +139,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'work' )}
           icon={faBriefcase}
+          center={center}
         />
       </>
     )
@@ -129,6 +148,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'bill_subscription' )}
           icon={faFileInvoice}
+          center={center}
         />
       </>
     )
@@ -137,6 +157,7 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'transportation' )}
           icon={faCar}
+          center={center}
         />
       </>
     )
@@ -145,13 +166,16 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'other' )}
           icon={faEllipsis}
+          center={center}
         />
       </>
     )
   default:
     return (
       <>
-        <Wrapper text={name} />
+        <Wrapper text={name}
+          center={center}
+        />
       </>
     )
   }

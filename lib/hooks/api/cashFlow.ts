@@ -188,6 +188,7 @@ export const useCategories = (
       page,
       pageSize,
     },
+    sort : ['name:asc']
   }
 
   const queryString = qs.stringify( query, { addQueryPrefix : true } )
