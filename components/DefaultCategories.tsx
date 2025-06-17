@@ -1,5 +1,6 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import {
+  faBriefcase,
   faBriefcaseMedical,
   faCar,
   faEllipsis,
@@ -111,6 +112,14 @@ const DefaultCategories: FunctionComponent<Props> = ( { name } ) => {
       <>
         <Wrapper text={t( 'house_hold' )}
           icon={faHouse}
+        />
+      </>
+    )
+  case 'work':
+    return (
+      <>
+        <Wrapper text={t( 'work' )}
+          icon={faBriefcase}
         />
       </>
     )

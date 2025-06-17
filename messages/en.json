@@ -43,6 +43,7 @@
         "education": "Education",
         "gift": "Gift",
         "house_hold": "Household",
+        "work": "Work",
         "transportation": "Transportation",
         "other": "Other"
     },
