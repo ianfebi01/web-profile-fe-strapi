@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import Modal from './Modal'
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { IBodyTransaction } from '@/types/api/transaction'
@@ -50,8 +50,10 @@ const EditTransaction = ( { isOpen, setIsOpen, initialValue }: Props ) => {
           value : initialValue?.mm_category?.id,
         },
       } )
+
+      if ( initialValue?.date ) setSharedDate( new Date( initialValue?.date ) )
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen] )
 
   const handleChange = ( value: string | number | IOptions, name: string ) => {
@@ -85,13 +87,16 @@ const EditTransaction = ( { isOpen, setIsOpen, initialValue }: Props ) => {
     if ( !!form.amount && initialValue?.id ) {
       try {
         setLoading( true )
-        await edit( {
-          ...form,
-          date : sharedDate
-            ? new Date( sharedDate ).toISOString()
-            : new Date().toISOString(),
-          mm_category : Number( form.mm_category.value ),
-        }, initialValue?.id )
+        await edit(
+          {
+            ...form,
+            date : sharedDate
+              ? new Date( sharedDate ).toISOString()
+              : new Date().toISOString(),
+            mm_category : Number( form.mm_category.value ),
+          },
+          initialValue?.id
+        )
         resetForm()
         setIsOpen( false )
         setLoading( false )
