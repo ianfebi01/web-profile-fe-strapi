@@ -23,7 +23,7 @@ const ChartCard = ( {
   title,
 }: Props ) => {
   return (
-    <div className="bg-dark-secondary rounded-lg h-[365px] flex flex-col">
+    <div className="bg-dark-secondary rounded-lg md:h-[365px] overflow-hidden flex flex-col">
       <div className="p-4 flex justify-between gap-4 items-center">
         <div className="flex items-center gap-2">
           <FontAwesomeIcon

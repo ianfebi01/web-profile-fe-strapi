@@ -16,9 +16,8 @@ interface IMonthlyChartTransactions {
 }
 
 interface ITopExpenseMonthly {
-  id: number
-  name: string
-  total: number
+  series: number[]
+  categories: string[]
 }
 
 export interface IFilter {
@@ -62,7 +61,7 @@ export const useGetDatas = (
 export const useGetTopExpense = (
   filter: IFilter,
   enabled: boolean = true
-): UseQueryResult<ITopExpenseMonthly[]> => {
+): UseQueryResult<ITopExpenseMonthly> => {
   const axiosAuth = useAxiosAuth()
   // query
   const query = {
@@ -71,12 +70,12 @@ export const useGetTopExpense = (
   }
   const queryString = qs.stringify( query, { addQueryPrefix : true } )
 
-  const data: UseQueryResult<ITopExpenseMonthly[]> = useQuery<
-    ITopExpenseMonthly[]
+  const data: UseQueryResult<ITopExpenseMonthly> = useQuery<
+    ITopExpenseMonthly
   >( {
     queryKey : ['top-expense-categories', filter.month, filter.year],
     queryFn  : async () => {
-      const res: AxiosResponse<ITopExpenseMonthly[]> = await axiosAuth(
+      const res: AxiosResponse<ITopExpenseMonthly> = await axiosAuth(
         `/api/transactions/top-expense-categories${queryString}`
       )
 
