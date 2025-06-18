@@ -3,7 +3,7 @@ import formatCurency from '@/utils/format-curency'
 import { ApexOptions } from 'apexcharts'
 import { useTranslations } from 'next-intl'
 import dynamic from 'next/dynamic'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAnimation, motion, easeInOut } from 'framer-motion'
 
 const ReactApexChart = dynamic( () => import( 'react-apexcharts' ), { ssr : false } )
