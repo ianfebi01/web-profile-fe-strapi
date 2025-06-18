@@ -78,6 +78,12 @@ export const useCreate = () => {
       queryClient.invalidateQueries( {
         queryKey : ['transactions-monthly'],
       } )
+      queryClient.invalidateQueries( {
+        queryKey : ['top-expense-categories'],
+      } )
+      queryClient.invalidateQueries( {
+        queryKey : ['monthly-chart'],
+      } )
 
       return postTransaction
     } catch ( error ) {
@@ -100,6 +106,12 @@ export const useCreate = () => {
 
       queryClient.invalidateQueries( {
         queryKey : ['transactions-monthly'],
+      } )
+      queryClient.invalidateQueries( {
+        queryKey : ['top-expense-categories'],
+      } )
+      queryClient.invalidateQueries( {
+        queryKey : ['monthly-chart'],
       } )
 
       return postTransactions
@@ -132,6 +144,12 @@ export const useEdit = () => {
       queryClient.invalidateQueries( {
         queryKey : ['transactions-monthly'],
       } )
+      queryClient.invalidateQueries( {
+        queryKey : ['top-expense-categories'],
+      } )
+      queryClient.invalidateQueries( {
+        queryKey : ['monthly-chart'],
+      } )
 
       return postTransaction
     } catch ( error ) {
@@ -158,6 +176,12 @@ export const useDelete = () => {
 
       queryClient.invalidateQueries( {
         queryKey : ['transactions-monthly'],
+      } )
+      queryClient.invalidateQueries( {
+        queryKey : ['top-expense-categories'],
+      } )
+      queryClient.invalidateQueries( {
+        queryKey : ['monthly-chart'],
       } )
 
       return res
