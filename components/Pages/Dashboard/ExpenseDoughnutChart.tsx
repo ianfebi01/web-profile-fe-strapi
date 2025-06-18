@@ -20,7 +20,7 @@ const ExpenseDoughnutChart = () => {
     year  : year( date ),
   } )
 
-  const { data, isLoading, isError } = useGetTopExpense( filter )
+  const { data, isFetching, isError } = useGetTopExpense( filter )
 
   const changeMonth = ( type: 'prev' | 'next' ) => {
     if ( type === 'prev' ) {
@@ -34,7 +34,7 @@ const ExpenseDoughnutChart = () => {
     <ChartCard
       title="Monthly Transactions"
       isError={isError}
-      isLoading={isLoading}
+      isLoading={isFetching}
       isNoData={( !!data && data.categories.length === 0 ) || !data}
       filterComponent={
         <div className="flex gap-2 items-center">

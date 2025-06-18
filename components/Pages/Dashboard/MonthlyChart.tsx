@@ -16,7 +16,7 @@ const MonthlyChart = () => {
     year : year( date ),
   } )
 
-  const { data, isLoading, isError } = useGetDatas( filter )
+  const { data, isFetching, isError } = useGetDatas( filter )
 
   const changeYear = ( type: 'prev' | 'next' ) => {
     if ( type === 'prev' ) {
@@ -30,7 +30,7 @@ const MonthlyChart = () => {
     <ChartCard
       title="Monthly Transactions"
       isError={isError}
-      isLoading={isLoading}
+      isLoading={isFetching}
       isNoData={( !!data && data.categories.length === 0 ) || !data}
       filterComponent={
         <div className="flex gap-2 items-center">
