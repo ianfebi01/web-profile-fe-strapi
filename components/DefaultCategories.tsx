@@ -34,7 +34,7 @@ const Wrapper = ( { text, icon, center = false }: WrapperProps ) => (
     ] )}
   >
     {!!icon && (
-      <div className="w-4 h-4">
+      <div className="w-4 h-4 flex items-center justify-center">
         <FontAwesomeIcon icon={icon}
           className="text-orange"
         />
