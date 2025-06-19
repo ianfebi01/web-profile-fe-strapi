@@ -33,10 +33,14 @@ export const useGetDatas = (
   enabled: boolean = true
 ): UseQueryResult<IMonthlyChartTransactions> => {
   const axiosAuth = useAxiosAuth()
+
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
   // query
   const query = {
     year : filter.year,
+    timezone
   }
+  
   const queryString = qs.stringify( query, { addQueryPrefix : true } )
 
   const data: UseQueryResult<IMonthlyChartTransactions> =
@@ -63,10 +67,13 @@ export const useGetTopExpense = (
   enabled: boolean = true
 ): UseQueryResult<ITopExpenseMonthly> => {
   const axiosAuth = useAxiosAuth()
+
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
   // query
   const query = {
     month : filter.month,
     year  : filter.year,
+    timezone
   }
   const queryString = qs.stringify( query, { addQueryPrefix : true } )
 

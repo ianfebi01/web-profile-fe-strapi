@@ -35,9 +35,11 @@ export const useGetDatas = (
 ): UseQueryResult<IMonthlyTransactions> => {
   const axiosAuth = useAxiosAuth()
   // query
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
   const query = {
-    month : filter.month,
-    year  : filter.year,
+    month    : filter.month,
+    year     : filter.year,
+    timezone : timezone
   }
   const queryString = qs.stringify( query, { addQueryPrefix : true } )
 
