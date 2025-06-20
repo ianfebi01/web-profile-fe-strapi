@@ -82,7 +82,9 @@ export default async function LocaleLayout( {
                   items={siteData?.data?.attributes?.mainNavMenu}
                   socials={siteData?.data?.attributes?.socials}
                 />
+
                 {children}
+          
                 <SectionProvider>
                   <Footer />
                 </SectionProvider>

@@ -1,7 +1,5 @@
-//components/ClientPortal.tsx
 'use client'
 import { useEffect, useRef } from 'react'
-import { Poppins } from 'next/font/google'
 import { createPortal } from 'react-dom'
 type ClientPortalInterface = {
   children: React.ReactNode
@@ -20,8 +18,3 @@ const ClientPortal = ( { children, selector, show }: ClientPortalInterface ) => 
 }
 
 export default ClientPortal
-
-export const poppins = Poppins( {
-  weight  : ['400', '500', '600', '700'],
-  subsets : ['latin'],
-} )

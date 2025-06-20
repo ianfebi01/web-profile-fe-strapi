@@ -70,6 +70,7 @@ const NavbarV2 = ( { items, socials }: Props ) => {
               alt="Logo image"
               width={40}
               height={40}
+              priority
             />
           </Link>
           <div className="grow"></div>

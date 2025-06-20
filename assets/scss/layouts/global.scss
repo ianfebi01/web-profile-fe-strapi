@@ -35,23 +35,3 @@
     will-change: transform;
   }
 
-
-  /* width */
-::-webkit-scrollbar {
-    @apply w-2;
-}
- 
-/* Track */
-::-webkit-scrollbar-track {
-    @apply bg-dark rounded-lg;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    @apply bg-white/25 rounded-lg transition-all duration-300 ease-in-out;
-}
- 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    @apply bg-white/50;
-}

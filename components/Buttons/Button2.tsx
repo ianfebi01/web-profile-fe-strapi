@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 interface Props {
   disabled?: boolean | undefined
   children: ReactNode
-  onClick?: () => void
+  onClick?: ( e: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => void
   type?: 'submit' | 'button' | 'reset'
   className?: string
   loading?: boolean
@@ -42,7 +42,7 @@ const Button2: FunctionComponent<Props> = ( props ) => {
         disabled && 'button-disabled',
         className
       )}
-      onClick={() => ( onClick ? onClick() : null )}
+      onClick={( e ) => ( onClick ? onClick( e ) : null )}
       type={type}
       disabled={disabled || loading}
       aria-label={ariaLabel}
