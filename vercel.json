@@ -7,10 +7,6 @@
         {
           "key": "Content-Type",
           "value": "text/xml"
-        },
-        {
-          "key": "Content-Encoding",
-          "value": "identity"
         }
       ]
     },
