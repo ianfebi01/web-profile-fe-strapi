@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { Popover, Transition } from '@headlessui/react'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { routing } from '@/i18n/routing'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { useParams } from 'next/navigation'
@@ -45,7 +45,7 @@ export default function LocaleSwitcher() {
                 show ? 'text-white border-white/25' : 'text-white/50'
               )}
             >
-              <span>{t( 'title' )}</span>
+              <FontAwesomeIcon icon={faLanguage} />
               <div
                 className={cn(
                   'transition-default group-hover:text-orange-300/80',
