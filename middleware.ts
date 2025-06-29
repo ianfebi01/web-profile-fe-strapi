@@ -12,5 +12,5 @@ export default function middleware( req: NextRequest ) {
 }
 
 export const config = {
-  matcher : '/((?!api|trpc|_next|_vercel|.*\\..*|sitemap\\.xml|robots\\.txt).*)',
+  matcher : '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
 }
