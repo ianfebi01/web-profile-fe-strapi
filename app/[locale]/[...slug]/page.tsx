@@ -62,5 +62,5 @@ export default async function PageRoute( { params }: Props ) {
   const page = await getPageBySlug( params.slug || 'home-id', params.locale )
   if ( page.data?.length === 0 ) return notFound()
 
-  return <HeroesAndSections page={page.data[0]?.attributes} />
+  return <HeroesAndSections page={page.data?.[0]?.attributes} />
 }
