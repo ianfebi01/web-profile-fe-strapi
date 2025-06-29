@@ -7,10 +7,8 @@ import { faChevronDown, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { routing } from '@/i18n/routing'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { useParams } from 'next/navigation'
-import { useTranslations } from 'next-intl'
 
 export default function LocaleSwitcher() {
-  const t = useTranslations( 'locale-switcher' )
   const [show, setShow] = useState<boolean>( false )
 
   const pathname = usePathname()
