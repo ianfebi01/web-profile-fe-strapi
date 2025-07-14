@@ -143,7 +143,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url : `${process.env.NEXT_PUBLIC_BASE_URL}/en` },
     { url : `${process.env.NEXT_PUBLIC_BASE_URL}/id` },
-    { url : `${process.env.NEXT_PUBLIC_BASE_URL}/login` },
+    { url : `${process.env.NEXT_PUBLIC_BASE_URL}/en/article` },
+    { url : `${process.env.NEXT_PUBLIC_BASE_URL}/id/portofolio` },
   ]
 
   return [...staticRoutes, ...dynamicRoutes]
