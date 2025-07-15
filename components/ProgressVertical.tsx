@@ -6,13 +6,18 @@ export interface IStep {
   role: string
   description: string
   status: 'complete' | 'current' | 'upcoming'
+  totalWorkingMonths: number
 }
 
 interface Props {
   steps: IStep[]
+  convertMonthsToYearsAndMonths: ( val: number ) => string
 }
 
-const ProgressVertical: React.FC<Props> = ( { steps } ) => {
+const ProgressVertical: React.FC<Props> = ( {
+  steps,
+  convertMonthsToYearsAndMonths,
+} ) => {
   return (
     <nav aria-label="Progress">
       <ol role="list"
@@ -30,13 +35,18 @@ const ProgressVertical: React.FC<Props> = ( { steps } ) => {
                     aria-hidden="true"
                   />
                 )}
-                <div className="group relative flex items-start">
-                  <span className="flex h-7 items-center">
+                <div className="relative flex items-start group">
+                  <span className="flex items-center h-7">
                     <span className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full bg-[#4D4D4D]"></span>
                   </span>
-                  <span className="ml-4 flex min-w-0 flex-col">
+                  <span className="flex flex-col min-w-0 ml-4">
                     <h4 className="h3">{step.role}</h4>
-                    <Markdown content={step.description} />
+                    <p className="mt-0 mb-2 text-sm">
+                      {convertMonthsToYearsAndMonths( step.totalWorkingMonths )}
+                    </p>
+                    <div className="text-white/80">
+                      <Markdown content={step.description} />
+                    </div>
                   </span>
                 </div>
               </>
@@ -49,13 +59,18 @@ const ProgressVertical: React.FC<Props> = ( { steps } ) => {
                     aria-hidden="true"
                   />
                 )}
-                <div className="group relative flex items-start mb-2">
-                  <span className="flex h-7 items-center">
+                <div className="relative flex items-start mb-2 group">
+                  <span className="flex items-center h-7">
                     <span className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full bg-[#4D4D4D]"></span>
                   </span>
-                  <span className="ml-4 flex min-w-0 flex-col">
+                  <span className="flex flex-col min-w-0 ml-4">
                     <h4 className="h3">{step.role}</h4>
-                    <Markdown content={step.description} />
+                    <p className="mt-0 mb-2 text-sm">
+                      {convertMonthsToYearsAndMonths( step.totalWorkingMonths )}
+                    </p>
+                    <div className="text-white/80">
+                      <Markdown content={step.description} />
+                    </div>
                   </span>
                 </div>
               </>
@@ -68,21 +83,26 @@ const ProgressVertical: React.FC<Props> = ( { steps } ) => {
                     aria-hidden="true"
                   />
                 )}
-                <div className="group relative flex items-start">
-                  <span className="flex h-7 items-center"
+                <div className="relative flex items-start group">
+                  <span className="flex items-center h-7"
                     aria-hidden="true"
                   >
-                    <span className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border-2 border-gray-300 bg-white group-hover:border-gray-400">
+                    <span className="relative z-10 flex items-center justify-center w-4 h-4 bg-white border-2 border-gray-300 rounded-full group-hover:border-gray-400">
                       <span className="h-2.5 w-2.5 rounded-full bg-transparent group-hover:bg-gray-300" />
                     </span>
                   </span>
-                  <div className="group relative flex items-start">
-                    <span className="flex h-7 items-center">
+                  <div className="relative flex items-start group">
+                    <span className="flex items-center h-7">
                       <span className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full bg-[#4D4D4D]"></span>
                     </span>
-                    <span className="ml-4 flex min-w-0 flex-col">
+                    <span className="flex flex-col min-w-0 ml-4">
                       <h4 className="h3">{step.role}</h4>
-                      <Markdown content={step.description} />
+                      <p className="mt-0 mb-2 text-sm">
+                        {convertMonthsToYearsAndMonths( step.totalWorkingMonths )}
+                      </p>
+                      <div className="text-white/80">
+                        <Markdown content={step.description} />
+                      </div>
                     </span>
                   </div>
                 </div>

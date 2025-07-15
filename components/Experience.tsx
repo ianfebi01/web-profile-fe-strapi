@@ -66,16 +66,27 @@ const Experience: FunctionComponent<Props> = ( { data } ) => {
         return {
           companyName        : companyName,
           totalWorkingMonths : totalWorkingMonths,
-          steps              : experiences.map( ( item ) => ( {
-            description : String( item.attributes.description ),
-            name        : String( item.attributes.companyName ),
-            role        : String( item.attributes.role ),
-            status :
-              item.attributes.endDate &&
-              new Date( item.attributes.endDate ) < new Date()
-                ? 'complete'
-                : 'current',
-          } ) ),
+          steps              : experiences.map( ( item ) => {
+            const startDate = new Date( item.attributes.startDate )
+            const endDate = item.attributes.endDate
+              ? new Date( item.attributes.endDate )
+              : new Date() // Use current date if endDate is null
+            const months =
+              ( endDate.getFullYear() - startDate.getFullYear() ) * 12 +
+              ( endDate.getMonth() - startDate.getMonth() )
+
+            return {
+              description : String( item.attributes.description ),
+              name        : String( item.attributes.companyName ),
+              role        : String( item.attributes.role ),
+              status :
+                item.attributes.endDate &&
+                new Date( item.attributes.endDate ) < new Date()
+                  ? 'complete'
+                  : 'current',
+              totalWorkingMonths : months,
+            }
+          } ),
         }
       } ),
     [groupedAndSorted]
@@ -95,7 +106,7 @@ const Experience: FunctionComponent<Props> = ( { data } ) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="bg-dark px-4 py-6 rounded-3xl divide-y-[1px] divide-white-overlay-2">
+      <div className="bg-dark px-4 py-6 rounded-lg divide-y-[1px] divide-white-overlay-2">
         {transformedData.map( ( item ) => (
           <div key={item.companyName}
             className="pt-4 first:pt-0"
@@ -110,13 +121,15 @@ const Experience: FunctionComponent<Props> = ( { data } ) => {
             )}
             <div>
               {item.steps.length > 1 ? (
-                <ProgressVertical steps={item.steps} />
+                <ProgressVertical steps={item.steps}
+                  convertMonthsToYearsAndMonths={convertMonthsToYearsAndMonths}
+                />
               ) : (
                 item.steps.map( ( step, i ) => (
                   <div key={i}
-                    className="group relative flex items-start"
+                    className="relative flex items-start group"
                   >
-                    <span className="ml-4 flex min-w-0 flex-col">
+                    <span className="flex flex-col min-w-0 ml-4">
                       <h4 className="h3">{step.role}</h4>
                       <p className="mt-0 mb-2 text-sm">
                         {convertMonthsToYearsAndMonths( item.totalWorkingMonths )}
@@ -124,7 +137,9 @@ const Experience: FunctionComponent<Props> = ( { data } ) => {
                       <p className="mt-0 mb-2 text-sm text-white-overlay">
                         {step.name}
                       </p>
-                      <Markdown content={step.description} />
+                      <div className="text-white/80">
+                        <Markdown content={step.description} />
+                      </div>
                     </span>
                   </div>
                 ) )
