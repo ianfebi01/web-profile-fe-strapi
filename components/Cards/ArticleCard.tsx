@@ -42,22 +42,23 @@ const ArticleCard: React.FC<Props> = ( { data } ) => {
         <Image
           src={imageUrl( data.featureImage, 'medium' ) || ''}
           alt={`${data.title} Picture`}
-          className="object-cover w-full h-full object-top"
+          className="object-cover object-top w-full h-full"
           loading="lazy"
           fill
+          sizes="auto"
           placeholder={imageLoader}
         />
       </div>
 
-      <div className="relative flex flex-col px-4 pb-6 h-full">
-        <span className="text-xs lg:text-sm line-clamp-1 text-greydark mb-2">
+      <div className="relative flex flex-col h-full px-4 pb-6">
+        <span className="mb-2 text-xs lg:text-sm line-clamp-1 text-greydark">
           {formatDate( data.date || data.createdAt )}
         </span>
         <h3 className="pt-0 text-xl xxl:text-3xl xxl:leading-[2rem] font-extra-bold lg:mb-6">
           {data.title}
         </h3>
         <div className="mb-4 lg:mb-8 xxl:text-xl">
-          <p className="line-clamp-3 m-0">{getPlainText( data.content )}</p>
+          <p className="m-0 line-clamp-3">{getPlainText( data.content )}</p>
         </div>
         <div className="grow"></div>
         <Link

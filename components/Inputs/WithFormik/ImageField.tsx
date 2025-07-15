@@ -28,7 +28,7 @@ const ImageField = ( { name, placeholder, loading, disabled }: ImageFieldProps )
   const clearImage = () => helpers.setValue( '' )
 
   return loading ? (
-    <div className="bg-dark-secondary aspect-square w-60 flex items-center justify-center animate-pulse">
+    <div className="flex items-center justify-center bg-dark-secondary aspect-square w-60 animate-pulse">
       Loading...
     </div>
   ) : (
@@ -44,11 +44,11 @@ const ImageField = ( { name, placeholder, loading, disabled }: ImageFieldProps )
         accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml"
       />
       {field.value ? (
-        <div className="aspect-square w-60 relative border border-dashed border-white-overlay hover:border-white transition-default">
+        <div className="relative border border-dashed aspect-square w-60 border-white-overlay hover:border-white transition-default">
           <div className="absolute z-20 right-4 top-4">
             <button
               type="button"
-              className="text-white w-6 aspect-square border border-white-overlay-2 hover:border-white-overlay bg-dark-secondary rounded-full"
+              className="w-6 text-white border rounded-full aspect-square border-white-overlay-2 hover:border-white-overlay bg-dark-secondary"
               onClick={clearImage}
               disabled={disabled}
             >
@@ -59,6 +59,7 @@ const ImageField = ( { name, placeholder, loading, disabled }: ImageFieldProps )
             src={field.value as string}
             alt="Preview image"
             fill
+            sizes="auto"
             style={{ objectFit : 'contain' }}
             className="z-0"
           />

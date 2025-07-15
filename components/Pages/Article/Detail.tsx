@@ -28,12 +28,12 @@ const Detail = ( { slug }: Props ) => {
           <Header text={t( 'back' )}
             link={'/article'}
           />
-          <div className="max-w-3xl w-full mx-auto flex flex-col gap-4">
-            <div className="relative aspect-video w-full">
+          <div className="flex flex-col w-full max-w-3xl gap-4 mx-auto">
+            <div className="relative w-full aspect-video">
               {!!data?.attributes?.featureImage?.data && (
                 <>
                   <Image
-                    className="h-full object-cover object-center w-full hidden md:block"
+                    className="hidden object-cover object-center w-full h-full md:block"
                     src={
                       imageUrl(
                         data?.attributes?.featureImage?.data,
@@ -41,17 +41,19 @@ const Detail = ( { slug }: Props ) => {
                       ) || ''
                     }
                     fill
+                    sizes="auto"
                     alt={`${data?.attributes?.title} Image`}
                     loading="eager"
                     placeholder={imageLoader}
                   />
                   <Image
-                    className="h-full object-cover object-center w-full md:hidden"
+                    className="object-cover object-center w-full h-full md:hidden"
                     src={
                       imageUrl( data?.attributes?.featureImage?.data, 'small' ) ||
                       ''
                     }
                     fill
+                    sizes="auto"
                     alt={`${data?.attributes?.title} Image`}
                     loading="lazy"
                     placeholder={imageLoader}
@@ -62,14 +64,14 @@ const Detail = ( { slug }: Props ) => {
 
             <h1 className="mt-4 mb-0">{data?.attributes.title}</h1>
 
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col w-full gap-4">
               {!!data?.attributes.date && (
                 <Chip label={data?.attributes.date}
                   bg="dark-secondary"
                 />
               )}
               {!!data?.attributes.content && (
-                <div className="bg-dark-secondary p-4 border border-none rounded-lg flex flex-col gap-4 text-white/90">
+                <div className="flex flex-col gap-4 p-4 border border-none rounded-lg bg-dark-secondary text-white/90">
                   <Markdown content={data?.attributes.content} />
                 </div>
               )}

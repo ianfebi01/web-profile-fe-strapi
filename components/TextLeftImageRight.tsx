@@ -80,7 +80,7 @@ const TextLeftImageRight: React.FC<Props> = ( {
               <Markdown content={bodyCopy} />
             </div>
             {buttons?.length > 0 && (
-              <div className="flex items-center gap-4 justify-center lg:justify-start mt-2 flex-wrap">
+              <div className="flex flex-wrap items-center justify-center gap-4 mt-2 lg:justify-start">
                 {buttons.map( ( button, index ) => (
                   <a
                     key={index}
@@ -138,6 +138,7 @@ const TextLeftImageRight: React.FC<Props> = ( {
                     'aspect-auto h-full w-full md:hidden' : true,
                   } )}
                   fill
+                  sizes="auto"
                 />
                 <Image
                   loading="lazy"
@@ -152,6 +153,7 @@ const TextLeftImageRight: React.FC<Props> = ( {
                     'aspect-auto h-full w-ful hidden md:block' : true,
                   } )}
                   fill
+                  sizes="auto"
                 />
               </div>
             </div>

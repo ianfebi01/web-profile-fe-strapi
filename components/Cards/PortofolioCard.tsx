@@ -17,7 +17,7 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
       href={`/portofolio/${portofolio.slug}`}
       className="bg-dark-secondary rounded-lg w-full overflow-hidden flex flex-col !no-underline group h-full"
     >
-      <div className="relative aspect-video w-full overflow-hidden shrink-0 bg bg-dark/50">
+      <div className="relative w-full overflow-hidden aspect-video shrink-0 bg bg-dark/50">
         <Image
           alt={`Image ${portofolio?.title}`}
           src={
@@ -27,15 +27,16 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
             ) || ''
           }
           fill
-          className="group-hover:scale-110 transition-default object-contain object-center"
+          sizes="auto"
+          className="object-contain object-center group-hover:scale-110 transition-default"
           loading="lazy"
           placeholder={imageLoader}
         />
       </div>
 
-      <div className="relative flex flex-col px-4 py-6 h-full">
+      <div className="relative flex flex-col h-full px-4 py-6">
         {!!portofolio.year && (
-          <small className="text-xs lg:text-sm line-clamp-1 px-2 py-1 bg-dark rounded-md w-fit mb-2">
+          <small className="px-2 py-1 mb-2 text-xs rounded-md lg:text-sm line-clamp-1 bg-dark w-fit">
             {portofolio.year}
           </small>
         )}
@@ -46,7 +47,7 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
 
         {!!getPlainText( portofolio.description ) && (
           <div className='xxl:text-xl'>
-            <p className="line-clamp-3 text-white/80 m-0">
+            <p className="m-0 line-clamp-3 text-white/80">
               {getPlainText( portofolio.description )}
             </p>
           </div>
