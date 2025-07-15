@@ -8,7 +8,7 @@ import {
   NavCategoriesNavCategories,
   NavItemsNavItems,
 } from '@/types/generated/components'
-import { Link } from '@/i18n/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 import constructNavUrl from '@/utils/construct-nav-url'
 import { ApiPagePage } from '@/types/generated/contentTypes'
 
@@ -17,6 +17,9 @@ interface Props {
 }
 export default function MenuItem( { data }: Props ) {
   const [show, setShow] = useState<boolean>( false )
+
+  const pathname = usePathname()
+  const isActive = pathname === constructNavUrl( data.navItem )
 
   return (
     <div className="relative">
@@ -34,14 +37,16 @@ export default function MenuItem( { data }: Props ) {
                   'py-2 px-4 text-xs xl:text-base flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
                   ' hover:border-white/25',
                   'ring-0 focus:ring-0 outline-none',
-                  show ? 'text-white border-white/25' : 'text-white/50',
+                  show || isActive
+                    ? 'text-white border-white/25'
+                    : 'text-white/50',
                   !data?.categoryName && !data.navItem && 'cursor-default'
                 )}
               >
                 {!!data?.categoryName && data.navItem ? (
                   <Link
                     href={constructNavUrl( data.navItem )}
-                    className="no-underline"
+                    className={cn( 'no-underline' )}
                   >
                     {data.categoryName}
                   </Link>
@@ -98,7 +103,9 @@ export default function MenuItem( { data }: Props ) {
                                   'hover:bg-dark focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 hover:shadow-xl'
                                 )}
                               >
-                                {item?.name || ( item.page?.data as ApiPagePage )?.attributes?.title}
+                                {item?.name ||
+                                  ( item.page?.data as ApiPagePage )?.attributes
+                                    ?.title}
                               </button>
                             </Link>
                           </div>
@@ -116,7 +123,7 @@ export default function MenuItem( { data }: Props ) {
                 'py-2 px-4 text-xs xl:text-base no-underline flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
                 ' hover:border-white/25',
                 'ring-0 focus:ring-0 outline-none',
-                show ? 'text-white border-white/25' : 'text-white/50',
+                show || isActive ? 'text-white border-white/25' : 'text-white/50',
                 !data?.categoryName && !data.navItem && 'cursor-default'
               )}
               target={data.navItem?.newTab ? '_blank' : undefined}
