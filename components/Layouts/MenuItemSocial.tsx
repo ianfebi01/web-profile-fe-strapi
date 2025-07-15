@@ -32,7 +32,7 @@ export default function MenuItemSocial( { title, socials }: Props ) {
           <>
             <Popover.Button
               className={cn(
-                'py-2 px-4 text-xs xl:text-base flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
+                'py-2 px-4 text-sm flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
                 ' hover:border-white/25',
                 'ring-0 focus:ring-0 outline-none',
                 show ? 'text-white border-white/25' : 'text-white/50'
@@ -45,7 +45,9 @@ export default function MenuItemSocial( { title, socials }: Props ) {
                   show ? 'text-white transform -rotate-180' : 'text-white/50'
                 )}
               >
-                <FontAwesomeIcon icon={faChevronDown} />
+                <FontAwesomeIcon icon={faChevronDown}
+                  size='sm'
+                />
               </div>
             </Popover.Button>
             <Transition

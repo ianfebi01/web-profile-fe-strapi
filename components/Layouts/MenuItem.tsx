@@ -34,7 +34,7 @@ export default function MenuItem( { data }: Props ) {
             <>
               <Popover.Button
                 className={cn(
-                  'py-2 px-4 text-xs xl:text-base flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
+                  'py-2 px-4 text-sm flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
                   ' hover:border-white/25',
                   'ring-0 focus:ring-0 outline-none',
                   show || isActive
@@ -60,7 +60,9 @@ export default function MenuItem( { data }: Props ) {
                     show ? 'text-white transform -rotate-180' : 'text-white/50'
                   )}
                 >
-                  <FontAwesomeIcon icon={faChevronDown} />
+                  <FontAwesomeIcon icon={faChevronDown}
+                    size='sm'
+                  />
                 </div>
               </Popover.Button>
               <Transition
@@ -97,10 +99,11 @@ export default function MenuItem( { data }: Props ) {
                             >
                               <button
                                 className={cn(
-                                  'flex items-center rounded-lg p-2 min-h-20   w-full',
-                                  ' text-sm xl:text-base font-medium text-left ',
+                                  'flex items-center rounded-lg  w-full',
+                                  ' text-sm text-left ',
                                   'transition duration-150 ease-in-out',
-                                  'hover:bg-dark focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 hover:shadow-xl'
+                                  'focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50',
+                                  'text-white/50 hover:text-white'
                                 )}
                               >
                                 {item?.name ||
@@ -120,7 +123,7 @@ export default function MenuItem( { data }: Props ) {
             <Link
               href={constructNavUrl( data?.navItem )}
               className={cn(
-                'py-2 px-4 text-xs xl:text-base no-underline flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
+                'py-2 px-4 text-sm no-underline flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
                 ' hover:border-white/25',
                 'ring-0 focus:ring-0 outline-none',
                 show || isActive ? 'text-white border-white/25' : 'text-white/50',

@@ -3,10 +3,11 @@ import { cn } from '@/lib/utils'
 import { Popover, Transition } from '@headlessui/react'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faLanguage } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { routing } from '@/i18n/routing'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { useParams } from 'next/navigation'
+import { useLocale } from 'next-intl'
 
 export default function LocaleSwitcher() {
   const [show, setShow] = useState<boolean>( false )
@@ -14,6 +15,7 @@ export default function LocaleSwitcher() {
   const pathname = usePathname()
   const router = useRouter()
   const params = useParams()
+  const locale = useLocale()
 
   const changeLocale = ( locale: string ) => {
     router.replace(
@@ -37,20 +39,24 @@ export default function LocaleSwitcher() {
           <>
             <Popover.Button
               className={cn(
-                'py-2 px-4 text-xs xl:text-base flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
+                'py-2 px-4 text-sm flex items-center gap-2 transition-default w-fit rounded-lg border border-transparent',
                 ' hover:border-white/25',
                 'ring-0 focus:ring-0 outline-none',
                 show ? 'text-white border-white/25' : 'text-white/50'
               )}
             >
-              <FontAwesomeIcon icon={faLanguage} />
+              <FontAwesomeIcon icon={faGlobe}
+                size='sm'
+              />
               <div
                 className={cn(
                   'transition-default group-hover:text-orange-300/80',
                   show ? 'text-white transform -rotate-180' : 'text-white/50'
                 )}
               >
-                <FontAwesomeIcon icon={faChevronDown} />
+                <FontAwesomeIcon icon={faChevronDown}
+                  size='sm'
+                />
               </div>
             </Popover.Button>
             <Transition
@@ -80,10 +86,12 @@ export default function LocaleSwitcher() {
                           <button
                             onClick={() => changeLocale( item )}
                             className={cn(
-                              'flex items-center rounded-lg p-2 min-h-20   w-full',
-                              ' text-sm xl:text-base font-medium text-left uppercase',
+                              'flex items-center justify-center w-full',
+                              ' text-sm text-left uppercase',
                               'transition duration-150 ease-in-out',
-                              'hover:bg-dark focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50 hover:shadow-xl'
+                              'focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50',
+                              'text-white/50 hover:text-white',
+                              item === locale && 'text-white'
                             )}
                           >
                             {item}
