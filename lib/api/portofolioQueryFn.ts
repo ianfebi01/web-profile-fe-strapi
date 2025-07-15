@@ -55,7 +55,7 @@ export const getLatestPortofolios = async ( currentSlug: string ): Promise<
       }
     },
     pagination : {
-      limit : 3
+      limit : 4
     },
     sort : ['createdAt:asc']
   }
