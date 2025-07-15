@@ -15,7 +15,7 @@ const Header: FunctionComponent<Props> = ( props ) => {
     <div className="flex flex-row items-center gap-4">
       {link ? (
         <Link
-          className="gap-2 flex button button-primary max-md:border-white/25"
+          className="gap-2 flex button button-primary border-white/25"
           href={link}
         >
           <FontAwesomeIcon icon={faChevronLeft}

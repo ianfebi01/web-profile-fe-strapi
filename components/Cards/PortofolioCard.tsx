@@ -38,7 +38,7 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
 
       <div className="relative flex flex-col px-4 py-6 h-full">
         {!!portofolio.year && (
-          <small className="text-xs lg:text-sm line-clamp-1 px-2 py-1 bg-dark rounded-md w-fit mb-2 lg:mb-4">
+          <small className="text-xs lg:text-sm line-clamp-1 px-2 py-1 bg-dark rounded-md w-fit mb-2">
             {portofolio.year}
           </small>
         )}
