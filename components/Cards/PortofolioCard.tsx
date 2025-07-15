@@ -1,5 +1,6 @@
 'use client'
 
+import { Link } from '@/i18n/navigation'
 import imageLoader from '@/lib/constans/image-loader'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import imageUrl from '@/utils/imageUrl'
@@ -14,7 +15,9 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
   const { attributes } = portofolio
 
   return (
-    <div className="bg-dark-secondary rounded-lg w-full overflow-hidden flex flex-col">
+    <Link href={`/portofolio/${portofolio.attributes.slug}`}
+      className="bg-dark-secondary rounded-lg w-full overflow-hidden flex flex-col !no-underline group"
+    >
       <div className="relative aspect-video w-full overflow-hidden shrink-0">
         <Image
           alt={`Image ${attributes?.title}`}
@@ -25,6 +28,7 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
           style={{
             objectFit : 'cover',
           }}
+          className='group-hover:scale-110 transition-default'
           loading="lazy"
           placeholder={imageLoader}
         />
@@ -45,7 +49,7 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
           </p>
         )}
       </div>
-    </div>
+    </Link>
   )
 }
 
