@@ -1,13 +1,13 @@
-'use client'
+'use client';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
 import { Configure, SearchBox } from 'react-instantsearch'
 import { InstantSearchNext } from 'react-instantsearch-nextjs'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import CustomInfiniteHits from '../CustomInfiniteHits'
-import CardPortofolio from '../Cards/CardPortofolio'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useLocale, useTranslations } from 'next-intl'
+import PortofolioCard from '../Cards/PortofolioCard'
 
 const PortofolioSearch = () => {
   const t = useTranslations()
@@ -78,10 +78,6 @@ const Hit = ( {
   hit: ApiPortofolioPortofolio['attributes'] & { id: string }
 } ) => (
   <>
-    <CardPortofolio data={hit}
-      index={1}
-      link
-      color="bg-dark-secondary"
-    />
+    <PortofolioCard portofolio={hit} />
   </>
 )

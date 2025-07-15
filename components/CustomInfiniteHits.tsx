@@ -11,7 +11,7 @@ interface Props extends UseInfiniteHitsProps {
 
 export default function CustomInfiniteHits( {
   component,
-  wrapperClass = 'list-none ml-0 grid grid-cols-1 md:grid-cols-2 gap-4',
+  wrapperClass = 'mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 list-none',
   ...props
 }: Props ) {
   const { items, sendEvent, showMore, isLastPage } = useInfiniteHits( props )

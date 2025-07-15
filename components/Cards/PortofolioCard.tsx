@@ -8,45 +8,51 @@ import { getPlainText } from '@/utils/parseMd'
 import Image from 'next/image' // Update this import as needed
 
 interface PortofolioCardProps {
-  portofolio: ApiPortofolioPortofolio
+  portofolio: ApiPortofolioPortofolio['attributes']
 }
 
 const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
-  const { attributes } = portofolio
-
   return (
-    <Link href={`/portofolio/${portofolio.attributes.slug}`}
-      className="bg-dark-secondary rounded-lg w-full overflow-hidden flex flex-col !no-underline group"
+    <Link
+      href={`/portofolio/${portofolio.slug}`}
+      className="bg-dark-secondary rounded-lg w-full overflow-hidden flex flex-col !no-underline group h-full"
     >
       <div className="relative aspect-video w-full overflow-hidden shrink-0">
         <Image
-          alt={`Image ${attributes?.title}`}
+          alt={`Image ${portofolio?.title}`}
           src={
-            imageUrl( attributes.featureImage?.data, 'original' ) || ''
+            imageUrl(
+              portofolio.featureImage?.data || portofolio.featureImage,
+              'original'
+            ) || ''
           }
           fill
           style={{
             objectFit : 'cover',
           }}
-          className='group-hover:scale-110 transition-default'
+          className="group-hover:scale-110 transition-default"
           loading="lazy"
           placeholder={imageLoader}
         />
       </div>
 
-      <div className="m-4">
-        {!!attributes.year && (
-          <small className="px-2 py-1 bg-dark rounded-md">
-            {attributes.year}
+      <div className="relative flex flex-col px-4 py-6 h-full">
+        {!!portofolio.year && (
+          <small className="text-xs lg:text-sm line-clamp-1 px-2 py-1 bg-dark rounded-md w-fit mb-2 lg:mb-4">
+            {portofolio.year}
           </small>
         )}
 
-        <h2 className="h3 mt-2">{attributes.title}</h2>
+        <h3 className="pt-0 text-xl xxl:text-3xl xxl:leading-[2rem] font-extra-bold lg:mb-6 lg:mt-2">
+          {portofolio.title}
+        </h3>
 
-        {!!getPlainText( attributes.description ) && (
-          <p className="line-clamp-3 text-white/80">
-            {getPlainText( attributes.description )}
-          </p>
+        {!!getPlainText( portofolio.description ) && (
+          <div className='xxl:text-xl'>
+            <p className="line-clamp-3 text-white/80 m-0">
+              {getPlainText( portofolio.description )}
+            </p>
+          </div>
         )}
       </div>
     </Link>

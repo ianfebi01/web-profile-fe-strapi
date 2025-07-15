@@ -71,7 +71,7 @@ const Detail = ( { slug }: Props ) => {
                   {latestPortofolioDatas?.map( ( portofolio ) => (
                     <PortofolioCard
                       key={portofolio.attributes.slug}
-                      portofolio={portofolio}
+                      portofolio={portofolio?.attributes}
                     />
                   ) )}
                 </div>
