@@ -4,7 +4,7 @@ import ReactQueryProvider from '@/components/Context/ReactQueryProvider'
 import { Toaster } from 'react-hot-toast'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import NextTopLoader from 'nextjs-toploader'
-import NavbarV2 from '@/components/Layouts/Navbar'
+import Navbar from '@/components/Layouts/Navbar'
 import SectionProvider from '@/components/Context/SectionProvider'
 import Footer from '@/components/Layouts/Footer'
 import { getSiteData } from '@/utils/get-site-data'
@@ -77,8 +77,8 @@ export default async function LocaleLayout( {
                   },
                 }}
               />
-              <div className="min-h-screen flex flex-col">
-                <NavbarV2
+              <div className="flex flex-col min-h-screen">
+                <Navbar
                   items={siteData?.data?.attributes?.mainNavMenu}
                   socials={siteData?.data?.attributes?.socials}
                 />
