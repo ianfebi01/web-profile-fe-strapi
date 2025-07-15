@@ -1,13 +1,8 @@
-'use client';
-import { useState } from 'react'
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 import MenuItem from './MenuItem'
-import {
-  useAnimation,
-  useMotionValueEvent,
-  useScroll,
-  motion,
-} from 'framer-motion'
-import { cn } from '@/lib/utils'
 import MobileNavbar from './MobileNavbar'
 import Image from 'next/image'
 import {
@@ -19,55 +14,65 @@ import { useTranslations } from 'next-intl'
 import LocaleSwitcher from './LocaleSwitcher'
 import { Link } from '@/i18n/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { cn } from '@/lib/utils'
 
 interface Props {
   items: NavCategoriesNavCategories['attributes'][]
   socials: ArraysSocials['attributes'][]
 }
+
 const Navbar = ( { items, socials }: Props ) => {
   const t = useTranslations()
-  const { scrollY } = useScroll()
-  const visibilityControl = useAnimation()
+  const [isOpen, setIsOpen] = useState( false )
+  const navbarRef = useRef<HTMLElement>( null )
+  const previousScroll = useRef( 0 )
 
-  const [isOpen, setIsOpen] = useState<boolean>( false )
+  useEffect( () => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY
+      const isScrollingDown = currentScroll > previousScroll.current
 
-  function update() {
-    if ( scrollY?.get() < scrollY?.getPrevious() ) {
-      visibilityControl.start( 'visible' )
-    } else if (
-      scrollY?.get() > 100 &&
-      scrollY?.get() > scrollY?.getPrevious()
-    ) {
-      visibilityControl.start( 'hidden' )
+      if ( currentScroll < previousScroll.current || currentScroll < 100 ) {
+        // Show navbar
+        gsap.to( navbarRef.current, {
+          y        : 0,
+          opacity  : 1,
+          duration : 0.5,
+          ease     : 'power2.out',
+        } )
+      } else if ( isScrollingDown && currentScroll > 100 ) {
+        // Hide navbar
+        gsap.to( navbarRef.current, {
+          y        : -64,
+          opacity  : 0,
+          duration : 0.5,
+          ease     : 'power2.inOut',
+        } )
+      }
+
+      previousScroll.current = currentScroll
     }
-  }
 
-  useMotionValueEvent( scrollY, 'change', () => {
-    update()
-  } )
+    window.addEventListener( 'scroll', handleScroll, { passive : true } )
+    
+    return () => {
+      window.removeEventListener( 'scroll', handleScroll )
+    }
+  }, [] )
 
   return (
     <>
-      <motion.nav
-        variants={{
-          hidden : {
-            opacity : 0,
-            y       : -64,
-          },
-          visible : {
-            opacity : 1,
-            y       : 0,
-          },
-        }}
-        initial="visible"
-        animate={isOpen ? undefined : visibilityControl}
-        transition={{ ease : [0.1, 0.25, 0.3, 1], duration : 0.5 }}
-        className={cn( 'fixed top-0 w-full h-16 z-30 bg-transparent md:bg-dark' )}
+      <nav
+        ref={navbarRef}
+        className={cn(
+          'fixed top-0 w-full h-16 z-30 bg-transparent md:bg-dark'
+        )}
       >
         <div className="inset-x-0 items-center hidden h-full gap-2 px-4 mx-auto max-w-7xl sm:px-4 md:px-4 xl:px-0 2xl:px-0 md:flex">
           <Link href={'/'}>
-            <Image src="/Logo.svg"
+            <Image
+              src="/Logo.svg"
               alt="Logo image"
               width={40}
               height={40}
@@ -84,9 +89,11 @@ const Navbar = ( { items, socials }: Props ) => {
             <MenuItemSocial title={t( 'contact' )}
               socials={socials}
             />
-            <LocaleSwitcher/>
+            <LocaleSwitcher />
           </div>
         </div>
+
+        {/* Mobile Nav */}
         <div className="flex items-center h-16 px-6 md:hidden">
           <Link href={'/'}
             onClick={() => setIsOpen( false )}
@@ -97,7 +104,7 @@ const Navbar = ( { items, socials }: Props ) => {
               height={40}
             />
           </Link>
-          <div className='grow'/>
+          <div className="grow" />
           <div className="md:hidden">
             <button
               type="button"
@@ -105,19 +112,19 @@ const Navbar = ( { items, socials }: Props ) => {
               aria-label="Open navigation drawer"
               onClick={() => setIsOpen( true )}
             >
-              <FontAwesomeIcon
-                icon={faBars}
-                size='2xl'
+              <FontAwesomeIcon icon={faBars}
+                size="2xl"
                 aria-hidden="true"
               />
             </button>
           </div>
         </div>
+
         <MobileNavbar isOpen={isOpen}
           items={items}
           setIsOpen={setIsOpen}
         />
-      </motion.nav>
+      </nav>
     </>
   )
 }
