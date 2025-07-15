@@ -1,7 +1,7 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { Popover, Transition } from '@headlessui/react'
-import { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { routing } from '@/i18n/routing'
@@ -17,7 +17,8 @@ export default function LocaleSwitcher() {
   const params = useParams()
   const locale = useLocale()
 
-  const changeLocale = ( locale: string ) => {
+  const changeLocale = ( locale: string, e: MouseEvent<HTMLElement> ) => {
+    e.preventDefault()
     router.replace(
       // @ts-expect-error -- TypeScript will validate that only known `params`
       // are used in combination with a given `pathname`. Since the two will
@@ -33,7 +34,7 @@ export default function LocaleSwitcher() {
         className="relative"
         onMouseEnter={() => setShow( true )}
         onMouseLeave={() => setShow( false )}
-        onTouchStart={() => setShow( !show )}
+        onTouchStart={() => setShow( true )}
       >
         {() => (
           <>
@@ -70,10 +71,10 @@ export default function LocaleSwitcher() {
             >
               <Popover.Panel
                 static
-                className="absolute right-0 z-10 pt-3 w-full px-4 sm:px-0"
+                className="absolute right-0 z-10 w-full pt-3 sm:px-0"
               >
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-                  <div className="relative grid bg-dark-secondary p-4">
+                  <div className="relative grid p-4 bg-dark-secondary">
                     {routing.locales?.map( ( item, i ) => {
                       return (
                         <div
@@ -84,7 +85,7 @@ export default function LocaleSwitcher() {
                           )}
                         >
                           <button
-                            onClick={() => changeLocale( item )}
+                            onClick={( e ) => changeLocale( item, e )}
                             className={cn(
                               'flex items-center justify-center w-full',
                               ' text-sm text-left uppercase',

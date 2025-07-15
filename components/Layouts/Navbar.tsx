@@ -105,7 +105,8 @@ const Navbar = ( { items, socials }: Props ) => {
             />
           </Link>
           <div className="grow" />
-          <div className="md:hidden">
+          <div className="flex items-center gap-4 md:hidden">
+            <LocaleSwitcher />
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-white transition-default outline-none ring-0 focus:outline-none focus-visible:ring-0"
