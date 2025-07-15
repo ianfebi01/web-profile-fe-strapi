@@ -1,8 +1,11 @@
 'use client'
-import { FunctionComponent, useMemo } from 'react'
+import { FunctionComponent, useEffect, useMemo, useRef } from 'react'
 import { ApiExperienceExperience } from '@/types/generated/contentTypes'
 import Markdown from './Parsers/Markdown'
 import ProgressVertical, { IStep } from './ProgressVertical'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin( ScrollTrigger )
 
 interface Props {
   data: ApiExperienceExperience[]
@@ -104,12 +107,32 @@ const Experience: FunctionComponent<Props> = ( { data } ) => {
     return [yearText, monthText].filter( Boolean ).join( ' ' )
   }
 
+  // Transition
+  const itemsRef = useRef<HTMLDivElement[] | null[]>( [] )
+  useEffect( () => {
+    itemsRef.current.forEach( ( item ) => {
+      gsap.to( item, {
+        opacity       : 1,
+        y             : 0,
+        duration      : 0.8,
+        ease          : 'power2.out',
+        scrollTrigger : {
+          trigger       : item,
+          start         : 'top 90%', // when top of item hits 90% of viewport
+          toggleActions : 'play none none none',
+        },
+      } )
+    } )
+  }, [] )
+
   return (
     <div className="flex flex-col gap-4">
       <div className="bg-dark px-4 py-6 rounded-lg divide-y-[1px] divide-white-overlay-2">
-        {transformedData.map( ( item ) => (
-          <div key={item.companyName}
-            className="pt-4 first:pt-0"
+        {transformedData.map( ( item, index ) => (
+          <div
+            key={item.companyName}
+            className="pt-4 first:pt-0 translate-y-[50px] opacity-0"
+            ref={( el ) => ( itemsRef.current[index] = el )}
           >
             {item.steps.length > 1 && (
               <>
@@ -121,7 +144,8 @@ const Experience: FunctionComponent<Props> = ( { data } ) => {
             )}
             <div>
               {item.steps.length > 1 ? (
-                <ProgressVertical steps={item.steps}
+                <ProgressVertical
+                  steps={item.steps}
                   convertMonthsToYearsAndMonths={convertMonthsToYearsAndMonths}
                 />
               ) : (
