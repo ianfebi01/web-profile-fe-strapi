@@ -21,17 +21,49 @@ export const useGetDetail = (
   const data = useQuery( {
     queryKey : ['portofolio', 'detail', slug],
     queryFn  : async () => {
-      const res = await fetchAPI(
-        `/portofolios`,
-        urlParamsObject
-      )
-      
+      const res = await fetchAPI( `/portofolios`, urlParamsObject )
+
       if ( res.data?.length === 0 ) return null
-      else
-        return res.data[0]
+      else return res.data[0]
     },
     enabled : enabled,
   } )
-  
+
+  return data
+}
+/**
+ *  Get Latest Portofolio
+ */
+export const useGetLatestPortofolios = (
+  currentSlug: string,
+  enabled: boolean = true
+): UseQueryResult<ApiPortofolioPortofolio[]> => {
+  const urlParamsObject = {
+    populate : {
+      featureImage : { populate : '*' },
+      skills       : { populate : '*' },
+    },
+    filters : {
+      slug : {
+        $ne : currentSlug,
+      },
+    },
+    pagination : {
+      limit : 3,
+    },
+    sort : ['createdAt:asc'],
+  }
+
+  const data = useQuery( {
+    queryKey : ['latest-portofolios', currentSlug],
+    queryFn  : async () => {
+      const res = await fetchAPI( `/portofolios`, urlParamsObject )
+
+      if ( res.data?.length === 0 ) return null
+      else return res.data
+    },
+    enabled : enabled,
+  } )
+
   return data
 }

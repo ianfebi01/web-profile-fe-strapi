@@ -40,3 +40,28 @@ export const getAllPortfolioSlugs = async (): Promise<
   if ( res.data?.length === 0 ) return null
   else return res.data
 }
+
+export const getLatestPortofolios = async ( currentSlug: string ): Promise<
+  ApiPortofolioPortofolio[] | null
+> => {
+  const urlParamsObject = {
+    populate : {
+      featureImage : { populate : '*' },
+      skills       : { populate : '*' },
+    },
+    filters : {
+      slug : {
+        $ne : currentSlug
+      }
+    },
+    pagination : {
+      limit : 3
+    },
+    sort : ['createdAt:asc']
+  }
+
+  const res = await fetchAPI( `/portofolios`, urlParamsObject )
+
+  if ( res.data?.length === 0 ) return null
+  else return res.data
+}

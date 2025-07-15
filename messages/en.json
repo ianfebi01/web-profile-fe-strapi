@@ -62,5 +62,6 @@
     "add_transaction": "Add Transaction",
     "edit": "Edit",
     "cancel": "Cancel",
-    "summary": "Transaction Summary"
+    "summary": "Transaction Summary",
+    "see_latest_portfolios": "See my latest portfolios"
 }

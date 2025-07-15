@@ -1,5 +1,5 @@
 import Detail from '@/components/Pages/Portofolio/Detail'
-import { getAllPortfolioSlugs, getDetail } from '@/lib/api/portofolioQueryFn'
+import { getAllPortfolioSlugs, getDetail, getLatestPortofolios } from '@/lib/api/portofolioQueryFn'
 import { ApiPortofolioPortofolio } from '@/types/generated/contentTypes'
 import imageUrl from '@/utils/imageUrl'
 import {
@@ -74,6 +74,12 @@ export default async function PortofolioPage( {
     queryKey : ['portofolio', 'detail', params.slug],
     queryFn  : (): Promise<ApiPortofolioPortofolio | null> =>
       getDetail( params.slug ),
+  } )
+  
+  await queryClient.prefetchQuery( {
+    queryKey : ['latest-portofolios', params.slug],
+    queryFn  : (): Promise<ApiPortofolioPortofolio[] | null> =>
+      getLatestPortofolios( params.slug ),
   } )
 
   const dehydratedState = dehydrate( queryClient )

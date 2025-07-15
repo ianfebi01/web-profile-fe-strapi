@@ -1,6 +1,6 @@
 const SkeletonDetail = () => {
   return (
-    <div className="max-w-5xl mx-auto w-full px-6 lg:px-8 mt-20 sm:mt-20 mb-8 flex flex-col gap-4 animate-pulse">
+    <div className="max-w-3xl mx-auto w-full px-6 lg:px-8 mt-20 sm:mt-20 mb-8 flex flex-col gap-4 animate-pulse">
       <div className="my-4 flex flex-col gap-2">
         <div className="h-12 min-w-60 bg-dark-secondary rounded-lg"></div>
         <div className="h-4 max-w-xs bg-dark-secondary rounded-lg"></div>
