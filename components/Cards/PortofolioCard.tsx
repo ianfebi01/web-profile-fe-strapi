@@ -17,7 +17,7 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
       href={`/portofolio/${portofolio.slug}`}
       className="bg-dark-secondary rounded-lg w-full overflow-hidden flex flex-col !no-underline group h-full"
     >
-      <div className="relative aspect-video w-full overflow-hidden shrink-0">
+      <div className="relative aspect-video w-full overflow-hidden shrink-0 bg bg-dark/50">
         <Image
           alt={`Image ${portofolio?.title}`}
           src={
@@ -27,10 +27,7 @@ const PortofolioCard = ( { portofolio }: PortofolioCardProps ) => {
             ) || ''
           }
           fill
-          style={{
-            objectFit : 'cover',
-          }}
-          className="group-hover:scale-110 transition-default"
+          className="group-hover:scale-110 transition-default object-contain object-center"
           loading="lazy"
           placeholder={imageLoader}
         />
