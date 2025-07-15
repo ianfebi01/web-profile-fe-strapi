@@ -82,7 +82,7 @@ export default function MobileMenu( { isOpen, setIsOpen, items }: Props ) {
               <div className="md:hidden">
                 <button
                   type="button"
-                  className="-m-2.5 rounded-md p-2.5 text-white hover:text-white/50 transition-all duration-300 ease-in-out"
+                  className="-m-2.5 rounded-md p-2.5 text-white hover:text-white/50 transition-default outline-none ring-0 focus:outline-none focus-visible:ring-0"
                   aria-label="Close navigation drawer"
                   onClick={() => setIsOpen( false )}
                 >
@@ -239,6 +239,7 @@ export default function MobileMenu( { isOpen, setIsOpen, items }: Props ) {
                       'flex items-center rounded-lg overflow-hidden',
                       'focus:outline-none focus-visible:ring-0'
                     )}
+                    tabIndex={-1}
                     key={index}
                   >
                     <p className="m-0 h3">{item.name}</p>

@@ -108,9 +108,10 @@ const Navbar = ( { items, socials }: Props ) => {
           <div className="md:hidden">
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-white transition-all duration-300 ease-in-out"
+              className="-m-2.5 rounded-md p-2.5 text-white transition-default outline-none ring-0 focus:outline-none focus-visible:ring-0"
               aria-label="Open navigation drawer"
               onClick={() => setIsOpen( true )}
+              tabIndex={-1}
             >
               <FontAwesomeIcon icon={faBars}
                 size="2xl"
