@@ -4,11 +4,11 @@ import imageUrl from '@/utils/imageUrl'
 import HeroesAndSections from '@/components/Parsers/HeroesAndSections'
 import { Locale } from 'next-intl'
 import { getHomePage } from '@/utils/get-home-page'
+import { locales } from '@/i18n/config'
 
 type Props = {
   params: {
     locale: Locale
-    slug: string
   }
 }
 
@@ -63,6 +63,15 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
       ], // Twitter image
     },
   }
+}
+
+export  function generateStaticParams() {
+  
+  return (
+    locales?.map( ( locale ) => ( {
+      locale : locale
+    } ) ) || []
+  )
 }
 
 export default async function PageHome( { params }: Props ) {
