@@ -18,6 +18,8 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
   if ( !page.data?.attributes?.page?.data?.attributes?.seo ) return FALLBACK_SEO
   const metadata = page.data?.attributes?.page?.data?.attributes?.seo
 
+  const canonicalURL = metadata?.canonicalURL || `${process.env.NEXT_PUBLIC_BASE_URL}/${params.locale}`;
+
   // Extract social metadata
   const socialMeta = Object.fromEntries(
     metadata.metaSocial.map(
@@ -36,7 +38,7 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
     keywords    : metadata.keywords,
     robots      : metadata.metaRobots,
     openGraph   : {
-      url         : metadata.canonicalURL,
+      url         : canonicalURL,
       title       : metadata.metaTitle,
       description : metadata.metaDescription,
       siteName    : 'Ian Febi Sastrataruna', // Replace with your site name
