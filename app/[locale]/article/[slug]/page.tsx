@@ -28,6 +28,9 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
     seoMetadata?.metaDescription ||
     `Portfolio for project called ${data?.title}` ||
     FALLBACK_SEO.description
+  const canonicalURL =
+    seoMetadata?.canonicalURL ||
+    `${process.env.NEXT_PUBLIC_BASE_URL}/${params.lang}/article/${params.slug}`
 
   // Extract social metadata (if available)
   const socialMeta = seoMetadata?.metaSocial?.length
@@ -47,7 +50,7 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
     keywords    : seoMetadata?.keywords || null, // Add keywords if available
     robots      : seoMetadata?.metaRobots || null, // Add robots meta if available
     openGraph   : {
-      url         : seoMetadata?.canonicalURL || 'https://ianfebisastrataruna.my.id',
+      url         : seoMetadata?.canonicalURL || canonicalURL,
       title       : title || null,
       description : desc || null,
       siteName    : 'Ian Febi Sastrataruna', // Replace with your site name
