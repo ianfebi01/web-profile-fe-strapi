@@ -30,6 +30,8 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
 
   const metadata = page.data[0]?.attributes?.seo
 
+  const canonicalURL = metadata?.canonicalURL || `${process.env.NEXT_PUBLIC_BASE_URL}/${params.locale}/${params.slug}`;
+
   // Extract social metadata
   const socialMeta = metadata?.metaSocial?.length
     ? Object.fromEntries(
@@ -54,7 +56,7 @@ export async function generateMetadata( { params }: Props ): Promise<Metadata> {
     keywords    : metadata?.keywords || null,
     robots      : metadata?.metaRobots || null,
     openGraph   : {
-      url         : metadata?.canonicalURL || null,
+      url         : canonicalURL || null,
       title       : metadata?.metaTitle || null,
       description : metadata?.metaDescription || null,
       siteName    : 'Ian Febi Sastrataruna', // Replace with your site name
