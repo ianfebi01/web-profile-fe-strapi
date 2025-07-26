@@ -1,61 +1,24 @@
-import { ReactElement, lazy, createElement, Suspense } from 'react'
-import Loader from '@/components/Loader'
+import { ReactElement } from 'react'
 import SectionProvider from '@/components/Context/SectionProvider'
+import { componentMap } from './component-maps'
 
 export default function componentResolver(
   section: any,
   index: number
-): ReactElement {
-  // Component names do look like 'category.component-name' => lowercase and kebap case
-  const names: string[] = section.__component.split( '.' )
+): ReactElement | null {
+  const key: string = section.__component // e.g., 'about.about-section'
+  const Component = componentMap[key]
 
-  // Get category name
-  const category = capitalizeFirstLetter( names[0].split( '-' )[0] )
-
-  // Get component name
-  const component = names[1]
-
-  ///////////////////////////////////////////////
-  // Convert the kebap-case name to PascalCase
-  const parts: string[] = component.split( '-' )
-
-  let componentName = ''
-
-  parts.forEach( ( s ) => {
-    componentName += capitalizeFirstLetter( s )
-  } )
-  ///////////////////////////////////////////////
-
-  //   console.log( `ComponentResolver: Category => ${category} | Component => ${componentName} | Path => ../components/${componentName}` )
-
-  // The path for dynamic imports cannot be fully dynamic.
-  // Webpack requires a static part of the import path at the beginning.
-  // All modules below this path will be included in the bundle and be available for dynamic loading
-  // Besides, this will result in code splitting and better performance.
-  // See https://webpack.js.org/api/module-methods/#import-1
-
-  // Use react lazy loading to import the module. By convention: The file name needs to match the name of the component (what is a good idea)
-  // Use React lazy loading to import the component
-  const LazyComponent = lazy(
-    () => import( `../components/${category}/${componentName}` )
-  )
-
-  // Create react element. The 'type' argument needs to be a FunctionComponent, not a string
-  const reactElement = createElement( LazyComponent, {
-    sectionData : section,
-    key         : index,
-  } )
+  if ( !Component ) {
+    // eslint-disable-next-line no-console
+    console.warn( `ComponentResolver: No component found for "${key}"` )
+    
+    return null
+  }
 
   return (
-    <Suspense fallback={<Loader />}
-      key={index}
-    >
-      <SectionProvider>
-        {reactElement}</SectionProvider>
-    </Suspense>
+    <SectionProvider key={index}>
+      <Component sectionData={section} />
+    </SectionProvider>
   )
-}
-
-function capitalizeFirstLetter( s: string ) {
-  return s.charAt( 0 ).toUpperCase() + s.slice( 1 )
 }
